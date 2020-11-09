@@ -61,8 +61,6 @@ int main(int argc, char* args[])
         texts.push_back(Text(Window::renderer, "res/consola.ttf", 12, pattern_data[i], colors[hcolor[i]] ));
     }
 
-    //Text text(Window::renderer, "res/consola.ttf", 12, "000 C-5 AC D#5 A0 G-5 A0 ... ..  20 50 AA EE  20 EE ..", {202, 202, 202, 255} );
-
     while (!window.isClosed()){
         pollEvents(window, rect);
         rect.draw();
