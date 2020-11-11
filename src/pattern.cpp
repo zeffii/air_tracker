@@ -34,8 +34,6 @@ Pattern::Pattern(SDL_Renderer *renderer){ // , string pattern_data[]){
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
     }
-    cout << "reaches here\n";
-
 };
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
@@ -45,7 +43,6 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
         _text_rects[i].y = y;
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
     }
-
 };
 
 
