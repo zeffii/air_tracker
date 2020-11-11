@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"_text",
+				"_text_texture1"
+			],
+			[
 				"patt",
 				"pattern_data"
 			],
@@ -146,20 +150,20 @@
 		"cols":
 		[
 			0.0,
-			0.446929039952,
+			0.679339651255,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.592227979275,
+			0.532875904599,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 241.0
+		"height": 70.0
 	},
 	"output.find_results":
 	{
