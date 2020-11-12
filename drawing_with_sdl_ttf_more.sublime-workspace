@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"_te",
+				"_text_rects"
+			],
+			[
+				"_text",
+				"_text_texture1"
+			],
+			[
+				"patt",
+				"pattern_data"
+			],
+			[
+				"patter_data",
+				"pattern_data_file"
+			],
+			[
 				"te",
 				"text_surface"
 			],
@@ -61,6 +77,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Pattern.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/pattern.cpp",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/main.o",
 		"/C/2020/testing_CPP/draw_with_sdl_ttf/drawing_with_sdl_ttf.sublime-workspace"
 	],
@@ -129,7 +147,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 232.0
+		"height": 66.0
 	},
 	"output.find_results":
 	{
@@ -175,7 +193,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 181.0,
+	"side_bar_width": 188.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
