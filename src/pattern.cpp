@@ -35,13 +35,13 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
     std::vector<string> pattern_data;
     readPattern(pattern_path, pattern_data);
 
-    TTF_Font *font = TTF_OpenFont("res/consola.ttf", 12);
+    TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
     if (!font) { cerr << "failed to load font\n"; }
 
     _text_rects.clear();
-    for (int i = 0; i < 16; i++){
-
-        auto text_surface = TTF_RenderText_Solid(font, pattern_data[i].c_str(), colors[hcolor[i%8]]);
+    for (int unsigned i = 0; i < pattern_data.size(); i++){
+    
+        auto text_surface = TTF_RenderText_Blended(font, pattern_data[i].c_str(), colors[hcolor[i%8]]);
         if (!text_surface) { cerr << "failed to create text surface \n"; }
 
         auto text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
