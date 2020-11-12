@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"_te",
+				"_text_rects"
+			],
+			[
 				"_text",
 				"_text_texture1"
 			],
@@ -127,43 +131,23 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
-			],
-			[
-				0,
-				1,
-				1,
-				2
-			],
-			[
-				1,
-				1,
-				2,
-				2
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.679339651255,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.532875904599,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 70.0
+		"height": 66.0
 	},
 	"output.find_results":
 	{
