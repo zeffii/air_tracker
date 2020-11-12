@@ -25,7 +25,7 @@ void readPattern(const char* filename, std::vector<string> &lines){
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
 {
     
-    int hcolor[16] = {2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0};
+    int hcolor[8] = {2, 0, 0, 0, 1, 0, 0, 0};
     SDL_Color colors[3] = {
         {122, 122, 122, 255},
         {182, 202, 212, 255},
@@ -35,16 +35,13 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
     std::vector<string> pattern_data;
     readPattern(pattern_path, pattern_data);
 
-
-
     TTF_Font *font = TTF_OpenFont("res/consola.ttf", 12);
     if (!font) { cerr << "failed to load font\n"; }
-
 
     _text_rects.clear();
     for (int i = 0; i < 16; i++){
 
-        auto text_surface = TTF_RenderText_Solid(font, pattern_data[i].c_str(), colors[hcolor[i]]);
+        auto text_surface = TTF_RenderText_Solid(font, pattern_data[i].c_str(), colors[hcolor[i%8]]);
         if (!text_surface) { cerr << "failed to create text surface \n"; }
 
         auto text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
