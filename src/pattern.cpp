@@ -34,7 +34,12 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
     // TTT = tick
     // S* = space
     // H* = hex
-    // TTTSTTTSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
+    /* 
+       TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
+           0   1  2   3  4   5  6   7   8  9  10 11  12 13 14  concept index
+           3   2  3   2  3   2  3   2   2  2  2  2   2  2  2   length
+           0   4  7   11 14  18 21  24  28 31 34 37  41 44 47  index start
+    */
 
     TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
     if (!font) { cerr << "failed to load font\n"; }
@@ -57,7 +62,7 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
         
         // how wide is the average char, should be monospace.
         // cout << trect.w / pattern_data[i].length() << endl;
-        
+
 
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
