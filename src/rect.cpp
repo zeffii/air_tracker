@@ -17,7 +17,7 @@ void Rect::draw() const {
     SDL_RenderFillRect(Window::renderer, &rect);
 
     SDL_Rect outlineRect = {_x, _y, _w, _h};
-    SDL_SetRenderDrawColor(Window::renderer, 0x00, 0x00, 0x90, 0xFF );        
+    SDL_SetRenderDrawColor(Window::renderer, 0xA0, 0x00, 0x90, 0xFF );        
     SDL_RenderDrawRect(Window::renderer, &outlineRect );    
 }
 
@@ -27,17 +27,21 @@ void Rect::pollEvents(SDL_Event &event){
         switch (event.key.keysym.sym) {
             case SDLK_LEFT:
                 _x -= 6;
+                column_index -= 1;
                 break;
             case SDLK_RIGHT:
                 _x += 6;
+                column_index += 1;
                 break;
             case SDLK_UP:
                 _y -= 13;
+                row_index -= 1;
                 break;
             case SDLK_DOWN:
                 _y += 13;
+                row_index += 1;
                 break;
         }
     }
-
+    cout << column_index << ", " << row_index << endl;
 }

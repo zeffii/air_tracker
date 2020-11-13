@@ -15,6 +15,7 @@ using namespace std;
 #define WIDTH 1280
 #define HEIGHT 720
 
+
 void pollEvents(Window &window, Rect &rect){
     SDL_Event event;
 
@@ -27,11 +28,13 @@ void pollEvents(Window &window, Rect &rect){
 
 int main(int argc, char* args[])
 {
+    
+    int tick_offsetx = 4 * 6;
 
     Window window("Air Tracker", 900, 600);
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
     // Rect cursor(6, 13, 20, 20, 110, 22, 222, 255);
-    Rect cursor(6, 13, 20, 20, 2, 2, 2, 255);
+    Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
 
     while (!window.isClosed()){
         pollEvents(window, cursor);
