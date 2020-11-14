@@ -18,5 +18,5 @@ class Pattern {
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
         
-        int _line_height = 16;
+        int _line_height = 13;
 };

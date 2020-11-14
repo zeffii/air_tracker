@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"n",
+				"nchars_inrow"
+			],
+			[
+				"co",
+				"column_index"
+			],
+			[
+				"pattern",
+				"pattern_data"
+			],
+			[
+				"_text_",
+				"_text_textures"
+			],
+			[
 				"_te",
 				"_text_rects"
 			],
@@ -77,6 +93,18 @@
 	},
 	"file_history":
 	[
+		"/C/2020/Blender-3dfile-svercok.tar/tartmp.PeIFPP",
+		"/C/bash/etc/skel/.profile",
+		"/C/Users/zeffi/.bashrc",
+		"/C/bash/etc/fstab.sample",
+		"/C/bash/etc/road-script.sh",
+		"/C/bash/etc/profile",
+		"/C/bash/etc/road-bashrc.sh",
+		"/C/bash/etc/road-home.bashrc",
+		"/C/bash/etc/skel/.bashrc",
+		"/C/bash/etc/road-bashenv.sh",
+		"/C/bash/etc/road-hostrc.sh.sample",
+		"/C/bash/etc/road-root.bash_profile",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Pattern.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/pattern.cpp",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/main.o",
@@ -131,11 +159,25 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				2,
+				0,
+				3,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.273919716647,
+			0.66,
 			1.0
 		],
 		"rows":
@@ -147,7 +189,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 66.0
+		"height": 169.0
 	},
 	"output.find_results":
 	{
