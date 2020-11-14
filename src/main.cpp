@@ -20,7 +20,7 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat){
     SDL_Event event;
 
     if (SDL_PollEvent(&event)){
-        cursor.pollEvents(event, mypat);
+        cursor.pollEvents(event, mypat, window);
         window.pollEvents(event);
     }
 }
