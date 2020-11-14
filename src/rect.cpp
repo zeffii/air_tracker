@@ -71,7 +71,6 @@ void Rect::pollEvents(SDL_Event &event){
                 break;
             case SDLK_RIGHT:
                 column_index += 1;
-                //column_index += carrot_hop_forward(column_index);
                 carrot_hop_forward(column_index);
                 column_index %= nchars_inrow-4;
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
