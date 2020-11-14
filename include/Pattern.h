@@ -13,6 +13,7 @@ class Pattern {
     public:
         Pattern(SDL_Renderer *renderer, const char* pattern_path); // , string pattern_data[]);
         void display(int x, int y, SDL_Renderer *renderer) const;
+        //void texture_pattern(
 
     private:
         std::vector<SDL_Texture *> _text_textures;
