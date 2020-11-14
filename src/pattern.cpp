@@ -36,8 +36,6 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
     _text_rects.clear();
     for (int unsigned i = 0; i < pattern_data.size(); i++){
     
-        //auto text_surface = TTF_RenderText_Blended(font, pattern_data[i].c_str(), colors[hcolor[i%8]]);
-
         auto text_surface = TTF_RenderText_Blended(font, pattern_data[i].c_str(), colwhite);
         if (!text_surface) { cerr << "failed to create text surface \n"; }
 
@@ -49,10 +47,6 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
         SDL_FreeSurface(text_surface);
         SDL_QueryTexture(text_texture, nullptr, nullptr, &trect.w, &trect.h);
         
-        // how wide is the average char, should be monospace.
-        // cout << trect.w / pattern_data[i].length() << endl;
-
-
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
     }

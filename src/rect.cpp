@@ -12,13 +12,15 @@ Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 
 
 void Rect::draw() const {
-    SDL_Rect rect = {_x, _y, _w, _h};
+    // SDL_Rect rect = {_x, _y, _w, _h};
+    SDL_Rect rect = {_x-1, _y-1, _w+2, _h};
     SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
     SDL_RenderFillRect(Window::renderer, &rect);
 
-    SDL_Rect outlineRect = {_x-1, _y-1, _w+2, _h};
-    SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x3E, 0x4D, 0xFF );        
-    SDL_RenderDrawRect(Window::renderer, &outlineRect );    
+    // SDL_Rect outlineRect = {_x-1, _y-1, _w+2, _h};
+    // // SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x6E, 0x6D, 0xFF );
+    // SDL_SetRenderDrawColor(Window::renderer, 0x89, 0x3E, 0x3D, 0xFF );
+    // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
 }
 
 int find_int_in_array(int num_to_find, int numbers[], int arraysize){
