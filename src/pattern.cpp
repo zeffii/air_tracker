@@ -23,6 +23,7 @@ void readPattern(const char* filename, std::vector<string> &lines){
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
     readPattern(pattern_path, pattern_data);
+    renderer_placeholder = renderer;
     texture_pattern(renderer);
 };
 
@@ -77,19 +78,14 @@ void Pattern::print_row(int row_number){
     cout << pattern_data[row_number] << endl;
 };
 
-void Pattern::set_char_at(int row_number, int col_number, string character){ //, Window &window){
-    // str1.replace(pos,len,str2);
-    if (character  == "A"){
-            string air_trumpet = "000 ... .. ... .. ... ..";
-        air_trumpet.replace(4, 3, "C-5");
-        cout << air_trumpet << endl;
-    }
+void Pattern::set_char_at(int row_number, int col_number, string character){
+
     cout << row_number << ", " << col_number << " : " << character << endl;
 
     // for example
     if (col_number == 38 || col_number == 39){
         pattern_data[row_number].replace(col_number + 4, 1, character);
-        // texture_pattern(   renderer   );
+        texture_pattern(renderer_placeholder);
     }
 };
 

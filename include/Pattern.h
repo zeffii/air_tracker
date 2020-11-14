@@ -16,7 +16,7 @@ class Pattern {
         void display(int x, int y, SDL_Renderer *renderer) const;
         void texture_pattern(SDL_Renderer *renderer);
         void print_row(int row_number);
-        void set_char_at(int row_number, int col_number, string character); //, Window &window);
+        void set_char_at(int row_number, int col_number, string character);
 
     private:
         std::vector<SDL_Texture *> _text_textures;
@@ -24,5 +24,5 @@ class Pattern {
         
         int _line_height = 13;
         std::vector<string> pattern_data;
-
+        SDL_Renderer *renderer_placeholder;
 };
