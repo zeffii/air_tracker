@@ -34,6 +34,7 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
     if (!font) { cerr << "failed to load font\n"; }
 
     _text_rects.clear();
+    _text_textures.clear();
     for (int unsigned i = 0; i < pattern_data.size(); i++){
     
         auto text_surface = TTF_RenderText_Blended(font, pattern_data[i].c_str(), colwhite);
