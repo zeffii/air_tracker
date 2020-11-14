@@ -11,9 +11,9 @@ using namespace std;
 class Pattern {
 
     public:
-        Pattern(SDL_Renderer *renderer, const char* pattern_path); // , string pattern_data[]);
+        Pattern(SDL_Renderer *renderer, const char* pattern_path);
         void display(int x, int y, SDL_Renderer *renderer) const;
-        //void texture_pattern(
+        void texture_pattern(SDL_Renderer *renderer, std::vector<string> &pattern_data);
 
     private:
         std::vector<SDL_Texture *> _text_textures;

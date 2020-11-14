@@ -24,15 +24,16 @@ void readPattern(const char* filename, std::vector<string> &lines){
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
 {
-    
-    SDL_Color colwhite = {255, 255, 255, 255};
-
     std::vector<string> pattern_data;
     readPattern(pattern_path, pattern_data);
+    texture_pattern(renderer, pattern_data);
+};
 
+void Pattern::texture_pattern(SDL_Renderer *renderer, std::vector<string> &pattern_data){
     TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
     if (!font) { cerr << "failed to load font\n"; }
 
+    SDL_Color colwhite = {255, 255, 255, 255};
     _text_rects.clear();
     _text_textures.clear();
     for (int unsigned i = 0; i < pattern_data.size(); i++){
