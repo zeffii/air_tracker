@@ -28,7 +28,6 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat){
 
 int main(int argc, char* args[])
 {
-    
     int tick_offsetx = 4 * 6;
 
     Window window("Air Tracker", 900, 600);

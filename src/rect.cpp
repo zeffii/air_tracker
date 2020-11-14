@@ -89,11 +89,11 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 _y = y_offset + (row_index * line_height);
                 break;
             case SDLK_RETURN:
-                cout << "YES! ";
+                // cout << "YES! ";
                 mypat.print_row(row_index);
                 break;
             case SDLK_a:
-                cout << "A\n";
+                mypat.set_char_at(row_index, column_index, "A");
                 break;
         }
     }

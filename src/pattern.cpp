@@ -79,5 +79,10 @@ void Pattern::print_row(int row_number){
 
 void Pattern::set_char_at(int row_number, int col_number, string character){
     // str1.replace(pos,len,str2);
+    string air_trumpet = "000 ... .. ... .. ... ..";
+    air_trumpet.replace(4, 3, "C-5");
+    cout << air_trumpet << endl;
+    cout << row_number << ", " << col_number << " : character\n";
+
 };
 
