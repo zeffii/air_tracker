@@ -1,13 +1,13 @@
 // pattern.cpp
 
-#include <SDl2/SDL.h>
-#include <SDl2/SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include "Pattern.h"
-
+#include "Window.h"
 
 using namespace std;
 
@@ -77,12 +77,19 @@ void Pattern::print_row(int row_number){
     cout << pattern_data[row_number] << endl;
 };
 
-void Pattern::set_char_at(int row_number, int col_number, string character){
+void Pattern::set_char_at(int row_number, int col_number, string character){ //, Window &window){
     // str1.replace(pos,len,str2);
-    string air_trumpet = "000 ... .. ... .. ... ..";
-    air_trumpet.replace(4, 3, "C-5");
-    cout << air_trumpet << endl;
-    cout << row_number << ", " << col_number << " : character\n";
+    if (character  == "A"){
+            string air_trumpet = "000 ... .. ... .. ... ..";
+        air_trumpet.replace(4, 3, "C-5");
+        cout << air_trumpet << endl;
+    }
+    cout << row_number << ", " << col_number << " : " << character << endl;
 
+    // for example
+    if (col_number == 38 || col_number == 39){
+        pattern_data[row_number].replace(col_number + 4, 1, character);
+        // texture_pattern(   renderer   );
+    }
 };
 

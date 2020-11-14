@@ -93,9 +93,27 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 mypat.print_row(row_index);
                 break;
             case SDLK_a:
-                mypat.set_char_at(row_index, column_index, "A");
+                mypat.set_char_at(row_index, column_index, "A"); // , window);  // hex 
+                break;
+            case SDLK_b:
+                mypat.set_char_at(row_index, column_index, "B"); // , window);  // hex + note G
+                break;
+            case SDLK_c:
+                mypat.set_char_at(row_index, column_index, "C"); // , window);  // hex + note C
+                break;
+            case SDLK_d:
+                mypat.set_char_at(row_index, column_index, "D"); // , window);  // hex + note D#
+                break;
+            case SDLK_e:
+                mypat.set_char_at(row_index, column_index, "E"); // , window);  // hex + note C+1
+                break;
+            case SDLK_f:
+                mypat.set_char_at(row_index, column_index, "F"); // , window);  // hex
+                break;
+            case SDLK_g:
+                mypat.set_char_at(row_index, column_index, "G"); // , window);  // hex + note f#
                 break;
         }
     }
-    cout << column_index << ", " << row_index << endl;
+    // cout << column_index << ", " << row_index << endl;
 }
