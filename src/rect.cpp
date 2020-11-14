@@ -92,6 +92,9 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 cout << "YES! ";
                 mypat.print_row(row_index);
                 break;
+            case SDLK_a:
+                cout << "A\n";
+                break;
         }
     }
     cout << column_index << ", " << row_index << endl;
