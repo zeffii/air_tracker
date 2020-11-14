@@ -73,8 +73,6 @@ void Window::pollEvents(SDL_Event &event){
             break;
         case SDL_KEYDOWN:
             cout << "A button was pressed\n";
-        
-
 
             switch (event.key.keysym.sym) {
                 case SDLK_ESCAPE:
@@ -87,17 +85,17 @@ void Window::pollEvents(SDL_Event &event){
             }
             break;
 
-        case SDL_MOUSEMOTION:
-            cout << event.motion.x << ", " << event.motion.y <<endl;
-            break;
+        // case SDL_MOUSEMOTION:
+        //     cout << event.motion.x << ", " << event.motion.y <<endl;
+        //     break;
 
-        case SDL_MOUSEBUTTONUP:
-            cout << "you released a mouse button\n";
-            break;
+        // case SDL_MOUSEBUTTONUP:
+        //     cout << "you released a mouse button\n";
+        //     break;
 
-        case SDL_MOUSEBUTTONDOWN:
-            cout << "you pressed a mouse button\n";
-            break;
+        // case SDL_MOUSEBUTTONDOWN:
+        //     cout << "you pressed a mouse button\n";
+        //     break;
 
         default:
             break;

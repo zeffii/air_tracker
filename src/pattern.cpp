@@ -1,13 +1,13 @@
 // pattern.cpp
 
-#include <SDl2/SDL.h>
-#include <SDl2/SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include "Pattern.h"
-
+#include "Window.h"
 
 using namespace std;
 
@@ -21,18 +21,17 @@ void readPattern(const char* filename, std::vector<string> &lines){
     file.close();
 }
 
-
-Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
-{
-    
-    SDL_Color colwhite = {255, 255, 255, 255};
-
-    std::vector<string> pattern_data;
+Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
     readPattern(pattern_path, pattern_data);
+    renderer_placeholder = renderer;
+    texture_pattern(renderer);
+};
 
+void Pattern::texture_pattern(SDL_Renderer *renderer){
     TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
     if (!font) { cerr << "failed to load font\n"; }
 
+    SDL_Color colwhite = {255, 255, 255, 255};
     _text_rects.clear();
     _text_textures.clear();
     for (int unsigned i = 0; i < pattern_data.size(); i++){
@@ -75,6 +74,18 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 };
 
 
+void Pattern::print_row(int row_number){
+    cout << pattern_data[row_number] << endl;
+};
 
+void Pattern::set_char_at(int row_number, int col_number, string character){
 
+    cout << row_number << ", " << col_number << " : " << character << endl;
+
+    // for example
+    if (col_number == 38 || col_number == 39){
+        pattern_data[row_number].replace(col_number + 4, 1, character);
+        texture_pattern(renderer_placeholder);
+    }
+};
 
