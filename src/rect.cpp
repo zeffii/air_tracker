@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
-#include "rect.h"
-
+#include "Rect.h"
+#include "Pattern.h"
 
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
@@ -48,7 +48,7 @@ void carrot_hop_backward(int &c_index){
 }
 
 
-void Rect::pollEvents(SDL_Event &event){
+void Rect::pollEvents(SDL_Event &event, Pattern &mypat){
 
     int x_offset = 20;
     int y_offset = 20;
@@ -88,6 +88,10 @@ void Rect::pollEvents(SDL_Event &event){
                 row_index += 1;
                 row_index %= 16;
                 _y = y_offset + (row_index * line_height);
+                break;
+            case SDLK_RETURN:
+                cout << "YES! ";
+                mypat.print_row(row_index);
                 break;
         }
     }

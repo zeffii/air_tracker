@@ -16,11 +16,11 @@ using namespace std;
 #define HEIGHT 720
 
 
-void pollEvents(Window &window, Rect &rect){
+void pollEvents(Window &window, Rect &cursor, Pattern &mypat){
     SDL_Event event;
 
     if (SDL_PollEvent(&event)){
-        rect.pollEvents(event);
+        cursor.pollEvents(event, mypat);
         window.pollEvents(event);
     }
 }
@@ -37,7 +37,7 @@ int main(int argc, char* args[])
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
 
     while (!window.isClosed()){
-        pollEvents(window, cursor);
+        pollEvents(window, cursor, mypat);
         cursor.draw();
         mypat.display(20, 20, Window::renderer);
         window.clear();

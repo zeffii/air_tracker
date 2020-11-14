@@ -14,10 +14,12 @@ class Pattern {
         Pattern(SDL_Renderer *renderer, const char* pattern_path);
         void display(int x, int y, SDL_Renderer *renderer) const;
         void texture_pattern(SDL_Renderer *renderer, std::vector<string> &pattern_data);
+        void print_row(int row_number);
 
     private:
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
         
         int _line_height = 13;
+        std::vector<string> pattern_data;
 };

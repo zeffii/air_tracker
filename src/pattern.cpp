@@ -24,7 +24,7 @@ void readPattern(const char* filename, std::vector<string> &lines){
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path)
 {
-    std::vector<string> pattern_data;
+    
     readPattern(pattern_path, pattern_data);
     texture_pattern(renderer, pattern_data);
 };
@@ -76,6 +76,9 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 };
 
 
+void Pattern::print_row(int row_number){
+    cout << pattern_data[row_number] << endl;
+};
 
 
 
