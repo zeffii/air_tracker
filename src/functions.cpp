@@ -12,3 +12,5 @@ int find_int_in_array(int num_to_find, int numbers[], int arraysize){
     }
     return 0;
 }
+
+// kb-key to note f.ex:  (Z->C(octave))  E->C(octave+1)
