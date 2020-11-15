@@ -115,6 +115,18 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 mypat.set_char_at(row_index, column_index, "F");  // hex
                 break;
 
+            // NUMERICS ONLY (some are captured below by note input..)
+
+            case SDLK_1:
+                mypat.set_char_at(row_index, column_index, "1");
+                break;
+            case SDLK_4:
+                mypat.set_char_at(row_index, column_index, "4");
+                break;
+            case SDLK_8:
+                mypat.set_char_at(row_index, column_index, "8");
+                break;
+
             // ONLY NOTES  -------------------------------------- //
             /*
 
@@ -123,14 +135,65 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
             | |_2_|_3_| | |_5_|_6_|_7_| | |_9_|_0_| |
             |_Q_|_W_|_E_|_R_|_T_|_Y_|_U_|_I_|_O_|_P_|
             | C   D   E   F   G   A   B | C   D   E 
+            */
+
+            case SDLK_q:
+                mypat.set_char_at(row_index, column_index, "Q");  //       note C +1
+                break;
+            case SDLK_2:
+                mypat.set_char_at(row_index, column_index, "2");  //       note C#+1
+                break;
+            case SDLK_w:
+                mypat.set_char_at(row_index, column_index, "W");  //       note D +1
+                break;
+            case SDLK_3:
+                mypat.set_char_at(row_index, column_index, "3");  //       note D#+1
+                break;
+            // case SDLK_e: //                                    //       note E +1
+            case SDLK_r:
+                mypat.set_char_at(row_index, column_index, "Q");  //       note F +1
+                break;
+            case SDLK_5:
+                mypat.set_char_at(row_index, column_index, "5");  //       note F#+1
+                break;
+            case SDLK_t:
+                mypat.set_char_at(row_index, column_index, "T");  //       note G +1
+                break;
+            case SDLK_6:
+                mypat.set_char_at(row_index, column_index, "6");  //       note G#+1
+                break;
+            case SDLK_y:
+                mypat.set_char_at(row_index, column_index, "Y");  //       note A +1
+                break;
+            case SDLK_7:
+                mypat.set_char_at(row_index, column_index, "7");  //       note A#+1
+                break;
+            case SDLK_u:
+                mypat.set_char_at(row_index, column_index, "U");  //       note B +1
+                break;
+            case SDLK_i:
+                mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                break;
+            case SDLK_9:
+                mypat.set_char_at(row_index, column_index, "9");  //       note C#+2
+                break;
+            case SDLK_o:
+                mypat.set_char_at(row_index, column_index, "O");  //       note D +2
+                break;
+            case SDLK_0:
+                mypat.set_char_at(row_index, column_index, "0");  //       note D#+2
+                break;
+            case SDLK_p:
+                mypat.set_char_at(row_index, column_index, "P");  //       note E +2
+                break;
+
+            /*
 
                         +0               
             |  C#  D#      F#  G#  A#   |
             | |_S_|_D_| | |_G_|_H_|_J_| |
             |_Z_|_X_|_C_|_V_|_B_|_N_|_M_|
             | C   D   E   F   G   A   B |
-
-
             */
 
             case SDLK_z:
