@@ -163,7 +163,8 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
         if (findex >= 0){
             cout << "trying to change a note\n";
             string newval = kb_key_to_noterepr(character, octave);
-            cout << newval << endl;
+            pattern_data[row_number].replace(col_number + 4, 3, newval);
+            texture_pattern(renderer_placeholder);
         }
         else {
             cout << "this is not a valid key for a note column, see manual\n";
