@@ -11,6 +11,13 @@
 
 using namespace std;
 
+int find_int_in_array2(int num_to_find, int numbers[], int arraysize){
+    for(int i = 0; i < arraysize; i++){
+         if(numbers[i] == num_to_find){ return 1; }
+    }
+    return 0;
+}
+
 void readPattern(const char* filename, std::vector<string> &lines){
     lines.clear();
     ifstream file (filename);
@@ -81,11 +88,15 @@ void Pattern::print_row(int row_number){
 void Pattern::set_char_at(int row_number, int col_number, string character){
 
     cout << row_number << ", " << col_number << " : " << character << endl;
+    int note_indices[] = {0, 7, 14, 21};
 
     // for example
     if (col_number == 38 || col_number == 39){
         pattern_data[row_number].replace(col_number + 4, 1, character);
         texture_pattern(renderer_placeholder);
+    }
+    else if (find_int_in_array2(col_number, note_indices, 4)){
+        cout << "trying to change a note\n";
     }
 };
 

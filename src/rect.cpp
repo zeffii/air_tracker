@@ -92,6 +92,25 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 // cout << "YES! ";
                 mypat.print_row(row_index);
                 break;
+
+            /*
+
+                        +1                   +2
+            |  C#  D#      F#  G#  A#   |  C#  D#
+            | |_2_|_3_| | |_5_|_6_|_7_| | |_9_|_0_| |
+            |_Q_|_W_|_E_|_R_|_T_|_Y_|_U_|_I_|_O_|_P_|
+            | C   D   E   F   G   A   B | C   D   E 
+
+                        +0               
+            |  C#  D#      F#  G#  A#   |
+            | |_S_|_D_| | |_G_|_H_|_J_| |
+            |_Z_|_X_|_C_|_V_|_B_|_N_|_M_|
+            | C   D   E   F   G   A   B |
+
+
+            */
+
+
             case SDLK_a:
                 mypat.set_char_at(row_index, column_index, "A");  // hex 
                 break;
