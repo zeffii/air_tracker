@@ -41,10 +41,9 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
         cout << "first init of _text_textures!\n";
     }
     else {
-        // cout << "re-using _text_textres to populate more!\b";
+        //cout << "re-using _text_textures to populate more!\b";
         //for (int unsigned i = 0; i < _text_textures.size(); i++){
         //    SDL_DestroyTexture(_text_textures[i]);
-        //   _text_textures[i] = nullptr;
         //}
         _text_textures.clear();
     }
@@ -66,6 +65,7 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
     }
+    TTF_CloseFont( font );
 };
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
@@ -156,10 +156,14 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     */
 
     else if (find_int_in_array(col_number, note_indices, 4)){
+
         string allowed = "ZSXDCVGBHNJMQ2W3ER5T6Y7UI9O0P";
-        int findex = allowed.find(character);        
+        int findex = allowed.find(character);
+
         if (findex >= 0){
             cout << "trying to change a note\n";
+            string newval = kb_key_to_noterepr(character, octave);
+            cout << newval << endl;
         }
         else {
             cout << "this is not a valid key for a note column, see manual\n";
