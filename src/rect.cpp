@@ -88,11 +88,25 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 row_index %= 16;
                 _y = y_offset + (row_index * line_height);
                 break;
+
             case SDLK_RETURN:
                 // cout << "YES! ";
                 mypat.print_row(row_index);
+                
                 break;
 
+            case SDLK_HASH:
+                mypat.set_char_at(row_index, column_index, "#");
+                break;
+
+            // CHANGE OCTAVE
+
+            case SDLK_LEFTBRACKET:
+                mypat.change_octave(-1);
+                break;    
+            case SDLK_RIGHTBRACKET:
+                mypat.change_octave(+1);
+                break;
 
             // HEX INPUT (mixed notes too) ---------------------- //
 

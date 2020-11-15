@@ -81,9 +81,21 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 };
 
 
-void Pattern::print_row(int row_number){
-    cout << pattern_data[row_number] << endl;
+void Pattern::print_row(int row_number){ cout << pattern_data[row_number] << endl; };
+
+int Pattern::get_octave(){ return octave; };
+void Pattern::change_octave(int direction){ 
+
+    octave += direction;
+    if (octave > 7){
+        octave = 7; 
+    }
+    else if (octave < 0) {
+        octave = 0; 
+    }
+    cout << octave << endl;
 };
+
 
 void Pattern::set_char_at(int row_number, int col_number, string character){
 
@@ -102,7 +114,7 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
         4, 5, 11, 12, 18, 19, 24, 25, 29, 30, 32, 33, 35, 36, 38, 39, 42, 43, 45, 46, 48, 49
     };
 
-    // for example
+    // deal with hex data on hex params
     if (find_int_in_array2(col_number, hex_indices, 22)){
 
         string allowed = "0123456789ABCDEF";
@@ -116,6 +128,7 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
             cout << "yeah dufus, no.. \n";
         }
     }
+    // deal with note data on note params
     else if (find_int_in_array2(col_number, note_indices, 4)){
         cout << "trying to change a note\n";
     }
