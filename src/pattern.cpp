@@ -128,9 +128,33 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
             cout << "yeah dufus, no.. \n";
         }
     }
-    // deal with note data on note params
+
+    /*
+
+                +1                   +2
+    |  C#  D#      F#  G#  A#   |  C#  D#
+    | |_2_|_3_| | |_5_|_6_|_7_| | |_9_|_0_| |
+    |_Q_|_W_|_E_|_R_|_T_|_Y_|_U_|_I_|_O_|_P_|
+    | C   D   E   F   G   A   B | C   D   E 
+
+                +0               
+    |  C#  D#      F#  G#  A#   |
+    | |_S_|_D_| | |_G_|_H_|_J_| |
+    |_Z_|_X_|_C_|_V_|_B_|_N_|_M_|
+    | C   D   E   F   G   A   B |
+
+    deal with note data on note params
+    */
+
     else if (find_int_in_array2(col_number, note_indices, 4)){
-        cout << "trying to change a note\n";
+        string allowed = "ZSXDCVGBHNJMQ2W3ER5T6Y7UI9O0P";
+        int findex = allowed.find(character);        
+        if (findex >= 0){
+            cout << "trying to change a note\n";
+        }
+        else {
+            cout << "this is not a valid key for a note column, see manual\n";
+        }
     }
 };
 
