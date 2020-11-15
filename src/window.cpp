@@ -78,10 +78,6 @@ void Window::pollEvents(SDL_Event &event){
                 case SDLK_ESCAPE:
                     _closed = true;
                     break;
-        
-                case SDLK_a:
-                    cout << "pressed A\n";
-                    break;
             }
             break;
 

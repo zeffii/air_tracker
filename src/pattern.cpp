@@ -87,13 +87,34 @@ void Pattern::print_row(int row_number){
 
 void Pattern::set_char_at(int row_number, int col_number, string character){
 
+    /*
+                                        28           41
+               3  6   10 13  17 20  24 27  31 34 37 40  44 47
+        TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
+            0   1  2   3  4   5  6   7   8  9  10 11  12 13 14  concept index
+            3   2  3   2  3   2  3   2   2  2  2  2   2  2  2   length
+            0   4  7   11 14  18 21  24  29 32 35 38  42 45 48  index start
+    */    
+
     cout << row_number << ", " << col_number << " : " << character << endl;
     int note_indices[] = {0, 7, 14, 21};
+    int hex_indices[] = {
+        4, 5, 11, 12, 18, 19, 24, 25, 29, 30, 32, 33, 35, 36, 38, 39, 42, 43, 45, 46, 48, 49
+    };
 
     // for example
-    if (col_number == 38 || col_number == 39){
-        pattern_data[row_number].replace(col_number + 4, 1, character);
-        texture_pattern(renderer_placeholder);
+    if (find_int_in_array2(col_number, hex_indices, 22)){
+
+        string allowed = "0123456789ABCDEF";
+        int findex = allowed.find(character);
+
+        if (findex >= 0){
+            pattern_data[row_number].replace(col_number + 4, 1, character);
+            texture_pattern(renderer_placeholder);
+        }
+        else{
+            cout << "yeah dufus, no.. \n";
+        }
     }
     else if (find_int_in_array2(col_number, note_indices, 4)){
         cout << "trying to change a note\n";
