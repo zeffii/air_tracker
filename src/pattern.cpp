@@ -8,15 +8,10 @@
 #include <fstream>
 #include "Pattern.h"
 #include "Window.h"
+#include "Functions.h"
 
 using namespace std;
 
-int find_int_in_array2(int num_to_find, int numbers[], int arraysize){
-    for(int i = 0; i < arraysize; i++){
-         if(numbers[i] == num_to_find){ return 1; }
-    }
-    return 0;
-}
 
 void readPattern(const char* filename, std::vector<string> &lines){
     lines.clear();
@@ -111,11 +106,11 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     cout << row_number << ", " << col_number << " : " << character << endl;
     int note_indices[] = {0, 7, 14, 21};
     int hex_indices[] = {
-        4, 5, 11, 12, 18, 19, 24, 25, 29, 30, 32, 33, 35, 36, 38, 39, 42, 43, 45, 46, 48, 49
+        4, 5, 11, 12, 18, 19, 24, 25, 26, 29, 30, 32, 33, 35, 36, 38, 39, 42, 43, 45, 46, 48, 49
     };
 
     // deal with hex data on hex params
-    if (find_int_in_array2(col_number, hex_indices, 22)){
+    if (find_int_in_array(col_number, hex_indices, 23)){
 
         string allowed = "0123456789ABCDEF";
         int findex = allowed.find(character);
@@ -146,7 +141,7 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     deal with note data on note params
     */
 
-    else if (find_int_in_array2(col_number, note_indices, 4)){
+    else if (find_int_in_array(col_number, note_indices, 4)){
         string allowed = "ZSXDCVGBHNJMQ2W3ER5T6Y7UI9O0P";
         int findex = allowed.find(character);        
         if (findex >= 0){

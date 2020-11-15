@@ -6,6 +6,7 @@ using namespace std;
 #include "Rect.h"
 #include "Pattern.h"
 #include "Window.h"
+#include "Functions.h"
 
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
@@ -22,13 +23,6 @@ void Rect::draw() const {
     // // SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x6E, 0x6D, 0xFF );
     // SDL_SetRenderDrawColor(Window::renderer, 0x89, 0x3E, 0x3D, 0xFF );
     // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
-}
-
-int find_int_in_array(int num_to_find, int numbers[], int arraysize){
-    for(int i = 0; i < arraysize; i++){
-         if(numbers[i] == num_to_find){ return 1; }
-    }
-    return 0;
 }
 
 void carrot_hop_forward(int &c_index){
@@ -92,7 +86,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
             case SDLK_RETURN:
                 // cout << "YES! ";
                 mypat.print_row(row_index);
-                
+
                 break;
 
             case SDLK_HASH:
