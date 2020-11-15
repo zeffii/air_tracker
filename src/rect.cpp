@@ -130,7 +130,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 mypat.set_char_at(row_index, column_index, "F");  // hex
                 break;
             case SDLK_g:
-                mypat.set_char_at(row_index, column_index, "G");  // hex + note f#
+                mypat.set_char_at(row_index, column_index, "G");  //       note f#
                 break;
         }
     }
