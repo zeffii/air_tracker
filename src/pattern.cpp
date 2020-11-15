@@ -35,7 +35,11 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
 
     SDL_Color colwhite = {255, 255, 255, 255};
     _text_rects.clear();
+    
+    // this may not do a SDL_DestroyTexture
     _text_textures.clear();
+
+
     for (int unsigned i = 0; i < pattern_data.size(); i++){
     
         auto text_surface = TTF_RenderText_Blended(font, pattern_data[i].c_str(), colwhite);
