@@ -37,7 +37,17 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
     _text_rects.clear();
     
     // this may not do a SDL_DestroyTexture
-    _text_textures.clear();
+    if (_text_textures.empty()){
+        cout << "first init of _text_textures!\n";
+    }
+    else {
+        // cout << "re-using _text_textres to populate more!\b";
+        //for (int unsigned i = 0; i < _text_textures.size(); i++){
+        //    SDL_DestroyTexture(_text_textures[i]);
+        //   _text_textures[i] = nullptr;
+        //}
+        _text_textures.clear();
+    }
 
 
     for (int unsigned i = 0; i < pattern_data.size(); i++){
