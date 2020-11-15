@@ -93,6 +93,29 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 mypat.print_row(row_index);
                 break;
 
+
+            // HEX INPUT (mixed notes too) ---------------------- //
+
+            case SDLK_a:
+                mypat.set_char_at(row_index, column_index, "A");  // hex 
+                break;
+            case SDLK_b:
+                mypat.set_char_at(row_index, column_index, "B");  // hex   note G
+                break;
+            case SDLK_c:
+                mypat.set_char_at(row_index, column_index, "C");  // hex   note D
+                break;
+            case SDLK_d:
+                mypat.set_char_at(row_index, column_index, "D");  // hex   note D#
+                break;
+            case SDLK_e:
+                mypat.set_char_at(row_index, column_index, "E");  // hex
+                break;
+            case SDLK_f:
+                mypat.set_char_at(row_index, column_index, "F");  // hex
+                break;
+
+            // ONLY NOTES  -------------------------------------- //
             /*
 
                         +1                   +2
@@ -110,28 +133,36 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
             */
 
-
-            case SDLK_a:
-                mypat.set_char_at(row_index, column_index, "A");  // hex 
+            case SDLK_z:
+                mypat.set_char_at(row_index, column_index, "Z");  //       note C
                 break;
-            case SDLK_b:
-                mypat.set_char_at(row_index, column_index, "B");  // hex + note G
+            case SDLK_s:
+                mypat.set_char_at(row_index, column_index, "S");  //       note C#
                 break;
-            case SDLK_c:
-                mypat.set_char_at(row_index, column_index, "C");  // hex + note C
+            case SDLK_x:
+                mypat.set_char_at(row_index, column_index, "X");  //       note D
                 break;
-            case SDLK_d:
-                mypat.set_char_at(row_index, column_index, "D");  // hex + note D#
-                break;
-            case SDLK_e:
-                mypat.set_char_at(row_index, column_index, "E");  // hex + note C+1
-                break;
-            case SDLK_f:
-                mypat.set_char_at(row_index, column_index, "F");  // hex
+            //case SDLK_d:                                        //       note D#
+            //case SDLK_c:                                        //       note E
+            case SDLK_v:
+                mypat.set_char_at(row_index, column_index, "V");  //       note F
                 break;
             case SDLK_g:
-                mypat.set_char_at(row_index, column_index, "G");  //       note f#
+                mypat.set_char_at(row_index, column_index, "G");  //       note F#
                 break;
+            //case SDLK_b:                                        // hex   note G
+            case SDLK_h:
+                mypat.set_char_at(row_index, column_index, "H");  //       note G#
+                break;
+            case SDLK_n:
+                mypat.set_char_at(row_index, column_index, "N");  //       note A
+                break;                
+            case SDLK_j:
+                mypat.set_char_at(row_index, column_index, "J");  //       note A#
+                break;                
+            case SDLK_m:
+                mypat.set_char_at(row_index, column_index, "M");  //       note B
+                break;                
         }
     }
     // cout << column_index << ", " << row_index << endl;

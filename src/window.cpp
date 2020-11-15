@@ -72,7 +72,7 @@ void Window::pollEvents(SDL_Event &event){
             _closed = true;
             break;
         case SDL_KEYDOWN:
-            cout << "A button was pressed\n";
+            // cout << "A button was pressed\n";
 
             switch (event.key.keysym.sym) {
                 case SDLK_ESCAPE:
