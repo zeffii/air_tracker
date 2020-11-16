@@ -75,9 +75,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 break;
 
             case SDLK_RETURN:
-                // cout << "YES! ";
                 mypat.print_row(row_index);
-
                 break;
 
             case SDLK_HASH:
