@@ -3,6 +3,7 @@
 #include <string>
 using namespace std;
 
+vector<int> add_indices_for_hex2(vector<int> inarray);
 void print_int_array(vector<int> inarray);
 
 vector<int> find_token_in_string(string input_string, string token);

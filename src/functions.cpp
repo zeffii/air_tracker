@@ -7,6 +7,15 @@
 
 using namespace std;
 
+vector<int> add_indices_for_hex2(vector<int> inarray){
+    vector<int> broad_indices;
+    for (int unsigned i=0; i < inarray.size(); i++){
+        broad_indices.push_back(inarray[i]);
+        broad_indices.push_back(inarray[i]+1);
+    }
+    return broad_indices;
+};
+
 void print_int_array(vector<int> inarray){
     for (int unsigned i=0; i < inarray.size(); i++){
         cout << inarray[i];
@@ -82,9 +91,13 @@ void pattern_descriptor_to_handler(string descriptor){
     replace( descriptor.begin(), descriptor.end(), 'S', ' ');
 
     string last_char = "";
+    // note input, only ever allow the first index of the note param
     vector<int> note_indices = find_token_in_string(descriptor, "NNN");
+
+    // hex input, both positions, we call a second function to wided the accepted input index
     vector<int> hex_indices = find_token_in_string(descriptor, "HH");
-    
+    hex_indices = add_indices_for_hex2(hex_indices);
+
     cout << "note_indices: ";
     print_int_array(note_indices);
     cout << "hex_indices: ";
