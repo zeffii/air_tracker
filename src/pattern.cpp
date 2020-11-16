@@ -8,8 +8,10 @@
 #include <fstream>
 #include "Pattern.h"
 #include "Window.h"
+#include "Functions.h"
 
 using namespace std;
+
 
 void readPattern(const char* filename, std::vector<string> &lines){
     lines.clear();
@@ -33,7 +35,20 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
 
     SDL_Color colwhite = {255, 255, 255, 255};
     _text_rects.clear();
-    _text_textures.clear();
+    
+    // this may not do a SDL_DestroyTexture
+    if (_text_textures.empty()){
+        cout << "first init of _text_textures!\n";
+    }
+    else {
+        //cout << "re-using _text_textures to populate more!\b";
+        //for (int unsigned i = 0; i < _text_textures.size(); i++){
+        //    SDL_DestroyTexture(_text_textures[i]);
+        //}
+        _text_textures.clear();
+    }
+
+
     for (int unsigned i = 0; i < pattern_data.size(); i++){
     
         auto text_surface = TTF_RenderText_Blended(font, pattern_data[i].c_str(), colwhite);
@@ -50,6 +65,7 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
     }
+    TTF_CloseFont( font );
 };
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
@@ -74,18 +90,85 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 };
 
 
-void Pattern::print_row(int row_number){
-    cout << pattern_data[row_number] << endl;
+void Pattern::print_row(int row_number){ cout << pattern_data[row_number] << endl; };
+
+int Pattern::get_octave(){ return octave; };
+void Pattern::change_octave(int direction){ 
+
+    octave += direction;
+    if (octave > 7){
+        octave = 7; 
+    }
+    else if (octave < 0) {
+        octave = 0; 
+    }
+    cout << octave << endl;
 };
+
 
 void Pattern::set_char_at(int row_number, int col_number, string character){
 
-    cout << row_number << ", " << col_number << " : " << character << endl;
+    /*
+                                        28           41
+               3  6   10 13  17 20  24 27  31 34 37 40  44 47
+        TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
+            0   1  2   3  4   5  6   7   8  9  10 11  12 13 14  concept index
+            3   2  3   2  3   2  3   2   2  2  2  2   2  2  2   length
+            0   4  7   11 14  18 21  24  29 32 35 38  42 45 48  index start
+    */    
 
-    // for example
-    if (col_number == 38 || col_number == 39){
-        pattern_data[row_number].replace(col_number + 4, 1, character);
-        texture_pattern(renderer_placeholder);
+    cout << row_number << ", " << col_number << " : " << character << endl;
+    int note_indices[] = {0, 7, 14, 21};
+    int hex_indices[] = {
+        4, 5, 11, 12, 18, 19, 24, 25, 26, 29, 30, 32, 33, 35, 36, 38, 39, 42, 43, 45, 46, 48, 49
+    };
+
+    // deal with hex data on hex params
+    if (find_int_in_array(col_number, hex_indices, 23)){
+
+        string allowed = "0123456789ABCDEF";
+        int findex = allowed.find(character);
+
+        if (findex >= 0){
+            pattern_data[row_number].replace(col_number + 4, 1, character);
+            texture_pattern(renderer_placeholder);
+        }
+        else{
+            cout << "yeah dufus, no.. \n";
+        }
+    }
+
+    /*
+
+                +1                   +2
+    |  C#  D#      F#  G#  A#   |  C#  D#
+    | |_2_|_3_| | |_5_|_6_|_7_| | |_9_|_0_| |
+    |_Q_|_W_|_E_|_R_|_T_|_Y_|_U_|_I_|_O_|_P_|
+    | C   D   E   F   G   A   B | C   D   E 
+
+                +0               
+    |  C#  D#      F#  G#  A#   |
+    | |_S_|_D_| | |_G_|_H_|_J_| |
+    |_Z_|_X_|_C_|_V_|_B_|_N_|_M_|
+    | C   D   E   F   G   A   B |
+
+    deal with note data on note params
+    */
+
+    else if (find_int_in_array(col_number, note_indices, 4)){
+
+        string allowed = "ZSXDCVGBHNJMQ2W3ER5T6Y7UI9O0P";
+        int findex = allowed.find(character);
+
+        if (findex >= 0){
+            cout << "trying to change a note\n";
+            string newval = kb_key_to_noterepr(character, octave);
+            pattern_data[row_number].replace(col_number + 4, 3, newval);
+            texture_pattern(renderer_placeholder);
+        }
+        else {
+            cout << "this is not a valid key for a note column, see manual\n";
+        }
     }
 };
 

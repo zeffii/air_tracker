@@ -18,6 +18,9 @@ class Pattern {
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
 
+        void change_octave(int direction);
+        int get_octave();
+
     private:
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
@@ -25,4 +28,6 @@ class Pattern {
         int _line_height = 13;
         std::vector<string> pattern_data;
         SDL_Renderer *renderer_placeholder;
+
+        int octave = 5;
 };

@@ -6,6 +6,7 @@ using namespace std;
 #include "Rect.h"
 #include "Pattern.h"
 #include "Window.h"
+#include "Functions.h"
 
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
@@ -22,13 +23,6 @@ void Rect::draw() const {
     // // SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x6E, 0x6D, 0xFF );
     // SDL_SetRenderDrawColor(Window::renderer, 0x89, 0x3E, 0x3D, 0xFF );
     // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
-}
-
-int find_int_in_array(int num_to_find, int numbers[], int arraysize){
-    for(int i = 0; i < arraysize; i++){
-         if(numbers[i] == num_to_find){ return 1; }
-    }
-    return 0;
 }
 
 void carrot_hop_forward(int &c_index){
@@ -51,15 +45,6 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
     int x_offset = 20;
     int y_offset = 20;
-
-    /*
-                                        28           41
-               3  6   10 13  17 20  24 27  31 34 37 40  44 47
-        TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
-            0   1  2   3  4   5  6   7   8  9  10 11  12 13 14  concept index
-            3   2  3   2  3   2  3   2   2  2  2  2   2  2  2   length
-            0   4  7   11 14  18 21  24  29 32 35 38  42 45 48  index start
-    */    
 
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
@@ -88,31 +73,156 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 row_index %= 16;
                 _y = y_offset + (row_index * line_height);
                 break;
+
             case SDLK_RETURN:
-                // cout << "YES! ";
                 mypat.print_row(row_index);
                 break;
+
+            case SDLK_HASH:
+                mypat.set_char_at(row_index, column_index, "#");
+                break;
+
+            // CHANGE OCTAVE
+
+            case SDLK_LEFTBRACKET:
+                mypat.change_octave(-1);
+                break;    
+            case SDLK_RIGHTBRACKET:
+                mypat.change_octave(+1);
+                break;
+
+            // HEX INPUT (mixed notes too) ---------------------- //
+
             case SDLK_a:
                 mypat.set_char_at(row_index, column_index, "A");  // hex 
                 break;
             case SDLK_b:
-                mypat.set_char_at(row_index, column_index, "B");  // hex + note G
+                mypat.set_char_at(row_index, column_index, "B");  // hex   note G
                 break;
             case SDLK_c:
-                mypat.set_char_at(row_index, column_index, "C");  // hex + note C
+                mypat.set_char_at(row_index, column_index, "C");  // hex   note D
                 break;
             case SDLK_d:
-                mypat.set_char_at(row_index, column_index, "D");  // hex + note D#
+                mypat.set_char_at(row_index, column_index, "D");  // hex   note D#
                 break;
             case SDLK_e:
-                mypat.set_char_at(row_index, column_index, "E");  // hex + note C+1
+                mypat.set_char_at(row_index, column_index, "E");  // hex
                 break;
             case SDLK_f:
                 mypat.set_char_at(row_index, column_index, "F");  // hex
                 break;
-            case SDLK_g:
-                mypat.set_char_at(row_index, column_index, "G");  // hex + note f#
+
+            // NUMERICS ONLY (some are captured below by note input..)
+
+            case SDLK_1:
+                mypat.set_char_at(row_index, column_index, "1");
                 break;
+            case SDLK_4:
+                mypat.set_char_at(row_index, column_index, "4");
+                break;
+            case SDLK_8:
+                mypat.set_char_at(row_index, column_index, "8");
+                break;
+
+            // ONLY NOTES  -------------------------------------- //
+            /*
+
+                        +1                   +2
+            |  C#  D#      F#  G#  A#   |  C#  D#
+            | |_2_|_3_| | |_5_|_6_|_7_| | |_9_|_0_| |
+            |_Q_|_W_|_E_|_R_|_T_|_Y_|_U_|_I_|_O_|_P_|
+            | C   D   E   F   G   A   B | C   D   E 
+            */
+
+            case SDLK_q:
+                mypat.set_char_at(row_index, column_index, "Q");  //       note C +1
+                break;
+            case SDLK_2:
+                mypat.set_char_at(row_index, column_index, "2");  //       note C#+1
+                break;
+            case SDLK_w:
+                mypat.set_char_at(row_index, column_index, "W");  //       note D +1
+                break;
+            case SDLK_3:
+                mypat.set_char_at(row_index, column_index, "3");  //       note D#+1
+                break;
+            // case SDLK_e: //                                    //       note E +1
+            case SDLK_r:
+                mypat.set_char_at(row_index, column_index, "R");  //       note F +1
+                break;
+            case SDLK_5:
+                mypat.set_char_at(row_index, column_index, "5");  //       note F#+1
+                break;
+            case SDLK_t:
+                mypat.set_char_at(row_index, column_index, "T");  //       note G +1
+                break;
+            case SDLK_6:
+                mypat.set_char_at(row_index, column_index, "6");  //       note G#+1
+                break;
+            case SDLK_y:
+                mypat.set_char_at(row_index, column_index, "Y");  //       note A +1
+                break;
+            case SDLK_7:
+                mypat.set_char_at(row_index, column_index, "7");  //       note A#+1
+                break;
+            case SDLK_u:
+                mypat.set_char_at(row_index, column_index, "U");  //       note B +1
+                break;
+            case SDLK_i:
+                mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                break;
+            case SDLK_9:
+                mypat.set_char_at(row_index, column_index, "9");  //       note C#+2
+                break;
+            case SDLK_o:
+                mypat.set_char_at(row_index, column_index, "O");  //       note D +2
+                break;
+            case SDLK_0:
+                mypat.set_char_at(row_index, column_index, "0");  //       note D#+2
+                break;
+            case SDLK_p:
+                mypat.set_char_at(row_index, column_index, "P");  //       note E +2
+                break;
+
+            /*
+
+                        +0               
+            |  C#  D#      F#  G#  A#   |
+            | |_S_|_D_| | |_G_|_H_|_J_| |
+            |_Z_|_X_|_C_|_V_|_B_|_N_|_M_|
+            | C   D   E   F   G   A   B |
+            */
+
+            case SDLK_z:
+                mypat.set_char_at(row_index, column_index, "Z");  //       note C
+                break;
+            case SDLK_s:
+                mypat.set_char_at(row_index, column_index, "S");  //       note C#
+                break;
+            case SDLK_x:
+                mypat.set_char_at(row_index, column_index, "X");  //       note D
+                break;
+            //case SDLK_d:                                        //       note D#
+            //case SDLK_c:                                        //       note E
+            case SDLK_v:
+                mypat.set_char_at(row_index, column_index, "V");  //       note F
+                break;
+            case SDLK_g:
+                mypat.set_char_at(row_index, column_index, "G");  //       note F#
+                break;
+            //case SDLK_b:                                        // hex   note G
+            case SDLK_h:
+                mypat.set_char_at(row_index, column_index, "H");  //       note G#
+                break;
+            case SDLK_n:
+                mypat.set_char_at(row_index, column_index, "N");  //       note A
+                break;                
+            case SDLK_j:
+                mypat.set_char_at(row_index, column_index, "J");  //       note A#
+                break;                
+            case SDLK_m:
+                mypat.set_char_at(row_index, column_index, "M");  //       note B
+                break;                
         }
     }
     // cout << column_index << ", " << row_index << endl;
