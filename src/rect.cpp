@@ -46,15 +46,6 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
     int x_offset = 20;
     int y_offset = 20;
 
-    /*
-                                        28           41
-               3  6   10 13  17 20  24 27  31 34 37 40  44 47
-        TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
-            0   1  2   3  4   5  6   7   8  9  10 11  12 13 14  concept index
-            3   2  3   2  3   2  3   2   2  2  2  2   2  2  2   length
-            0   4  7   11 14  18 21  24  29 32 35 38  42 45 48  index start
-    */    
-
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
             case SDLK_LEFT:
