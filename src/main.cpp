@@ -35,6 +35,7 @@ int main(int argc, char* args[])
 
     string descriptor = "TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH";
     pattern_descriptor_to_handler(descriptor);
+    
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
 

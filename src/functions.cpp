@@ -1,16 +1,43 @@
 // functions.cpp
 #include <algorithm>
+#include <vector>
 #include <iostream>
 #include <string>
 #include "Functions.h"
 
 using namespace std;
 
+void print_int_array(vector<int> inarray){
+    for (int unsigned i=0; i < inarray.size(); i++){
+        cout << inarray[i];
+        if (i != inarray.size()-1){
+            cout << ", ";
+        }
+        else{
+            cout << endl;
+        }
+    }
+};
+
+
+vector<int> find_token_in_string(string input_string, string token){
+    vector<int> indices;
+    int token_size = token.length();
+
+    for(int unsigned i =0; i < input_string.size(); i++){
+        string s1 = input_string.substr(i, token_size);
+        int token_equals = s1.compare(token);
+        if (token_equals == 0){
+            indices.push_back(i);
+        }
+    }
+    return indices;
+}
 
 
 int find_int_in_array(int num_to_find, int numbers[], int arraysize){
     for(int i = 0; i < arraysize; i++){
-         if(numbers[i] == num_to_find){ return 1; }
+         if (numbers[i] == num_to_find){ return 1; }
     }
     return 0;
 }
@@ -51,15 +78,17 @@ void pattern_descriptor_to_handler(string descriptor){
 
     cout << descriptor << endl;
 
-    // replace all occurences of S with " "
+    descriptor = descriptor.substr(4, -1);
     replace( descriptor.begin(), descriptor.end(), 'S', ' ');
 
     string last_char = "";
-    //for (int ch = 0; i < descriptor.length(); i++){
-    //    if (last_char == descriptor[i]){
-    //
-    //    }
-    //}
+    vector<int> note_indices = find_token_in_string(descriptor, "NNN");
+    vector<int> hex_indices = find_token_in_string(descriptor, "HH");
+    
+    cout << "note_indices: ";
+    print_int_array(note_indices);
+    cout << "hex_indices: ";
+    print_int_array(hex_indices);
     
     cout << descriptor << endl;
 
