@@ -53,21 +53,21 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 carrot_hop_backward(column_index);
                 if (column_index < 0) { column_index = nchars_inrow-5; }
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
-                
                 break;
+
             case SDLK_RIGHT:
                 column_index += 1;
                 carrot_hop_forward(column_index);
                 column_index %= nchars_inrow-4;
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
-                
                 break;
+
             case SDLK_UP:
                 row_index -= 1;
                 if (row_index < 0) { row_index = 15; }
                 _y = y_offset + (row_index * line_height);
-                
                 break;
+
             case SDLK_DOWN:
                 row_index += 1;
                 row_index %= 16;

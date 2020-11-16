@@ -1,4 +1,5 @@
 // functions.cpp
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include "Functions.h"
@@ -35,6 +36,7 @@ string kb_key_to_noterepr(string kb_key, int octave){
 
 void pattern_descriptor_to_handler(string descriptor){
     /*
+
     this function will take the descriptor string, and populate various arrays with
     information useful for helping the user add data to the pattern.
 
@@ -46,6 +48,20 @@ void pattern_descriptor_to_handler(string descriptor){
         0   4  7   11 14  18 21  24  29 32 35 38  42 45 48  index start
 
     */
+
+    cout << descriptor << endl;
+
+    // replace all occurences of S with " "
+    replace( descriptor.begin(), descriptor.end(), 'S', ' ');
+
+    string last_char = "";
+    //for (int ch = 0; i < descriptor.length(); i++){
+    //    if (last_char == descriptor[i]){
+    //
+    //    }
+    //}
+    
+    cout << descriptor << endl;
 
 
 };
