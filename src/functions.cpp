@@ -97,15 +97,7 @@ void pattern_descriptor_to_handler(string descriptor, Pattern& pattern){
     vector<int> hex_indices = find_token_in_string(descriptor, "HH");
     hex_indices = add_indices_for_hex2(hex_indices);
 
-    /*
-    cout << "note_indices: ";
-    print_int_array(note_indices);
-    cout << "hex_indices: ";
-    print_int_array(hex_indices);
-    */
-
     pattern.set_note_indices(note_indices);
     pattern.set_hex_indices(hex_indices);
-    
     // cout << descriptor << endl;
 };
