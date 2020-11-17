@@ -24,22 +24,6 @@ void Rect::draw() const {
     // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
 }
 
-void carrot_hop_forward(int &c_index){
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {27, 40};
-
-    if (find_int_in_array(c_index, numbers, 12)) { c_index += 1; }
-    else if (find_int_in_array(c_index, spacer_numbers, 2)) { c_index += 2; }
-}
-
-void carrot_hop_backward(int &c_index){
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {28, 41};
-
-    if (find_int_in_array(c_index, numbers, 12)) { c_index -= 1; }
-    else if (find_int_in_array(c_index, spacer_numbers, 2)) { c_index -= 2; }
-}
-
 void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
     int x_offset = 20;
