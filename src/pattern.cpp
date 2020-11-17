@@ -34,6 +34,7 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
     renderer_placeholder = renderer;
     texture_pattern(renderer);
     cout << pattern_descriptor_str << endl;
+    pattern_descriptor_to_handler(pattern_descriptor_str);
 };
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
