@@ -30,4 +30,5 @@ class Pattern {
         SDL_Renderer *renderer_placeholder;
 
         int octave = 5;
+        string pattern_descriptor_str;
 };

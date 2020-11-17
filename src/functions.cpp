@@ -85,7 +85,7 @@ void pattern_descriptor_to_handler(string descriptor){
 
     */
 
-    cout << descriptor << endl;
+    // cout << descriptor << endl;
 
     descriptor = descriptor.substr(4, -1);
     replace( descriptor.begin(), descriptor.end(), 'S', ' ');
@@ -103,7 +103,7 @@ void pattern_descriptor_to_handler(string descriptor){
     cout << "hex_indices: ";
     print_int_array(hex_indices);
     
-    cout << descriptor << endl;
+    // cout << descriptor << endl;
 
 
 };

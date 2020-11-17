@@ -13,9 +13,15 @@
 using namespace std;
 
 
-void readPattern(const char* filename, std::vector<string> &lines){
+void readPattern(const char* filename, std::vector<string> &lines, string &pattern_descriptor_str){
     lines.clear();
     ifstream file (filename);
+
+    // read first line of this file, the descriptor, will look something like
+    // TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
+    getline(file, pattern_descriptor_str);
+    
+    // read remaining pattern data
     string s;
     while (getline(file, s))
         lines.push_back(s);
@@ -24,9 +30,10 @@ void readPattern(const char* filename, std::vector<string> &lines){
 }
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
-    readPattern(pattern_path, pattern_data);
+    readPattern(pattern_path, pattern_data, pattern_descriptor_str);
     renderer_placeholder = renderer;
     texture_pattern(renderer);
+    cout << pattern_descriptor_str << endl;
 };
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
