@@ -22,13 +22,18 @@ class Pattern {
         int get_octave();
 
     private:
+        string pattern_descriptor_str;
+        std::vector<string> pattern_data;
+
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
-        
-        int _line_height = 13;
-        std::vector<string> pattern_data;
         SDL_Renderer *renderer_placeholder;
-
+        
         int octave = 5;
-        string pattern_descriptor_str;
+        int _line_height = 13;
+
+        std::vector<int> ch_forward_nums;
+        std::vector<int> ch_forward_spacernums;
+        std::vector<int> ch_backward_nums;
+        std::vector<int> ch_backward_spacernums;        
 };

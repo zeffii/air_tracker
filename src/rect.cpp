@@ -14,7 +14,6 @@ Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 
 
 void Rect::draw() const {
-    // SDL_Rect rect = {_x, _y, _w, _h};
     SDL_Rect rect = {_x-1, _y-1, _w+2, _h};
     SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
     SDL_RenderFillRect(Window::renderer, &rect);
