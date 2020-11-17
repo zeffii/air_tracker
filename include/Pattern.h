@@ -20,6 +20,8 @@ class Pattern {
 
         void change_octave(int direction);
         int get_octave();
+        void set_note_indices(std::vector<int> note_indices);
+        void set_hex_indices(std::vector<int> hex_indices);
 
     private:
         string pattern_descriptor_str;
@@ -32,8 +34,11 @@ class Pattern {
         int octave = 5;
         int _line_height = 13;
 
-        std::vector<int> ch_forward_nums;
-        std::vector<int> ch_forward_spacernums;
-        std::vector<int> ch_backward_nums;
-        std::vector<int> ch_backward_spacernums;        
+        std::vector<int> _note_indices;
+        std::vector<int> _hex_indices;
+
+        std::vector<int> _carot_hop_fw_nums;
+        std::vector<int> _carot_hop_fw_spacernums;
+        std::vector<int> _carot_hop_bw_nums;
+        std::vector<int> _carot_hop_bw_spacernums;        
 };
