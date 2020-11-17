@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"fo",
+				"forv\tVector For Loop"
+			],
+			[
+				"f",
+				"forv\tVector For Loop"
+			],
+			[
+				"fin",
+				"find_int_in_array"
+			],
+			[
+				"de",
+				"descriptor"
+			],
+			[
+				"_te",
+				"_text_textures"
+			],
+			[
 				"SDL_",
 				"SDL_Renderer"
 			],
@@ -30,10 +50,6 @@
 			[
 				"_text_",
 				"_text_textures"
-			],
-			[
-				"_te",
-				"_text_rects"
 			],
 			[
 				"_text",
@@ -189,8 +205,8 @@
 		"cols":
 		[
 			0.0,
-			0.369013443421,
-			0.803617021277,
+			0.43281192946,
+			0.717387383953,
 			1.0
 		],
 		"rows":
@@ -202,7 +218,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 210.0
+		"height": 207.0
 	},
 	"output.find_results":
 	{
@@ -248,7 +264,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 191.0,
+	"side_bar_width": 163.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
