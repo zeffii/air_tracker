@@ -132,13 +132,9 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     */    
 
     cout << row_number << ", " << col_number << " : " << character << endl;
-    int note_indices[] = {0, 7, 14, 21};
-    int hex_indices[] = {
-        4, 5, 11, 12, 18, 19, 24, 25, 26, 29, 30, 32, 33, 35, 36, 38, 39, 42, 43, 45, 46, 48, 49
-    };
 
     // deal with hex data on hex params
-    if (find_int_in_array(col_number, hex_indices, 23)){
+    if (find_int_in_vector(col_number, _hex_indices)){
 
         string allowed = "0123456789ABCDEF";
         int findex = allowed.find(character);
@@ -169,7 +165,7 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     deal with note data on note params
     */
 
-    else if (find_int_in_array(col_number, note_indices, 4)){
+    else if (find_int_in_vector(col_number, _note_indices)){
 
         string allowed = "ZSXDCVGBHNJMQ2W3ER5T6Y7UI9O0P";
         int findex = allowed.find(character);

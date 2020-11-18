@@ -42,8 +42,6 @@ class Pattern {
 
         std::vector<int> _note_indices;
         std::vector<int> _hex_indices;
-
-        // should call these:
         std::vector<int> _carret_single_hop;
         std::vector<int> _carret_double_hop_fw;
         std::vector<int> _carret_double_hop_bw;
