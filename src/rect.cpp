@@ -33,14 +33,14 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
         switch (event.key.keysym.sym) {
             case SDLK_LEFT:
                 column_index -= 1;
-                carrot_hop_backward(column_index);
+                mypat.carrot_hop_backward(column_index);
                 if (column_index < 0) { column_index = nchars_inrow-5; }
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
                 break;
 
             case SDLK_RIGHT:
                 column_index += 1;
-                carrot_hop_forward(column_index);
+                mypat.carrot_hop_forward(column_index);
                 column_index %= nchars_inrow-4;
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
                 break;

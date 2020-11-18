@@ -93,21 +93,6 @@ int find_int_in_vector(int num_to_find, vector<int> inarray){
     return (it != inarray.end()) ? 1 : 0;
 };
 
-void carrot_hop_forward(int &c_index){
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {27, 40};
-
-    if (find_int_in_array(c_index, numbers, 12)) { c_index += 1; }
-    else if (find_int_in_array(c_index, spacer_numbers, 2)) { c_index += 2; }
-}
-
-void carrot_hop_backward(int &c_index){
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {28, 41};
-
-    if (find_int_in_array(c_index, numbers, 12)) { c_index -= 1; }
-    else if (find_int_in_array(c_index, spacer_numbers, 2)) { c_index -= 2; }
-}
 
 string kb_key_to_noterepr(string kb_key, int octave){
     // before it enters this function, kb string is checked.
@@ -156,16 +141,7 @@ void pattern_descriptor_to_handler(string descriptor, Pattern& pattern){
 
     pattern.set_note_indices(note_indices);
     pattern.set_hex_indices(hex_indices);
-    // cout << descriptor << endl;
-    /*
-    carrot hop forward
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {27, 40};
 
-    carrot_hop_backward(int &c_index){
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {28, 41};
-    */
     vector<int> fw_double_spaces = find_token_in_string(descriptor, "  ");
     vector<int> bw_double_spaces = add_one_to_indices_for_hex2(fw_double_spaces);
     vector<int> joined_vecs = join_two_vectors(fw_double_spaces, bw_double_spaces);
@@ -176,10 +152,4 @@ void pattern_descriptor_to_handler(string descriptor, Pattern& pattern){
     pattern.set_double_hop_fw_indices(fw_double_spaces);
     pattern.set_double_hop_bw_indices(bw_double_spaces);
 
-    cout << "single hop: ";
-    print_int_array(nnnumbers);
-    cout << "fw_double_spaces: ";
-    print_int_array(fw_double_spaces);
-    cout << "bw_double_spaces: ";
-    print_int_array(bw_double_spaces);
 };

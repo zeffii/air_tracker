@@ -187,20 +187,27 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 };
 
 void Pattern::set_note_indices(std::vector<int> note_indices){
-    _note_indices = note_indices;
-};
+    _note_indices = note_indices; };
+
 void Pattern::set_hex_indices(std::vector<int> hex_indices){
-    _hex_indices = hex_indices;
-};
+    _hex_indices = hex_indices; };
 
 void Pattern::set_single_hop_indices(std::vector<int> single_hop){
-    _carret_single_hop = single_hop;
-};
+    _carret_single_hop = single_hop; };
 
 void Pattern::set_double_hop_fw_indices(std::vector<int> double_hop_fw){
-    _carret_double_hop_fw = double_hop_fw;
-};
+    _carret_double_hop_fw = double_hop_fw; };
 
 void Pattern::set_double_hop_bw_indices(std::vector<int> double_hop_bw){
-    _carret_double_hop_bw = double_hop_bw;
+    _carret_double_hop_bw = double_hop_bw; };
+
+
+void Pattern::carrot_hop_forward(int &c_index){
+    if (find_int_in_vector(c_index, _carret_single_hop)) { c_index += 1; }
+    else if (find_int_in_vector(c_index, _carret_double_hop_fw)) { c_index += 2; }
+};
+
+void Pattern::carrot_hop_backward(int &c_index){
+    if (find_int_in_vector(c_index, _carret_single_hop)) { c_index -= 1; }
+    else if (find_int_in_vector(c_index, _carret_double_hop_bw)) { c_index -= 2; }
 };

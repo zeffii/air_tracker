@@ -26,6 +26,9 @@ class Pattern {
         void set_double_hop_fw_indices(std::vector<int> double_hop_fw);
         void set_double_hop_bw_indices(std::vector<int> double_hop_bw);
 
+        void carrot_hop_forward(int &c_index);
+        void carrot_hop_backward(int &c_index);
+
     private:
         string pattern_descriptor_str;
         std::vector<string> pattern_data;
