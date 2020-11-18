@@ -22,6 +22,9 @@ class Pattern {
         int get_octave();
         void set_note_indices(std::vector<int> note_indices);
         void set_hex_indices(std::vector<int> hex_indices);
+        void set_single_hop_indices(std::vector<int> single_hop);
+        void set_double_hop_fw_indices(std::vector<int> double_hop_fw);
+        void set_double_hop_bw_indices(std::vector<int> double_hop_bw);
 
     private:
         string pattern_descriptor_str;

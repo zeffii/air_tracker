@@ -192,3 +192,15 @@ void Pattern::set_note_indices(std::vector<int> note_indices){
 void Pattern::set_hex_indices(std::vector<int> hex_indices){
     _hex_indices = hex_indices;
 };
+
+void Pattern::set_single_hop_indices(std::vector<int> single_hop){
+    _carret_single_hop = single_hop;
+};
+
+void Pattern::set_double_hop_fw_indices(std::vector<int> double_hop_fw){
+    _carret_double_hop_fw = double_hop_fw;
+};
+
+void Pattern::set_double_hop_bw_indices(std::vector<int> double_hop_bw){
+    _carret_double_hop_bw = double_hop_bw;
+};

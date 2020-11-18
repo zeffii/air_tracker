@@ -160,19 +160,14 @@ void pattern_descriptor_to_handler(string descriptor, Pattern& pattern){
     int spacer_numbers[2] = {28, 41};
     */
     vector<int> fw_double_spaces = find_token_in_string(descriptor, "  ");
-    cout << "FW double space indices: ";
-    print_int_array(fw_double_spaces);
-
-    cout << "BW double space indices: ";
     vector<int> bw_double_spaces = add_one_to_indices_for_hex2(fw_double_spaces);
-    print_int_array(bw_double_spaces);
-
-    cout << "Subtractable: ";
     vector<int> joined_vecs = join_two_vectors(fw_double_spaces, bw_double_spaces);
-    print_int_array(joined_vecs);
-
-    cout << "int _numbers = ";
     vector<int> all_spaces = find_token_in_string(descriptor, " ");
     vector<int> nnnumbers = filter_out_int_array_A_from_B(all_spaces, joined_vecs);
-    print_int_array(nnnumbers);
+
+    pattern.set_single_hop_indices(nnnumbers);
+    pattern.set_double_hop_fw_indices(fw_double_spaces);
+    pattern.set_double_hop_bw_indices(bw_double_spaces);
+
+    //print_int_array(nnnumbers);
 };
