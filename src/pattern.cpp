@@ -190,6 +190,9 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
             }
         }
     }
+    // else if note in _note_indices + 1  , then hash toggle sharp on off
+
+    // else if note in _note_indices + 2  , then all numeric between 0 and 9 are accepted
 };
 
 void Pattern::set_note_indices(std::vector<int> note_indices){
