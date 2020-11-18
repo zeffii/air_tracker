@@ -31,17 +31,14 @@ void readPattern(const char* filename, std::vector<string> &lines, string &patte
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
     readPattern(pattern_path, pattern_data, pattern_descriptor_str);
+    _nchars_inrow = pattern_descriptor_str.length();
+    _nrows = pattern_data.size();
+
     renderer_placeholder = renderer;
     texture_pattern(renderer);
-    cout << pattern_descriptor_str << endl;
     pattern_descriptor_to_handler(pattern_descriptor_str, *this);
-
-    cout << "note_indices --> : ";
-    print_int_array(_note_indices);
-    cout << "hex_indices --> : ";
-    print_int_array(_hex_indices);
-
 };
+
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
     TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
@@ -194,6 +191,10 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 
     // else if note in _note_indices + 2  , then all numeric between 0 and 9 are accepted
 };
+
+int Pattern::get_nchars_in_row(){ return _nchars_inrow; };
+int Pattern::get_nrows_in_column(){ return _nrows; };
+
 
 void Pattern::set_note_indices(std::vector<int> note_indices){
     _note_indices = note_indices; };

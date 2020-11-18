@@ -28,6 +28,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
     int x_offset = 20;
     int y_offset = 20;
+    int nchars_inrow = mypat.get_nchars_in_row();
+    int nrows = mypat.get_nrows_in_column();
 
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
@@ -47,13 +49,13 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
             case SDLK_UP:
                 row_index -= 1;
-                if (row_index < 0) { row_index = 15; }
+                if (row_index < 0) { row_index = (nrows-1); }
                 _y = y_offset + (row_index * line_height);
                 break;
 
             case SDLK_DOWN:
                 row_index += 1;
-                row_index %= 16;
+                row_index %= nrows;
                 _y = y_offset + (row_index * line_height);
                 break;
 
