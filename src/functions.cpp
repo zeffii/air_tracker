@@ -23,14 +23,15 @@ vector<int> filter_out_int_array_A_from_B(vector<int> inarray, vector<int> drop)
     vector<int> new_indices;
     
     // convert vector to array
+    /*
     int drop_array[drop.size()];
     std::copy(drop.begin(), drop.end(), drop_array);
-
+    */
     for (int unsigned i=0; i < inarray.size(); i++){
-        if (!find_int_in_array(inarray[i], drop_array, drop.size())){
+        if (!find_int_in_vector(inarray[i], drop)){
             new_indices.push_back(inarray[i]);
         }
-    }
+    }    
     return new_indices;
 };
 
@@ -78,6 +79,7 @@ vector<int> find_token_in_string(string input_string, string token){
     return indices;
 }
 
+// overload this function to accept Vectors :)
 
 int find_int_in_array(int num_to_find, int numbers[], int arraysize){
     for(int i = 0; i < arraysize; i++){
@@ -85,6 +87,11 @@ int find_int_in_array(int num_to_find, int numbers[], int arraysize){
     }
     return 0;
 }
+
+int find_int_in_vector(int num_to_find, vector<int> inarray){
+    vector<int>::iterator it = std::find(inarray.begin(), inarray.end(), num_to_find);
+    return (it != inarray.end()) ? 1 : 0;
+};
 
 void carrot_hop_forward(int &c_index){
     int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
@@ -169,5 +176,10 @@ void pattern_descriptor_to_handler(string descriptor, Pattern& pattern){
     pattern.set_double_hop_fw_indices(fw_double_spaces);
     pattern.set_double_hop_bw_indices(bw_double_spaces);
 
-    //print_int_array(nnnumbers);
+    cout << "single hop: ";
+    print_int_array(nnnumbers);
+    cout << "fw_double_spaces: ";
+    print_int_array(fw_double_spaces);
+    cout << "bw_double_spaces: ";
+    print_int_array(bw_double_spaces);
 };
