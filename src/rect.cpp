@@ -62,8 +62,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 break;
 
             case SDLK_HASH:
-            // --> toggle sharp on off.
+                // --> toggle sharp on off.
                 mypat.set_char_at(row_index, column_index, "#");
+                break;
+
+            case SDLK_BACKQUOTE:
+                mypat.set_char_at(row_index, column_index, "`");
                 break;
 
             // CHANGE OCTAVE
@@ -99,7 +103,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
             // NUMERICS ONLY (some are captured below by note input..)
 
             case SDLK_1:
-                mypat.set_char_at(row_index, column_index, "1");
+                mypat.set_char_at(row_index, column_index, "1");   // note cut
                 break;
             case SDLK_4:
                 mypat.set_char_at(row_index, column_index, "4");
