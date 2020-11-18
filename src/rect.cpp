@@ -62,6 +62,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 break;
 
             case SDLK_HASH:
+            // --> toggle sharp on off.
                 mypat.set_char_at(row_index, column_index, "#");
                 break;
 

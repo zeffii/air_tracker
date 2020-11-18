@@ -8,6 +8,40 @@
 
 using namespace std;
 
+vector<int> join_two_vectors(vector<int> A, vector<int> B){
+    vector<int> new_indices;
+    for (int unsigned i=0; i < A.size(); i++){
+        new_indices.push_back(A[i]);
+    }
+    for (int unsigned i=0; i < B.size(); i++){
+        new_indices.push_back(B[i]);
+    }
+    return new_indices;
+};
+
+vector<int> filter_out_int_array_A_from_B(vector<int> inarray, vector<int> drop){
+    vector<int> new_indices;
+    
+    // convert vector to array
+    int drop_array[drop.size()];
+    std::copy(drop.begin(), drop.end(), drop_array);
+
+    for (int unsigned i=0; i < inarray.size(); i++){
+        if (!find_int_in_array(inarray[i], drop_array, drop.size())){
+            new_indices.push_back(inarray[i]);
+        }
+    }
+    return new_indices;
+};
+
+vector<int> add_one_to_indices_for_hex2(vector<int> inarray){
+    vector<int> new_indices;
+    for (int unsigned i=0; i < inarray.size(); i++){
+        new_indices.push_back(inarray[i]+1);
+    }
+    return new_indices;
+};
+
 vector<int> add_indices_for_hex2(vector<int> inarray){
     vector<int> broad_indices;
     for (int unsigned i=0; i < inarray.size(); i++){
@@ -116,4 +150,29 @@ void pattern_descriptor_to_handler(string descriptor, Pattern& pattern){
     pattern.set_note_indices(note_indices);
     pattern.set_hex_indices(hex_indices);
     // cout << descriptor << endl;
+    /*
+    carrot hop forward
+    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
+    int spacer_numbers[2] = {27, 40};
+
+    carrot_hop_backward(int &c_index){
+    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
+    int spacer_numbers[2] = {28, 41};
+    */
+    vector<int> fw_double_spaces = find_token_in_string(descriptor, "  ");
+    cout << "FW double space indices: ";
+    print_int_array(fw_double_spaces);
+
+    cout << "BW double space indices: ";
+    vector<int> bw_double_spaces = add_one_to_indices_for_hex2(fw_double_spaces);
+    print_int_array(bw_double_spaces);
+
+    cout << "Subtractable: ";
+    vector<int> joined_vecs = join_two_vectors(fw_double_spaces, bw_double_spaces);
+    print_int_array(joined_vecs);
+
+    cout << "int _numbers = ";
+    vector<int> all_spaces = find_token_in_string(descriptor, " ");
+    vector<int> nnnumbers = filter_out_int_array_A_from_B(all_spaces, joined_vecs);
+    print_int_array(nnnumbers);
 };

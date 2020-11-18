@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"pat",
+				"pattern_descriptor_str"
+			],
+			[
 				"fo",
 				"forv\tVector For Loop"
 			],
@@ -121,6 +125,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/.gitignore",
 		"/C/2020/Blender-3dfile-svercok.tar/tartmp.PeIFPP",
 		"/C/bash/etc/skel/.profile",
@@ -205,8 +210,8 @@
 		"cols":
 		[
 			0.0,
-			0.43281192946,
-			0.717387383953,
+			0.319188741054,
+			0.694492753623,
 			1.0
 		],
 		"rows":
@@ -218,7 +223,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 207.0
+		"height": 111.0
 	},
 	"output.find_results":
 	{
