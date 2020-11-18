@@ -4,8 +4,44 @@
 #include <iostream>
 #include <string>
 #include "Functions.h"
+#include "Pattern.h"
 
 using namespace std;
+
+vector<int> join_two_vectors(vector<int> A, vector<int> B){
+    vector<int> new_indices;
+    for (int unsigned i=0; i < A.size(); i++){
+        new_indices.push_back(A[i]);
+    }
+    for (int unsigned i=0; i < B.size(); i++){
+        new_indices.push_back(B[i]);
+    }
+    return new_indices;
+};
+
+vector<int> filter_out_int_array_A_from_B(vector<int> inarray, vector<int> drop){
+    vector<int> new_indices;
+    
+    // convert vector to array
+    /*
+    int drop_array[drop.size()];
+    std::copy(drop.begin(), drop.end(), drop_array);
+    */
+    for (int unsigned i=0; i < inarray.size(); i++){
+        if (!find_int_in_vector(inarray[i], drop)){
+            new_indices.push_back(inarray[i]);
+        }
+    }    
+    return new_indices;
+};
+
+vector<int> add_one_to_indices_for_hex2(vector<int> inarray){
+    vector<int> new_indices;
+    for (int unsigned i=0; i < inarray.size(); i++){
+        new_indices.push_back(inarray[i]+1);
+    }
+    return new_indices;
+};
 
 vector<int> add_indices_for_hex2(vector<int> inarray){
     vector<int> broad_indices;
@@ -43,6 +79,7 @@ vector<int> find_token_in_string(string input_string, string token){
     return indices;
 }
 
+// overload this function to accept Vectors :)
 
 int find_int_in_array(int num_to_find, int numbers[], int arraysize){
     for(int i = 0; i < arraysize; i++){
@@ -50,6 +87,12 @@ int find_int_in_array(int num_to_find, int numbers[], int arraysize){
     }
     return 0;
 }
+
+int find_int_in_vector(int num_to_find, vector<int> inarray){
+    vector<int>::iterator it = std::find(inarray.begin(), inarray.end(), num_to_find);
+    return (it != inarray.end()) ? 1 : 0;
+};
+
 
 string kb_key_to_noterepr(string kb_key, int octave){
     // before it enters this function, kb string is checked.
@@ -70,7 +113,7 @@ string kb_key_to_noterepr(string kb_key, int octave){
     return rvalue;
 };
 
-void pattern_descriptor_to_handler(string descriptor){
+void pattern_descriptor_to_handler(string descriptor, Pattern& pattern){
     /*
 
     this function will take the descriptor string, and populate various arrays with
@@ -85,8 +128,6 @@ void pattern_descriptor_to_handler(string descriptor){
 
     */
 
-    cout << descriptor << endl;
-
     descriptor = descriptor.substr(4, -1);
     replace( descriptor.begin(), descriptor.end(), 'S', ' ');
 
@@ -98,12 +139,17 @@ void pattern_descriptor_to_handler(string descriptor){
     vector<int> hex_indices = find_token_in_string(descriptor, "HH");
     hex_indices = add_indices_for_hex2(hex_indices);
 
-    cout << "note_indices: ";
-    print_int_array(note_indices);
-    cout << "hex_indices: ";
-    print_int_array(hex_indices);
-    
-    cout << descriptor << endl;
+    pattern.set_note_indices(note_indices);
+    pattern.set_hex_indices(hex_indices);
 
+    vector<int> fw_double_spaces = find_token_in_string(descriptor, "  ");
+    vector<int> bw_double_spaces = add_one_to_indices_for_hex2(fw_double_spaces);
+    vector<int> joined_vecs = join_two_vectors(fw_double_spaces, bw_double_spaces);
+    vector<int> all_spaces = find_token_in_string(descriptor, " ");
+    vector<int> nnnumbers = filter_out_int_array_A_from_B(all_spaces, joined_vecs);
+
+    pattern.set_single_hop_indices(nnnumbers);
+    pattern.set_double_hop_fw_indices(fw_double_spaces);
+    pattern.set_double_hop_bw_indices(bw_double_spaces);
 
 };

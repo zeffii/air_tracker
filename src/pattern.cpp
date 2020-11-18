@@ -13,9 +13,15 @@
 using namespace std;
 
 
-void readPattern(const char* filename, std::vector<string> &lines){
+void readPattern(const char* filename, std::vector<string> &lines, string &pattern_descriptor_str){
     lines.clear();
     ifstream file (filename);
+
+    // read first line of this file, the descriptor, will look something like
+    // TTTSNNNSHHSNNNSHHSNNNSHHSNNNSHHSSHHSHHSHHSHHSSHHSHHSHH
+    getline(file, pattern_descriptor_str);
+    
+    // read remaining pattern data
     string s;
     while (getline(file, s))
         lines.push_back(s);
@@ -24,9 +30,17 @@ void readPattern(const char* filename, std::vector<string> &lines){
 }
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
-    readPattern(pattern_path, pattern_data);
+    readPattern(pattern_path, pattern_data, pattern_descriptor_str);
     renderer_placeholder = renderer;
     texture_pattern(renderer);
+    cout << pattern_descriptor_str << endl;
+    pattern_descriptor_to_handler(pattern_descriptor_str, *this);
+
+    cout << "note_indices --> : ";
+    print_int_array(_note_indices);
+    cout << "hex_indices --> : ";
+    print_int_array(_hex_indices);
+
 };
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
@@ -172,3 +186,28 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     }
 };
 
+void Pattern::set_note_indices(std::vector<int> note_indices){
+    _note_indices = note_indices; };
+
+void Pattern::set_hex_indices(std::vector<int> hex_indices){
+    _hex_indices = hex_indices; };
+
+void Pattern::set_single_hop_indices(std::vector<int> single_hop){
+    _carret_single_hop = single_hop; };
+
+void Pattern::set_double_hop_fw_indices(std::vector<int> double_hop_fw){
+    _carret_double_hop_fw = double_hop_fw; };
+
+void Pattern::set_double_hop_bw_indices(std::vector<int> double_hop_bw){
+    _carret_double_hop_bw = double_hop_bw; };
+
+
+void Pattern::carrot_hop_forward(int &c_index){
+    if (find_int_in_vector(c_index, _carret_single_hop)) { c_index += 1; }
+    else if (find_int_in_vector(c_index, _carret_double_hop_fw)) { c_index += 2; }
+};
+
+void Pattern::carrot_hop_backward(int &c_index){
+    if (find_int_in_vector(c_index, _carret_single_hop)) { c_index -= 1; }
+    else if (find_int_in_vector(c_index, _carret_double_hop_bw)) { c_index -= 2; }
+};

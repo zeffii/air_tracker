@@ -14,7 +14,6 @@ Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 
 
 void Rect::draw() const {
-    // SDL_Rect rect = {_x, _y, _w, _h};
     SDL_Rect rect = {_x-1, _y-1, _w+2, _h};
     SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
     SDL_RenderFillRect(Window::renderer, &rect);
@@ -23,22 +22,6 @@ void Rect::draw() const {
     // // SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x6E, 0x6D, 0xFF );
     // SDL_SetRenderDrawColor(Window::renderer, 0x89, 0x3E, 0x3D, 0xFF );
     // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
-}
-
-void carrot_hop_forward(int &c_index){
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {27, 40};
-
-    if (find_int_in_array(c_index, numbers, 12)) { c_index += 1; }
-    else if (find_int_in_array(c_index, spacer_numbers, 2)) { c_index += 2; }
-}
-
-void carrot_hop_backward(int &c_index){
-    int numbers[12] = {3, 6, 10, 13, 17, 20, 24, 31, 34, 37, 44, 47};
-    int spacer_numbers[2] = {28, 41};
-
-    if (find_int_in_array(c_index, numbers, 12)) { c_index -= 1; }
-    else if (find_int_in_array(c_index, spacer_numbers, 2)) { c_index -= 2; }
 }
 
 void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
@@ -50,14 +33,14 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
         switch (event.key.keysym.sym) {
             case SDLK_LEFT:
                 column_index -= 1;
-                carrot_hop_backward(column_index);
+                mypat.carrot_hop_backward(column_index);
                 if (column_index < 0) { column_index = nchars_inrow-5; }
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
                 break;
 
             case SDLK_RIGHT:
                 column_index += 1;
-                carrot_hop_forward(column_index);
+                mypat.carrot_hop_forward(column_index);
                 column_index %= nchars_inrow-4;
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
                 break;
@@ -79,6 +62,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 break;
 
             case SDLK_HASH:
+            // --> toggle sharp on off.
                 mypat.set_char_at(row_index, column_index, "#");
                 break;
 
