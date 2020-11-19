@@ -31,4 +31,9 @@ private:
     int row_index = 0;
     int column_index = 0;
 
+    int column_index_start = 0;
+    int column_index_end = 0;
+    int row_index_start = 0;
+    int row_index_end = 0;
+
 };

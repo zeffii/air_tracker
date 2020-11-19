@@ -32,6 +32,15 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     int nchars_inrow = mypat.get_nchars_in_row();
     int nrows = mypat.get_nrows_in_column();
 
+    /*
+    if SHIFT keydown 
+        => record column_index_start, row_index_start
+    while shift pressed 
+        => record column_index and row_index as column_index_start and row_index_end
+    
+    // SDL_PRESSED or SDL_RELEASED
+
+    */
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
             case SDLK_LEFT:
