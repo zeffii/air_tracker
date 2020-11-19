@@ -7,6 +7,7 @@ using namespace std;
 #include "Pattern.h"
 #include "Window.h"
 #include "Functions.h"
+#include "Selector.h"
 
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
@@ -24,7 +25,7 @@ void Rect::draw() const {
     // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
 }
 
-void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
+void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection){
 
     int x_offset = 20;
     int y_offset = 20;

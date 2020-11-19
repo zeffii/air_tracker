@@ -2,6 +2,7 @@
 
 #include "window.h"
 #include "pattern.h"
+#include "Selector.h"
 
 #include <string>
 #include <iostream>
@@ -11,7 +12,13 @@ class Rect{
 public:
     Rect(int w, int h, int x, int y, int r, int g, int b, int a);
     void draw() const;
-    void pollEvents(SDL_Event &event, Pattern &mypat, Window &window);
+    void pollEvents(
+        SDL_Event &event,
+        Pattern &mypat,
+        Window &window,
+        Selector &selection
+    );
+
 private:
     int _w, _h, _x, _y, _r, _g, _b, _a;
     int _cw;
