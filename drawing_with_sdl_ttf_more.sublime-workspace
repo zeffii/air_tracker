@@ -173,6 +173,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"nrows",
 			"Window::renderer"
 		],
 		"highlight": true,
@@ -222,8 +223,8 @@
 		"cols":
 		[
 			0.0,
-			0.327641813698,
-			0.695061905587,
+			0.284386264466,
+			0.649529748501,
 			1.0
 		],
 		"rows":

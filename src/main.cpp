@@ -5,6 +5,7 @@
 #include "Text.h"
 #include "Pattern.h"
 #include "Functions.h"
+#include "Selector.h"
 
 #include <vector>
 #include <iostream>
@@ -35,10 +36,12 @@ int main(int argc, char* args[])
 
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
+    Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
     while (!window.isClosed()){
         pollEvents(window, cursor, mypat);
         cursor.draw();
+        selection.draw();
         mypat.display(20, 20, Window::renderer);
         window.clear();
     }
