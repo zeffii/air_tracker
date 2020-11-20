@@ -45,17 +45,23 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
         switch (event.key.keysym.sym) {
 
             case SDLK_BACKSLASH:
-                cout << selection.get_selector_state() << endl;
+
                 selection.push_selector_state();
-                // if (!selection.is_selector_drawing()){
-                //     selection.allow_selector_draw();
-                //     column_index_start = column_index;
-                //     row_index_start = row_index;
-                // }
-                // else{
-                //     column_index_end = column_index;
-                //     row_index_end = row_index;
-                // }
+
+                switch (selection.get_selector_state()){
+                    case 1:
+                        selection.set_start(column_index, row_index);
+                        selection.set_end(column_index, row_index);
+                        selection.set_dimensions();
+                        break;
+                    case 2:
+                        selection.set_end(column_index, row_index);
+                        selection.set_dimensions();
+                        break;
+                    default:
+                        break;
+                }
+
                 break;
 
 
