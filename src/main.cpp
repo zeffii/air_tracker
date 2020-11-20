@@ -39,7 +39,17 @@ int main(int argc, char* args[])
     // 406f89
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
+    const Uint8 *keyState = SDL_GetKeyboardState(NULL);
+    
     while (!window.isClosed()){
+        SDL_PumpEvents();
+        if (keyState[SDL_SCANCODE_LCTRL]){
+            window.set_pressing_ctrl(true);
+        }
+        else{
+            window.set_pressing_ctrl(false);
+        }
+
         pollEvents(window, cursor, mypat, selection);
         cursor.draw();
         selection.draw();

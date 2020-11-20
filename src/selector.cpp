@@ -60,11 +60,6 @@ void Selector::draw() const {
 
 void Selector::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
-    // int x_offset = 20;
-    // int y_offset = 20;
-    // int nchars_inrow = mypat.get_nchars_in_row();
-    // int nrows = mypat.get_nrows_in_column();
-
     // if (event.type == SDL_KEYDOWN){
     //     switch (event.key.keysym.sym) {
     //         case SDLK_LEFT:

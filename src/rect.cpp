@@ -183,7 +183,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "U");  //       note B +1
                 break;
             case SDLK_i:
-                mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                if (window.is_ctrl_pressed()){
+                    cout << "Interpolate woohooo!!\n";
+                }
+                else {
+                    mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                }
                 break;
             case SDLK_9:
                 mypat.set_char_at(row_index, column_index, "9");  //       note C#+2
