@@ -34,14 +34,18 @@ void Selector::set_end(int cx, int cy){
 
 void Selector::set_dimensions(){
 
-    // this should (but doesn't yet) rearrange using min/max
-    // ie column end must be higher or equal to column start..etc
-    //  auto result = std::minmax({5, 1});
+    auto result_column = std::minmax({column_start, column_end});
+    auto result_row = std::minmax({row_start, row_end});
+    
+    int low_column = result_column.first;
+    int high_column = result_column.second;
+    int low_row = result_row.first;
+    int high_row = result_row.second;
 
-    _w = (column_end - column_start + 1) * charwidth;
-    _h = (row_end - row_start + 1) * line_height;
-    _x = (20 + 4 * charwidth) + (column_start * charwidth);
-    _y = 20 + (row_start * line_height);
+    _w = (high_column - low_column + 1) * charwidth;
+    _h = (high_row - low_row + 1) * line_height;
+    _x = (20 + 4 * charwidth) + (low_column * charwidth);
+    _y = 20 + (low_row * line_height);
 };
 
 void Selector::draw() const {
