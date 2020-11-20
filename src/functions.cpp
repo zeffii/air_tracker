@@ -79,8 +79,6 @@ vector<int> find_token_in_string(string input_string, string token){
     return indices;
 }
 
-// overload this function to accept Vectors :)
-
 int find_int_in_array(int num_to_find, int numbers[], int arraysize){
     for(int i = 0; i < arraysize; i++){
          if (numbers[i] == num_to_find){ return 1; }

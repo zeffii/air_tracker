@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"_ca",
+				"_carret_double_hop_bw"
+			],
+			[
+				"_Car",
+				"_carret_double_hop_fw"
+			],
+			[
+				"jo",
+				"join_two_vectors"
+			],
+			[
 				"pat",
 				"pattern_descriptor_str"
 			],
@@ -161,6 +173,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"nrows",
 			"Window::renderer"
 		],
 		"highlight": true,
@@ -210,8 +223,8 @@
 		"cols":
 		[
 			0.0,
-			0.319188741054,
-			0.694492753623,
+			0.319930239829,
+			0.694596739975,
 			1.0
 		],
 		"rows":
@@ -223,7 +236,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 111.0
+		"height": 97.0
 	},
 	"output.find_results":
 	{
@@ -269,7 +282,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 163.0,
+	"side_bar_width": 109.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

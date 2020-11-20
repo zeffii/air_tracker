@@ -7,6 +7,7 @@ using namespace std;
 #include "Pattern.h"
 #include "Window.h"
 #include "Functions.h"
+#include "Selector.h"
 
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
@@ -22,15 +23,40 @@ void Rect::draw() const {
     // // SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x6E, 0x6D, 0xFF );
     // SDL_SetRenderDrawColor(Window::renderer, 0x89, 0x3E, 0x3D, 0xFF );
     // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
-}
+};
 
-void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
+void handle_selection(Selector &selection, int column_index, int row_index){
+    selection.push_selector_state();
+
+    switch (selection.get_selector_state()){
+        case 1:
+            selection.set_start(column_index, row_index);
+            selection.set_end(column_index, row_index);
+            selection.set_dimensions();
+            break;
+        case 2:
+            selection.set_end(column_index, row_index);
+            selection.set_dimensions();
+            break;
+        default:
+            break;
+    }
+};
+
+void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection){
 
     int x_offset = 20;
     int y_offset = 20;
+    int nchars_inrow = mypat.get_nchars_in_row();
+    int nrows = mypat.get_nrows_in_column();
 
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
+
+            case SDLK_BACKSLASH:
+                handle_selection(selection, column_index, row_index);
+                break;
+
             case SDLK_LEFT:
                 column_index -= 1;
                 mypat.carrot_hop_backward(column_index);
@@ -47,13 +73,13 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
             case SDLK_UP:
                 row_index -= 1;
-                if (row_index < 0) { row_index = 15; }
+                if (row_index < 0) { row_index = (nrows-1); }
                 _y = y_offset + (row_index * line_height);
                 break;
 
             case SDLK_DOWN:
                 row_index += 1;
-                row_index %= 16;
+                row_index %= nrows;
                 _y = y_offset + (row_index * line_height);
                 break;
 
@@ -62,8 +88,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 break;
 
             case SDLK_HASH:
-            // --> toggle sharp on off.
+                // --> toggle sharp on off.
                 mypat.set_char_at(row_index, column_index, "#");
+                break;
+
+            case SDLK_BACKQUOTE:
+                mypat.set_char_at(row_index, column_index, "`");
                 break;
 
             // CHANGE OCTAVE
@@ -99,7 +129,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
             // NUMERICS ONLY (some are captured below by note input..)
 
             case SDLK_1:
-                mypat.set_char_at(row_index, column_index, "1");
+                mypat.set_char_at(row_index, column_index, "1");   // note cut
                 break;
             case SDLK_4:
                 mypat.set_char_at(row_index, column_index, "4");
@@ -153,7 +183,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
                 mypat.set_char_at(row_index, column_index, "U");  //       note B +1
                 break;
             case SDLK_i:
-                mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                if (window.is_ctrl_pressed()){
+                    cout << "Interpolate woohooo!!\n";
+                }
+                else {
+                    mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                }
                 break;
             case SDLK_9:
                 mypat.set_char_at(row_index, column_index, "9");  //       note C#+2
@@ -210,4 +245,4 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
         }
     }
     // cout << column_index << ", " << row_index << endl;
-}
+};

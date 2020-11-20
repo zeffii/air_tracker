@@ -105,3 +105,11 @@ void Window::clear() const {
     SDL_RenderClear(renderer);
 
 }
+
+bool Window::is_ctrl_pressed(){ 
+    return _pressing_ctrl; 
+};
+
+void Window::set_pressing_ctrl(bool newstate){ 
+    _pressing_ctrl = newstate; 
+};

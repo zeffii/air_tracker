@@ -18,8 +18,11 @@ class Pattern {
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
 
-        void change_octave(int direction);
+        int get_nchars_in_row();
+        int get_nrows_in_column();
+
         int get_octave();
+        void change_octave(int direction);
         void set_note_indices(std::vector<int> note_indices);
         void set_hex_indices(std::vector<int> hex_indices);
         void set_single_hop_indices(std::vector<int> single_hop);
@@ -39,6 +42,9 @@ class Pattern {
         
         int octave = 5;
         int _line_height = 13;
+
+        int _nchars_inrow;
+        int _nrows;
 
         std::vector<int> _note_indices;
         std::vector<int> _hex_indices;
