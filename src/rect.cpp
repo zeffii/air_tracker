@@ -43,6 +43,22 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     */
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
+
+            case SDLK_BACKSLASH:
+                cout << selection.get_selector_state() << endl;
+                selection.push_selector_state();
+                // if (!selection.is_selector_drawing()){
+                //     selection.allow_selector_draw();
+                //     column_index_start = column_index;
+                //     row_index_start = row_index;
+                // }
+                // else{
+                //     column_index_end = column_index;
+                //     row_index_end = row_index;
+                // }
+                break;
+
+
             case SDLK_LEFT:
                 column_index -= 1;
                 mypat.carrot_hop_backward(column_index);

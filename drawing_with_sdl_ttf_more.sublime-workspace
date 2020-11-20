@@ -223,7 +223,7 @@
 		"cols":
 		[
 			0.0,
-			0.308137786999,
+			0.319930239829,
 			0.694596739975,
 			1.0
 		],
@@ -236,7 +236,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 193.0
+		"height": 97.0
 	},
 	"output.find_results":
 	{
@@ -282,7 +282,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 163.0,
+	"side_bar_width": 109.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
