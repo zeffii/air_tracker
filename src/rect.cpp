@@ -23,7 +23,25 @@ void Rect::draw() const {
     // // SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x6E, 0x6D, 0xFF );
     // SDL_SetRenderDrawColor(Window::renderer, 0x89, 0x3E, 0x3D, 0xFF );
     // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
-}
+};
+
+void handle_selection(Selector &selection, int column_index, int row_index){
+    selection.push_selector_state();
+
+    switch (selection.get_selector_state()){
+        case 1:
+            selection.set_start(column_index, row_index);
+            selection.set_end(column_index, row_index);
+            selection.set_dimensions();
+            break;
+        case 2:
+            selection.set_end(column_index, row_index);
+            selection.set_dimensions();
+            break;
+        default:
+            break;
+    }
+};
 
 void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection){
 
@@ -36,25 +54,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
         switch (event.key.keysym.sym) {
 
             case SDLK_BACKSLASH:
-
-                selection.push_selector_state();
-
-                switch (selection.get_selector_state()){
-                    case 1:
-                        selection.set_start(column_index, row_index);
-                        selection.set_end(column_index, row_index);
-                        selection.set_dimensions();
-                        break;
-                    case 2:
-                        selection.set_end(column_index, row_index);
-                        selection.set_dimensions();
-                        break;
-                    default:
-                        break;
-                }
-
+                handle_selection(selection, column_index, row_index);
                 break;
-
 
             case SDLK_LEFT:
                 column_index -= 1;
@@ -239,4 +240,4 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
         }
     }
     // cout << column_index << ", " << row_index << endl;
-}
+};

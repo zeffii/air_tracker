@@ -36,6 +36,7 @@ int main(int argc, char* args[])
 
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
+    // 406f89
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
     while (!window.isClosed()){
