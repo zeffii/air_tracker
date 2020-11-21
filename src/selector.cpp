@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <string>
+#include <vector>
 #include <algorithm>    // std::minmax
 using namespace std;
 
@@ -46,6 +47,10 @@ void Selector::set_dimensions(){
     _h = (high_row - low_row + 1) * line_height;
     _x = (20 + 4 * charwidth) + (low_column * charwidth);
     _y = 20 + (low_row * line_height);
+};
+
+vector<int> Selector::get_dimensions(){
+    return {column_start, column_end, row_start, row_end};
 };
 
 void Selector::draw() const {

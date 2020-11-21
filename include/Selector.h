@@ -4,7 +4,7 @@
 
 #include "window.h"
 #include "pattern.h"
-
+#include <vector>
 #include <string>
 #include <iostream>
 using namespace std;
@@ -17,6 +17,7 @@ public:
     
     int get_selector_state();
     void push_selector_state();
+    vector<int> get_dimensions();
     void set_dimensions();
     void set_start(int x, int y);
     void set_end(int x, int y);
