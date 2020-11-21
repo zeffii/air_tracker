@@ -193,15 +193,13 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     // else if note in _note_indices + 2  , then all numeric between 0 and 9 are accepted
 };
 
-// void Pattern::perform_selection_interpolation(Selector &selection){
-//     cout << "Interpolate woohooo --!!\n";
-//     vector<int> test = selection.get_dimensions();
-//     cout << "selection.column_start "<< test[0] << endl;
-//     cout << "selection.column_end   "<< test[1] << endl;
-//     cout << "selection.row_start    "<< test[2] << endl;
-//     cout << "selection.row_end      "<< test[3] << endl;
+void Pattern::perform_selection_interpolation(vector<int> selection_range){
+    cout << "selection.column_start "<< selection_range[0] << endl;
+    cout << "selection.column_end   "<< selection_range[1] << endl;
+    cout << "selection.row_start    "<< selection_range[2] << endl;
+    cout << "selection.row_end      "<< selection_range[3] << endl;
 
-// };
+};
 
 
 int Pattern::get_nchars_in_row(){ return _nchars_inrow; };

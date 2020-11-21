@@ -18,7 +18,7 @@ class Pattern {
         void texture_pattern(SDL_Renderer *renderer);
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
-        //void perform_selection_interpolation(Selector &selection);
+        void perform_selection_interpolation(vector<int> selection_range);
 
         int get_nchars_in_row();
         int get_nrows_in_column();
