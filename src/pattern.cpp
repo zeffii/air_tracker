@@ -10,6 +10,7 @@
 #include "Pattern.h"
 #include "Window.h"
 #include "Functions.h"
+#include "Hex_functions.h"
 
 using namespace std;
 
@@ -194,16 +195,23 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 };
 
 void Pattern::perform_selection_interpolation(vector<int> selection_range){
-    cout << "selection.column_start "<< selection_range[0] << endl;
-    cout << "selection.column_end   "<< selection_range[1] << endl;
-    cout << "selection.row_start    "<< selection_range[2] << endl;
-    cout << "selection.row_end      "<< selection_range[3] << endl;
+    // cout << "selection.column_start "<< selection_range[0] << endl;
+    // cout << "selection.column_end   "<< selection_range[1] << endl;
+    // cout << "selection.row_start    "<< selection_range[2] << endl;
+    // cout << "selection.row_end      "<< selection_range[3] << endl;
+
+    int char_offset = 4;
+    int selection_length = (selection_range[1] - selection_range[0]) + 1;
+    int selection_start = selection_range[0] + char_offset;
 
     for (int i = selection_range[2]; i < selection_range[3] + 1; i++){
-        int selection_length = selection_range[1] - selection_range[0];
-        cout << pattern_data[i].substr(selection_range[0] + 4, selection_length + 1) << endl;
-    }
 
+        cout << pattern_data[i].substr(selection_start, selection_length) << endl;
+
+        // pattern_data[row_number].replace(col_number + 4, 3, "^^^");
+        // texture_pattern(renderer_placeholder);        
+    }
+    interpolate_hex(selection_length, "00", "50");
 };
 
 

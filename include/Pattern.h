@@ -7,6 +7,7 @@
 #include <vector>
 #include "Window.h"
 #include "Selector.h"
+#include "Hex_functions.h"
 
 using namespace std;
 
