@@ -203,15 +203,21 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     int char_offset = 4;
     int selection_length = (selection_range[1] - selection_range[0]) + 1;
     int selection_start = selection_range[0] + char_offset;
+    int numrows = selection_range[3] - selection_range[2];
+    int first_row_idx = selection_range[2];
+    int last_row_idx = selection_range[3];
 
-    for (int i = selection_range[2]; i < selection_range[3] + 1; i++){
+    for (int i = first_row_idx; i <= last_row_idx; i++){
 
         cout << pattern_data[i].substr(selection_start, selection_length) << endl;
 
         // pattern_data[row_number].replace(col_number + 4, 3, "^^^");
         // texture_pattern(renderer_placeholder);        
     }
-    interpolate_hex(selection_length, "00", "50");
+    string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
+    string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
+
+    interpolate_hex(numrows, first_hex, last_hex);
 };
 
 

@@ -37,8 +37,8 @@ void interpolate_hex(int elements, string h_start, string h_end){
     ss_1 >> x_1;
     ss_2 >> x_2;
 
-    cout << h_start << " h_start: " << x_1 << endl;
-    cout << h_end   << " h_end: "   << x_2 << endl;
+    // cout << h_start << " h_start: " << x_1 << endl;
+    // cout << h_end   << " h_end: "   << x_2 << endl;
 
     float stepsize = ((float) x_2 - x_1) / elements;
 
@@ -47,8 +47,8 @@ void interpolate_hex(int elements, string h_start, string h_end){
         int temp_int = round(intermediate_value);
         string hex_value = helper_converter(temp_int);
         hex_value = uppercase(hex_value);
-        
-        cout << intermediate_value << " and -> " << temp_int << " becomes " << hex_value << endl;
+        cout << hex_value << endl;
+        // cout << intermediate_value << " and -> " << temp_int << " becomes " << hex_value << endl;
     }
 
 }
