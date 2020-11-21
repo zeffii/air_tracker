@@ -43,6 +43,13 @@ void handle_selection(Selector &selection, int column_index, int row_index){
     }
 };
 
+void update_selection_if_active(Selector &selection, int column_index, int row_index){
+    if (selection.get_selector_state() == 1){
+        selection.set_end(column_index, row_index);
+        selection.set_dimensions();
+    }
+};
+
 void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection){
 
     int x_offset = 20;
@@ -62,6 +69,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.carrot_hop_backward(column_index);
                 if (column_index < 0) { column_index = nchars_inrow-5; }
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
+                update_selection_if_active(selection, column_index, row_index);
                 break;
 
             case SDLK_RIGHT:
@@ -69,18 +77,21 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.carrot_hop_forward(column_index);
                 column_index %= nchars_inrow-4;
                 _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
+                update_selection_if_active(selection, column_index, row_index);
                 break;
 
             case SDLK_UP:
                 row_index -= 1;
                 if (row_index < 0) { row_index = (nrows-1); }
                 _y = y_offset + (row_index * line_height);
+                update_selection_if_active(selection, column_index, row_index);
                 break;
 
             case SDLK_DOWN:
                 row_index += 1;
                 row_index %= nrows;
                 _y = y_offset + (row_index * line_height);
+                update_selection_if_active(selection, column_index, row_index);
                 break;
 
             case SDLK_RETURN:

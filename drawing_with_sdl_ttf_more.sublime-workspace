@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"co",
+				"column_end"
+			],
+			[
 				"_ca",
 				"_carret_double_hop_bw"
 			],
@@ -54,10 +58,6 @@
 			[
 				"n",
 				"nchars_inrow"
-			],
-			[
-				"co",
-				"column_index"
 			],
 			[
 				"pattern",
@@ -124,6 +124,8 @@
 		"height": 87.0,
 		"history":
 		[
+			"3%3",
+			"3%2"
 		]
 	},
 	"distraction_free":
@@ -223,8 +225,8 @@
 		"cols":
 		[
 			0.0,
-			0.319930239829,
-			0.694596739975,
+			0.53178461033,
+			0.638532206988,
 			1.0
 		],
 		"rows":
@@ -236,7 +238,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 97.0
+		"height": 72.0
 	},
 	"output.find_results":
 	{
@@ -282,7 +284,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 109.0,
+	"side_bar_width": 155.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
