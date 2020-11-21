@@ -199,6 +199,11 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     cout << "selection.row_start    "<< selection_range[2] << endl;
     cout << "selection.row_end      "<< selection_range[3] << endl;
 
+    for (int i = selection_range[2]; i < selection_range[3] + 1; i++){
+        int selection_length = selection_range[1] - selection_range[0];
+        cout << pattern_data[i].substr(selection_range[0] + 4, selection_length + 1) << endl;
+    }
+
 };
 
 
