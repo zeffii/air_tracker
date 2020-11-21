@@ -51,7 +51,7 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
     
     // this may not do a SDL_DestroyTexture
     if (_text_textures.empty()){
-        cout << "first init of _text_textures!\n";
+        cout << "air tracker: started!\n"; //"first init of _text_textures!
     }
     else {
         //cout << "re-using _text_textures to populate more!\b";
@@ -195,10 +195,6 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 };
 
 void Pattern::perform_selection_interpolation(vector<int> selection_range){
-    // cout << "selection.column_start "<< selection_range[0] << endl;
-    // cout << "selection.column_end   "<< selection_range[1] << endl;
-    // cout << "selection.row_start    "<< selection_range[2] << endl;
-    // cout << "selection.row_end      "<< selection_range[3] << endl;
 
     int char_offset = 4;
     int selection_length = (selection_range[1] - selection_range[0]) + 1;
@@ -208,16 +204,23 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     int last_row_idx = selection_range[3];
 
     for (int i = first_row_idx; i <= last_row_idx; i++){
-
         cout << pattern_data[i].substr(selection_start, selection_length) << endl;
-
-        // pattern_data[row_number].replace(col_number + 4, 3, "^^^");
-        // texture_pattern(renderer_placeholder);        
     }
+
     string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
 
-    interpolate_hex(numrows, first_hex, last_hex);
+    vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
+    cout << data_replacement[0] << endl;
+
+    /*
+    for (int i = first_row_idx; i <= last_row_idx; i++){
+        cout << data_replacement[i] << endl;
+        pattern_data[i].replace(selection_start, selection_length, data_replacement[i]);
+    }
+    texture_pattern(renderer_placeholder);        
+    */
+
 };
 
 

@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <math.h>
+#include <vector>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ string uppercase(string str){
     return str;
 };
 
-void interpolate_hex(int elements, string h_start, string h_end){
+vector<string> interpolate_hex(int elements, string h_start, string h_end){
     /*
     - first convert h_start amd h_end to integers
     - generate the range between these integers (given range of n elements)
@@ -50,6 +51,8 @@ void interpolate_hex(int elements, string h_start, string h_end){
         cout << hex_value << endl;
         // cout << intermediate_value << " and -> " << temp_int << " becomes " << hex_value << endl;
     }
-
+    vector<string> data_replacement;
+    data_replacement.push_back("yessss!");
+    return data_replacement;
 }
 
