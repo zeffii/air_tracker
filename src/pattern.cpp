@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "Selector.h"
 #include "Pattern.h"
 #include "Window.h"
 #include "Functions.h"
@@ -191,6 +192,17 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 
     // else if note in _note_indices + 2  , then all numeric between 0 and 9 are accepted
 };
+
+// void Pattern::perform_selection_interpolation(Selector &selection){
+//     cout << "Interpolate woohooo --!!\n";
+//     vector<int> test = selection.get_dimensions();
+//     cout << "selection.column_start "<< test[0] << endl;
+//     cout << "selection.column_end   "<< test[1] << endl;
+//     cout << "selection.row_start    "<< test[2] << endl;
+//     cout << "selection.row_end      "<< test[3] << endl;
+
+// };
+
 
 int Pattern::get_nchars_in_row(){ return _nchars_inrow; };
 int Pattern::get_nrows_in_column(){ return _nrows; };

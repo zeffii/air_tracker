@@ -195,12 +195,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_i:
                 if (window.is_ctrl_pressed()){
-                    cout << "Interpolate woohooo!!\n";
-                    vector<int> test = selection.get_dimensions();
-                    cout << "selection.column_start "<< test[0] << endl;
-                    cout << "selection.column_end   "<< test[1] << endl;
-                    cout << "selection.row_start    "<< test[2] << endl;
-                    cout << "selection.row_end      "<< test[3] << endl;
+                    //mypat.perform_selection_interpolation(selection);
+                    cout << "interpolation function triggered" << endl;
                 }
                 else {
                     mypat.set_char_at(row_index, column_index, "I");  //       note C +2

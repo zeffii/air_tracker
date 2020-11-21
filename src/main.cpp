@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 // #include <SDL2/SDL_image.h>
-#include "window.h"
+#include "Window.h"
 #include "Rect.h"
 #include "Text.h"
 #include "Pattern.h"

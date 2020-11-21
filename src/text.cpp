@@ -1,8 +1,8 @@
 // text.cpp
 #include <string>
 #include <iostream>
-#include "text.h"
-#include "window.h"
+#include "Text.h"
+#include "Window.h"
 using namespace std;
 
 Text::Text(SDL_Renderer *renderer, 

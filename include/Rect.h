@@ -1,7 +1,7 @@
 #pragma once
 
-#include "window.h"
-#include "pattern.h"
+#include "Window.h"
+#include "Pattern.h"
 #include "Selector.h"
 
 #include <string>
