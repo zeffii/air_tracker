@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"dat",
+				"data_replacement"
+			],
+			[
+				"d",
+				"data_replacement"
+			],
+			[
 				"co",
 				"column_end"
 			],
@@ -175,6 +183,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Selector",
 			"nrows",
 			"Window::renderer"
 		],
@@ -225,8 +234,8 @@
 		"cols":
 		[
 			0.0,
-			0.53178461033,
-			0.638532206988,
+			0.483435974272,
+			0.847442529137,
 			1.0
 		],
 		"rows":
@@ -238,7 +247,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 72.0
+		"height": 290.0
 	},
 	"output.find_results":
 	{

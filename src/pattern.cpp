@@ -209,19 +209,19 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
 
     string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
-
     vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
     
-    /*
-    if (data_replacement.size() == numrows) {
+    cout << data_replacement.size() << ",-->" << numrows << endl;
+
+    if (int(data_replacement.size()) == (numrows+1)) {
         cout << "propose to change to this" << endl;
         for (int i = first_row_idx; i <= last_row_idx; i++){
-            cout << data_replacement[i] << endl;
-            //pattern_data[i].replace(selection_start, selection_length, data_replacement[i]);
+            // cout << data_replacement[i] << endl;
+            pattern_data[i].replace(selection_start, selection_length, data_replacement[i]);
         }
         texture_pattern(renderer_placeholder);   
     }     
-    */
+    
 };
 
 

@@ -30,7 +30,6 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
        -- expects both to be different
     */
     unsigned int x_1, x_2;
-    // unsigned int x_transition[elements];
     stringstream ss_1, ss_2;
 
     ss_1 << std::hex << h_start;
@@ -42,6 +41,7 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     // cout << h_end   << " h_end: "   << x_2 << endl;
 
     float stepsize = ((float) x_2 - x_1) / elements;
+    vector<string> data_replacement;
 
     for (int i = 0 ; i <= elements; i++){
         float intermediate_value = x_1 + (stepsize * i);
@@ -50,9 +50,8 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
         hex_value = uppercase(hex_value);
         cout << hex_value << endl;
         // cout << intermediate_value << " and -> " << temp_int << " becomes " << hex_value << endl;
+        data_replacement.push_back(hex_value);
     }
-    vector<string> data_replacement;
-    data_replacement.push_back("yessss!");
     return data_replacement;
 }
 
