@@ -43,6 +43,7 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     float stepsize = ((float) x_2 - x_1) / elements;
     vector<string> data_replacement;
 
+    cout << "---------\n";
     for (int i = 0 ; i <= elements; i++){
         float intermediate_value = x_1 + (stepsize * i);
         int temp_int = round(intermediate_value);
