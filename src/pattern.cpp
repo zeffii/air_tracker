@@ -215,9 +215,14 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
 
     string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
+
+    // this need to include major error checking before public usage.
+    // what is the selection is a note? interpolate hex will fail.
+    // is it ` .. .. ` , also interpolate_hex will not understand how to do this.
+    // it will expect `.` or `..` or even `....` 
+    // no spaces no notes.
     vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
     
-    //print_string_vector(data_replacement);
     if (int(data_replacement.size()) == numrows) {
 
         int m = 0;

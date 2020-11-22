@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"data",
+				"data_replacement"
+			],
+			[
 				"dat",
 				"data_replacement"
 			],
@@ -183,6 +187,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"propose",
 			"Selector",
 			"nrows",
 			"Window::renderer"
@@ -234,8 +239,8 @@
 		"cols":
 		[
 			0.0,
-			0.483435974272,
-			0.847442529137,
+			0.0881780986396,
+			0.420673245179,
 			1.0
 		],
 		"rows":
