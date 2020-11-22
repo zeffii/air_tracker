@@ -195,8 +195,8 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 };
 
 void print_string_vector(vector<string> yourvec){
-    for (int unsigned i = 0; i <= yourvec.size(); i++){
-        cout << yourvec[i] << endl;
+    for (int unsigned i = 0; i < yourvec.size(); i++){
+        cout << yourvec[i] << "," << endl;
     }
 };
 
@@ -205,7 +205,7 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     int char_offset = 4;
     int selection_length = (selection_range[1] - selection_range[0]) + 1;
     int selection_start = selection_range[0] + char_offset;
-    int numrows = selection_range[3] - selection_range[2];
+    int numrows = (selection_range[3] - selection_range[2]) + 1;
     int first_row_idx = selection_range[2];
     int last_row_idx = selection_range[3];
 
@@ -217,16 +217,19 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
     vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
     
-    cout << data_replacement.size() << ",-->" << numrows << endl;
-    // print_string_vector(data_replacement);
-    // if (int(data_replacement.size()) == (numrows+1)) {
-    //     // cout << "propose to change to this" << endl;
-    //     for (int i = first_row_idx; i <= last_row_idx; i++){
-    //         cout << data_replacement[i] << endl;
-    //         //pattern_data[i].replace(selection_start, selection_length, data_replacement[i]);
-    //     }
-    //     // texture_pattern(renderer_placeholder);   
-    // }     
+    //print_string_vector(data_replacement);
+    if (int(data_replacement.size()) == numrows) {
+
+        int m = 0;
+        for (int i = first_row_idx; i < (first_row_idx + numrows); i++){
+            pattern_data[i].replace(selection_start, selection_length, data_replacement[m]);
+            m += 1;
+        }
+        texture_pattern(renderer_placeholder);
+    }
+    else {
+        cout << "not equal!\n";
+    }
     
 };
 
