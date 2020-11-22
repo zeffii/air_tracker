@@ -37,23 +37,17 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     ss_1 >> x_1;
     ss_2 >> x_2;
 
-    // cout << h_start << " h_start: " << x_1 << endl;
-    // cout << h_end   << " h_end: "   << x_2 << endl;
-
     float stepsize = ((float) x_2 - x_1) / (elements - 1);
     vector<string> data_replacement;
 
-    cout << "---------\n";
     for (int i = 0 ; i < elements; i++){
         float intermediate_value = x_1 + (stepsize * i);
         int temp_int = round(intermediate_value);
         string hex_value = helper_converter(temp_int);
         hex_value = uppercase(hex_value);
-        cout << hex_value << " |   " << i << endl;
-        // cout << intermediate_value << " and -> " << temp_int << " becomes " << hex_value << endl;
         data_replacement.push_back(hex_value);
     }
-    cout << "returning a data replacement of size: " << data_replacement.size();
+
     return data_replacement;
 }
 
