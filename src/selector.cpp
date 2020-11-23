@@ -50,8 +50,9 @@ void Selector::set_dimensions(){
 };
 
 vector<int> Selector::get_dimensions(){
-    // try if sorted here is sufficient!?
-    return {column_start, column_end, row_start, row_end};
+    auto result_column = std::minmax({column_start, column_end});
+    auto result_row = std::minmax({row_start, row_end});
+    return {result_column.first, result_column.second, result_row.first, result_row.second};    
 };
 
 void Selector::draw() const {
