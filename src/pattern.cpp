@@ -200,7 +200,18 @@ void print_string_vector(vector<string> yourvec){
     }
 };
 
+bool does_selection_contain_gutter(string input_hex){
+    // selection always contains equal data in each row, we only test the first row
+    int findex = input_hex.find(" ");
+    return (findex >= 0) ? true : false;
+};
 
+bool does_selection_contain_dots(string input_hex1, string input_hex2){
+    // selection always contains equal data in each row, we only test the first row
+    int findex = input_hex1.find(".");
+    int findex2 = input_hex2.find(".");
+    return ((findex >= 0) or (findex2 >= 0)) ? true : false;
+};
 
 
 void Pattern::perform_selection_interpolation(vector<int> selection_range){
@@ -225,11 +236,18 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
 
-    // this need to include major error checking before public usage.
-    // what is the selection is a note? interpolate hex will fail.
-    // is it ` .. .. ` , also interpolate_hex will not understand how to do this.
-    // it will expect `.` or `..` or even `....` 
-    // no spaces no notes.
+    if (does_selection_contain_gutter(first_hex)){
+        cout << "selection contains a gutter, currently only single rows are supported\n";
+        return;
+    }
+
+    if (does_selection_contain_dots(first_hex, last_hex)){
+        cout << "one of the selection extents contains a dot (.), currently not supported\n";
+        return;
+    }
+
+    // TODO -- guard against notes! 
+
     vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
     
     if (int(data_replacement.size()) == numrows) {
