@@ -136,7 +136,7 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     // deal with hex data on hex params
     if (find_int_in_vector(col_number, _hex_indices)){
 
-        string allowed = "0123456789ABCDEF";
+        string allowed = "0123456789ABCDEF.";
         int findex = allowed.find(character);
 
         if (findex >= 0){
@@ -183,7 +183,11 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
             } else if (character == "`"){
                  pattern_data[row_number].replace(col_number + 4, 3, "===");
                  texture_pattern(renderer_placeholder);
+            } else if (character == "."){
+                 pattern_data[row_number].replace(col_number + 4, 3, "...");
+                 texture_pattern(renderer_placeholder);
             }
+
             else {
 
                 cout << "this is not a valid key for a note column, see manual\n";

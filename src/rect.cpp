@@ -112,6 +112,10 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "`");
                 break;
 
+            case SDLK_PERIOD:
+                mypat.set_char_at(row_index, column_index, ".");
+                break;
+
             // CHANGE OCTAVE
 
             case SDLK_LEFTBRACKET:
