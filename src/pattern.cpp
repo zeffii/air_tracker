@@ -196,7 +196,16 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     }
     // else if note in _note_indices + 1  , then hash toggle sharp on off
 
-    // else if note in _note_indices + 2  , then all numeric between 0 and 9 are accepted
+    else if (find_int_in_vector(col_number, _octave_indices)){
+        // else if note in _note_indices + 2  , then all numeric between 0 and 9 are accepted
+        string allowed = "0123456789";
+        int findex = allowed.find(character);
+        if (findex >= 0){
+            pattern_data[row_number].replace(col_number + 4, 1, character);
+            texture_pattern(renderer_placeholder);            
+        }
+
+    }
 };
 
 void print_string_vector(vector<string> yourvec){
@@ -281,6 +290,9 @@ int Pattern::get_nrows_in_column(){ return _nrows; };
 
 void Pattern::set_note_indices(std::vector<int> note_indices){
     _note_indices = note_indices; };
+
+void Pattern::set_octave_indices(std::vector<int> note_indices){
+    _octave_indices = add_num_to_indices(note_indices, 2); };
 
 void Pattern::set_hex_indices(std::vector<int> hex_indices){
     _hex_indices = hex_indices; };
