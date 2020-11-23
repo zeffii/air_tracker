@@ -224,6 +224,8 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     // this must (currently does not) make sure first_row is lower(idx) than last_row;
     int first_row_idx = selection_range[2];
     int last_row_idx = selection_range[3];
+    cout << "row: " << first_row_idx << " vs " << last_row_idx << endl;
+    cout << "col: " << selection_range[0] << " vs " << selection_range[1] << endl;
 
     if (first_row_idx == last_row_idx){
         cout << "end early, not possible to interpolate a single value\n";

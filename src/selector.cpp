@@ -50,6 +50,7 @@ void Selector::set_dimensions(){
 };
 
 vector<int> Selector::get_dimensions(){
+    // try if sorted here is sufficient!?
     return {column_start, column_end, row_start, row_end};
 };
 
