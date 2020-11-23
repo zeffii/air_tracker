@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"data",
+				"data_replacement"
+			],
+			[
+				"dat",
+				"data_replacement"
+			],
+			[
+				"d",
+				"data_replacement"
+			],
+			[
 				"co",
 				"column_end"
 			],
@@ -175,6 +187,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"propose",
+			"Selector",
 			"nrows",
 			"Window::renderer"
 		],
@@ -225,8 +239,8 @@
 		"cols":
 		[
 			0.0,
-			0.53178461033,
-			0.638532206988,
+			0.0881780986396,
+			0.420673245179,
 			1.0
 		],
 		"rows":
@@ -238,7 +252,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 72.0
+		"height": 290.0
 	},
 	"output.find_results":
 	{

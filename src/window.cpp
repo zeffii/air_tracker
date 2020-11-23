@@ -81,18 +81,6 @@ void Window::pollEvents(SDL_Event &event){
             }
             break;
 
-        // case SDL_MOUSEMOTION:
-        //     cout << event.motion.x << ", " << event.motion.y <<endl;
-        //     break;
-
-        // case SDL_MOUSEBUTTONUP:
-        //     cout << "you released a mouse button\n";
-        //     break;
-
-        // case SDL_MOUSEBUTTONDOWN:
-        //     cout << "you pressed a mouse button\n";
-        //     break;
-
         default:
             break;
     }
@@ -112,4 +100,12 @@ bool Window::is_ctrl_pressed(){
 
 void Window::set_pressing_ctrl(bool newstate){ 
     _pressing_ctrl = newstate; 
+};
+
+bool Window::is_lshift_pressed(){ 
+    return _pressing_lshift; 
+};
+
+void Window::set_pressing_lshift(bool newstate){ 
+    _pressing_lshift = newstate; 
 };

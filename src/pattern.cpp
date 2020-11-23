@@ -6,9 +6,12 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include "Selector.h"
 #include "Pattern.h"
 #include "Window.h"
 #include "Functions.h"
+#include "Hex_functions.h"
 
 using namespace std;
 
@@ -49,7 +52,7 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
     
     // this may not do a SDL_DestroyTexture
     if (_text_textures.empty()){
-        cout << "first init of _text_textures!\n";
+        cout << "air tracker: started!\n"; //"first init of _text_textures!
     }
     else {
         //cout << "re-using _text_textures to populate more!\b";
@@ -191,6 +194,85 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 
     // else if note in _note_indices + 2  , then all numeric between 0 and 9 are accepted
 };
+
+void print_string_vector(vector<string> yourvec){
+    for (int unsigned i = 0; i < yourvec.size(); i++){
+        cout << yourvec[i] << "," << endl;
+    }
+};
+
+bool does_selection_contain_gutter(string input_hex){
+    // selection always contains equal data in each row, we only test the first row
+    int findex = input_hex.find(" ");
+    return (findex >= 0) ? true : false;
+};
+
+bool does_selection_contain_dots(string input_hex1, string input_hex2){
+    // selection always contains equal data in each row, we only test the first row
+    int findex = input_hex1.find(".");
+    int findex2 = input_hex2.find(".");
+    return ((findex >= 0) or (findex2 >= 0)) ? true : false;
+};
+
+
+void Pattern::perform_selection_interpolation(vector<int> selection_range){
+    // {column_start, column_end, row_start, row_end} <= selection_range
+    int char_offset = 4;
+
+    auto result_col = std::minmax({selection_range[0], selection_range[1]});
+    auto result_row = std::minmax({selection_range[2], selection_range[3]});
+
+    int first_row_idx = result_row.first;
+    int last_row_idx = result_row.second;
+    int first_col_idx = result_col.first;
+    int last_col_idx = result_col.second;
+
+    int selection_length = (last_col_idx - first_col_idx) + 1;
+    int selection_start = first_col_idx + char_offset;
+    int numrows = (last_row_idx - first_row_idx) + 1;
+
+    if (first_row_idx == last_row_idx){
+        cout << "end early, not possible to interpolate a single value\n";
+        return;
+    }
+
+    // print selection for debug
+    // for (int i = first_row_idx; i <= last_row_idx; i++){
+    //     cout << pattern_d[i].substr(selection_start, selection_length) << endl;
+    // }
+
+    string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
+    string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
+
+    if (does_selection_contain_gutter(first_hex)){
+        cout << "selection contains a gutter, currently only single rows are supported\n";
+        return;
+    }
+
+    if (does_selection_contain_dots(first_hex, last_hex)){
+        cout << "one of the selection extents contains a dot (.), currently not supported\n";
+        return;
+    }
+
+    // TODO -- guard against notes! 
+
+    vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
+    
+    if (int(data_replacement.size()) == numrows) {
+
+        int m = 0;
+        for (int i = first_row_idx; i < (first_row_idx + numrows); i++){
+            pattern_data[i].replace(selection_start, selection_length, data_replacement[m]);
+            m += 1;
+        }
+        texture_pattern(renderer_placeholder);
+    }
+    else {
+        cout << "not equal!\n";
+    }
+    
+};
+
 
 int Pattern::get_nchars_in_row(){ return _nchars_inrow; };
 int Pattern::get_nrows_in_column(){ return _nrows; };

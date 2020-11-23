@@ -98,6 +98,11 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.print_row(row_index);
                 break;
 
+            case SDLK_EQUALS:
+                if (window.is_lshift_pressed()){
+                    cout << "next pattern\n";
+                }
+
             case SDLK_HASH:
                 // --> toggle sharp on off.
                 mypat.set_char_at(row_index, column_index, "#");
@@ -195,12 +200,9 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_i:
                 if (window.is_ctrl_pressed()){
-                    cout << "Interpolate woohooo!!\n";
-                    vector<int> test = selection.get_dimensions();
-                    cout << "selection.column_start "<< test[0] << endl;
-                    cout << "selection.column_end   "<< test[1] << endl;
-                    cout << "selection.row_start    "<< test[2] << endl;
-                    cout << "selection.row_end      "<< test[3] << endl;
+                    cout << "interpolation function triggered" << endl;
+                    vector<int> selection_range = selection.get_dimensions();
+                    mypat.perform_selection_interpolation(selection_range);
                 }
                 else {
                     mypat.set_char_at(row_index, column_index, "I");  //       note C +2

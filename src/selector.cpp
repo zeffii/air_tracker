@@ -50,6 +50,7 @@ void Selector::set_dimensions(){
 };
 
 vector<int> Selector::get_dimensions(){
+    // try if sorted here is sufficient!?
     return {column_start, column_end, row_start, row_end};
 };
 
@@ -63,18 +64,18 @@ void Selector::draw() const {
     }
 };
 
-void Selector::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
+// void Selector::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
 
-    // if (event.type == SDL_KEYDOWN){
-    //     switch (event.key.keysym.sym) {
-    //         case SDLK_LEFT:
-    //             column_index -= 1;
-    //             mypat.carrot_hop_backward(column_index);
-    //             if (column_index < 0) { column_index = nchars_inrow-5; }
-    //             _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
-};
+//     // if (event.type == SDL_KEYDOWN){
+//     //     switch (event.key.keysym.sym) {
+//     //         case SDLK_LEFT:
+//     //             column_index -= 1;
+//     //             mypat.carrot_hop_backward(column_index);
+//     //             if (column_index < 0) { column_index = nchars_inrow-5; }
+//     //             _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
+//     //             break;
+//     //         default:
+//     //             break;
+//     //     }
+//     // }
+// };
