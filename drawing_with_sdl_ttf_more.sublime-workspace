@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"pol",
+				"pollModifierKeys"
+			],
+			[
 				"data",
 				"data_replacement"
 			],
@@ -187,6 +191,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"get_dimensions",
+			"minmax",
 			"propose",
 			"Selector",
 			"nrows",
@@ -239,8 +245,8 @@
 		"cols":
 		[
 			0.0,
-			0.0881780986396,
-			0.420673245179,
+			0.544503304076,
+			0.629607587326,
 			1.0
 		],
 		"rows":
@@ -252,7 +258,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 290.0
+		"height": 211.0
 	},
 	"output.find_results":
 	{
@@ -298,7 +304,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 155.0,
+	"side_bar_width": 156.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

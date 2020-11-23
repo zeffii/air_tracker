@@ -91,7 +91,7 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
         {222, 222, 222, 255}
     };
 
-    for (int i = 0; i < 16; i++){
+    for (int unsigned i = 0; i < pattern_data.size(); i++){
 
         _text_rects[i].x = x;
         _text_rects[i].y = y + i * _line_height;
