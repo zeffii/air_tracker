@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "Selector.h"
 #include "Pattern.h"
 #include "Window.h"
@@ -217,15 +218,18 @@ bool does_selection_contain_dots(string input_hex1, string input_hex2){
 void Pattern::perform_selection_interpolation(vector<int> selection_range){
     // {column_start, column_end, row_start, row_end} <= selection_range
     int char_offset = 4;
-    int selection_length = (selection_range[1] - selection_range[0]) + 1;
-    int selection_start = selection_range[0] + char_offset;
-    int numrows = (selection_range[3] - selection_range[2]) + 1;
 
-    // this must (currently does not) make sure first_row is lower(idx) than last_row;
-    int first_row_idx = selection_range[2];
-    int last_row_idx = selection_range[3];
-    cout << "row: " << first_row_idx << " vs " << last_row_idx << endl;
-    cout << "col: " << selection_range[0] << " vs " << selection_range[1] << endl;
+    auto result_col = std::minmax({selection_range[0], selection_range[1]});
+    auto result_row = std::minmax({selection_range[2], selection_range[3]});
+
+    int first_row_idx = result_row.first;
+    int last_row_idx = result_row.second;
+    int first_col_idx = result_col.first;
+    int last_col_idx = result_col.second;
+
+    int selection_length = (last_col_idx - first_col_idx) + 1;
+    int selection_start = first_col_idx + char_offset;
+    int numrows = (last_row_idx - first_row_idx) + 1;
 
     if (first_row_idx == last_row_idx){
         cout << "end early, not possible to interpolate a single value\n";
