@@ -27,6 +27,11 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selectio
     }
 }
 
+// void pollModifierKeys(Window &window, const Uint8** keyState){
+//     SDL_PumpEvents();
+//     window.set_pressing_ctrl(keyState[SDL_SCANCODE_LCTRL]);
+//     window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
+// }
 
 int main(int argc, char* args[])
 {
@@ -36,21 +41,19 @@ int main(int argc, char* args[])
 
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
-    // 406f89
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
     const Uint8 *keyState = SDL_GetKeyboardState(NULL);
     
     while (!window.isClosed()){
-        SDL_PumpEvents();
-        if (keyState[SDL_SCANCODE_LCTRL]){
-            window.set_pressing_ctrl(true);
-        }
-        else{
-            window.set_pressing_ctrl(false);
-        }
 
+        // pollModifierKeys(window, (const Uint8**)keyState);
+        SDL_PumpEvents();
+        window.set_pressing_ctrl(keyState[SDL_SCANCODE_LCTRL]);
+        window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
+ 
         pollEvents(window, cursor, mypat, selection);
+        
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);

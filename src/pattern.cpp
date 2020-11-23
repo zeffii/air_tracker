@@ -220,6 +220,8 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     int selection_length = (selection_range[1] - selection_range[0]) + 1;
     int selection_start = selection_range[0] + char_offset;
     int numrows = (selection_range[3] - selection_range[2]) + 1;
+
+    // this must (currently does not) make sure first_row is lower(idx) than last_row;
     int first_row_idx = selection_range[2];
     int last_row_idx = selection_range[3];
 

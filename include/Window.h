@@ -12,7 +12,9 @@ class Window {
         ~Window();
         void pollEvents(SDL_Event &event);
         bool is_ctrl_pressed();
+        bool is_lshift_pressed();
         void set_pressing_ctrl(bool newstate);
+        void set_pressing_lshift(bool newstate);
 
         void clear() const;
         inline bool isClosed() const { return _closed; }
@@ -24,6 +26,8 @@ class Window {
         bool _closed = false;
 
         bool _pressing_ctrl = false;
+        bool _pressing_lshift = false;
+
 
         SDL_Window *_window = nullptr;
     public:

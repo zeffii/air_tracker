@@ -98,6 +98,11 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.print_row(row_index);
                 break;
 
+            case SDLK_EQUALS:
+                if (window.is_lshift_pressed()){
+                    cout << "next pattern\n";
+                }
+
             case SDLK_HASH:
                 // --> toggle sharp on off.
                 mypat.set_char_at(row_index, column_index, "#");
