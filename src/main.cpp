@@ -27,7 +27,7 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selectio
     }
 }
 
-// void pollModifierKeys(Window &window, const Uint8** keyState){
+// void pollModifierKeys(Window &window, volatile const Uint8** keyState){
 //     SDL_PumpEvents();
 //     window.set_pressing_ctrl(keyState[SDL_SCANCODE_LCTRL]);
 //     window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
@@ -47,7 +47,7 @@ int main(int argc, char* args[])
     
     while (!window.isClosed()){
 
-        // pollModifierKeys(window, (const Uint8**)keyState);
+        //pollModifierKeys(window, (const Uint8**)keyState);
         SDL_PumpEvents();
         window.set_pressing_ctrl(keyState[SDL_SCANCODE_LCTRL]);
         window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
