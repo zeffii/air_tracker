@@ -200,6 +200,9 @@ void print_string_vector(vector<string> yourvec){
     }
 };
 
+
+
+
 void Pattern::perform_selection_interpolation(vector<int> selection_range){
     // {column_start, column_end, row_start, row_end} <= selection_range
     int char_offset = 4;
@@ -209,9 +212,15 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     int first_row_idx = selection_range[2];
     int last_row_idx = selection_range[3];
 
-    for (int i = first_row_idx; i <= last_row_idx; i++){
-        cout << pattern_data[i].substr(selection_start, selection_length) << endl;
+    if (first_row_idx == last_row_idx){
+        cout << "end early, not possible to interpolate a single value\n";
+        return;
     }
+
+    // print selection for debug
+    // for (int i = first_row_idx; i <= last_row_idx; i++){
+    //     cout << pattern_d[i].substr(selection_start, selection_length) << endl;
+    // }
 
     string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
