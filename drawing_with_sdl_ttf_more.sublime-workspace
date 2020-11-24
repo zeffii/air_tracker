@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"pol",
+				"pollModifierKeys"
+			],
+			[
 				"data",
 				"data_replacement"
 			],
@@ -133,9 +137,15 @@
 	},
 	"console":
 	{
-		"height": 87.0,
+		"height": 131.0,
 		"history":
 		[
+			"100 / (300000000 / 263156)",
+			"263156 / 3000000000",
+			"263156 / 300000000",
+			"100 / (3000000000 / 263156)",
+			"3000000000 / 263156",
+			"3000000 / 263156",
 			"3%3",
 			"3%2"
 		]
@@ -152,6 +162,7 @@
 	"file_history":
 	[
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
+		"/C/Users/zeffi/Desktop/rates.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/.gitignore",
 		"/C/2020/Blender-3dfile-svercok.tar/tartmp.PeIFPP",
 		"/C/bash/etc/skel/.profile",
@@ -187,6 +198,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"16",
+			"15",
+			"get_dimensions",
+			"minmax",
 			"propose",
 			"Selector",
 			"nrows",
@@ -239,8 +254,8 @@
 		"cols":
 		[
 			0.0,
-			0.0881780986396,
-			0.420673245179,
+			0.388763904664,
+			0.569452733246,
 			1.0
 		],
 		"rows":
@@ -252,7 +267,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 290.0
+		"height": 211.0
 	},
 	"output.find_results":
 	{
@@ -298,7 +313,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 155.0,
+	"side_bar_width": 197.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

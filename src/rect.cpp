@@ -102,6 +102,13 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 if (window.is_lshift_pressed()){
                     cout << "next pattern\n";
                 }
+                break;
+
+            case SDLK_MINUS:
+                if (window.is_lshift_pressed()){
+                    cout << "last pattern\n";
+                }
+                break;
 
             case SDLK_HASH:
                 // --> toggle sharp on off.
@@ -110,6 +117,10 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_BACKQUOTE:
                 mypat.set_char_at(row_index, column_index, "`");
+                break;
+
+            case SDLK_PERIOD:
+                mypat.set_char_at(row_index, column_index, ".");
                 break;
 
             // CHANGE OCTAVE

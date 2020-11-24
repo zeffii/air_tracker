@@ -27,6 +27,7 @@ class Pattern {
         int get_octave();
         void change_octave(int direction);
         void set_note_indices(std::vector<int> note_indices);
+        void set_octave_indices(std::vector<int> note_indices);
         void set_hex_indices(std::vector<int> hex_indices);
         void set_single_hop_indices(std::vector<int> single_hop);
         void set_double_hop_fw_indices(std::vector<int> double_hop_fw);
@@ -50,6 +51,7 @@ class Pattern {
         int _nrows;
 
         std::vector<int> _note_indices;
+        std::vector<int> _octave_indices;
         std::vector<int> _hex_indices;
         std::vector<int> _carret_single_hop;
         std::vector<int> _carret_double_hop_fw;
