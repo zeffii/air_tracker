@@ -87,7 +87,7 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
     for (int unsigned i = 0; i < pattern_data.size(); i++){
 
-        if (shift_vertical_times < 0){
+        if (shift_vertical_times != 0){
             int skip_rendering_n_rows = shift_vertical_times * 16;
 
             if (copysign(i, shift_vertical_times) > skip_rendering_n_rows){
