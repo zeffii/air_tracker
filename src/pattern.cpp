@@ -87,6 +87,14 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
     for (int unsigned i = 0; i < pattern_data.size(); i++){
 
+        if (shift_vertical_times < 0){
+            int skip_rendering_n_rows = shift_vertical_times * 16;
+
+            if (copysign(i, shift_vertical_times) > skip_rendering_n_rows){
+                continue;
+            }
+        }
+
         _text_rects[i].x = pattern_x;
         _text_rects[i].y = pattern_y + i * _line_height;
         SDL_Color lc = colors[hcolor[i%8]];
