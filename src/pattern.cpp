@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <stdio.h>
 #include "Selector.h"
 #include "Pattern.h"
 #include "Window.h"
@@ -84,13 +85,6 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
 
-    int hcolor[8] = {2, 0, 0, 0, 1, 0, 0, 0};
-    SDL_Color colors[3] = {
-        {122, 122, 122, 255},
-        {182, 202, 212, 255},
-        {222, 222, 222, 255}
-    };
-
     for (int unsigned i = 0; i < pattern_data.size(); i++){
 
         _text_rects[i].x = x;
@@ -101,6 +95,10 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
         SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
     }
+};
+
+void Pattern::scroll_vertical(int numrows){
+    cout << "scroll pattern " << numrows << " rows \n";
 };
 
 
