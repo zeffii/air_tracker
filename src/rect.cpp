@@ -58,37 +58,6 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     int nrows = mypat.get_nrows_in_column();
 
     if (event.type == SDL_KEYDOWN){
-        if (window.is_lshift_pressed()){
-
-            switch (event.key.keysym.sym) {
-
-                case SDLK_EQUALS:
-                    cout << "higher pattern\n";
-                    break;
-                case SDLK_MINUS:
-                    cout << "lower pattern\n";
-                    break;
-                default:
-                    break;
-            }
-            return;
-        } 
-        
-        else if (window.is_ctrl_pressed()){
-
-            switch (event.key.keysym.sym) {
-                case SDLK_i:
-                    {
-                    vector<int> selection_range = selection.get_dimensions();
-                    mypat.perform_selection_interpolation(selection_range);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return;
-        }
-
         switch (event.key.keysym.sym) {
 
             case SDLK_BACKSLASH:
@@ -127,6 +96,18 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_RETURN:
                 mypat.print_row(row_index);
+                break;
+
+            case SDLK_EQUALS:
+                if (window.is_lshift_pressed()){
+                    cout << "next pattern\n";
+                }
+                break;
+
+            case SDLK_MINUS:
+                if (window.is_lshift_pressed()){
+                    cout << "last pattern\n";
+                }
                 break;
 
             case SDLK_HASH:
@@ -229,7 +210,14 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "U");  //       note B +1
                 break;
             case SDLK_i:
-                mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                if (window.is_ctrl_pressed()){
+                    // cout << "interpolation function triggered" << endl;
+                    vector<int> selection_range = selection.get_dimensions();
+                    mypat.perform_selection_interpolation(selection_range);
+                }
+                else {
+                    mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                }
                 break;
             case SDLK_9:
                 mypat.set_char_at(row_index, column_index, "9");  //       note C#+2
