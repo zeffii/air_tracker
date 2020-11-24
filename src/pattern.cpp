@@ -87,8 +87,8 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
     for (int unsigned i = 0; i < pattern_data.size(); i++){
 
-        _text_rects[i].x = x;
-        _text_rects[i].y = y + i * _line_height;
+        _text_rects[i].x = pattern_x;
+        _text_rects[i].y = pattern_y + i * _line_height;
         SDL_Color lc = colors[hcolor[i%8]];
 
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
@@ -98,7 +98,9 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 };
 
 void Pattern::scroll_vertical(int numrows){
-    cout << "scroll pattern " << numrows << " rows \n";
+    pattern_y += (numrows * _line_height);
+    shift_vertical_times += copysign(1, numrows);
+    cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
 };
 
 

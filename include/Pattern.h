@@ -51,6 +51,10 @@ class Pattern {
         int _nchars_inrow;
         int _nrows;
 
+        int pattern_x = 20;
+        int pattern_y = 20;
+        int shift_vertical_times = 0;
+
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;
         std::vector<int> _hex_indices;

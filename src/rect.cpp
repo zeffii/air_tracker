@@ -82,7 +82,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_UP:
                 if (window.is_lshift_pressed()){
-                    mypat.scroll_vertical(-16);
+                    mypat.scroll_vertical(16);
                 }
                 else {
                     row_index -= 1;
@@ -94,7 +94,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_DOWN:
                 if (window.is_lshift_pressed()){
-                    mypat.scroll_vertical(+16);
+                    mypat.scroll_vertical(-16);
                 }
                 else {            
                     row_index += 1;
