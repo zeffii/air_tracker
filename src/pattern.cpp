@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <stdio.h>
 #include "Selector.h"
 #include "Pattern.h"
 #include "Window.h"
@@ -84,23 +85,36 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
 
-    int hcolor[8] = {2, 0, 0, 0, 1, 0, 0, 0};
-    SDL_Color colors[3] = {
-        {122, 122, 122, 255},
-        {182, 202, 212, 255},
-        {222, 222, 222, 255}
-    };
+    int offset = shift_vertical_times * 16;
+    int num_rows = static_cast<int>(pattern_data.size());
+    
+    for (int i = 0; i < num_rows; i++){
 
-    for (int unsigned i = 0; i < pattern_data.size(); i++){
+        int ri = i;
 
-        _text_rects[i].x = x;
-        _text_rects[i].y = y + i * _line_height;
+        if (shift_vertical_times != 0){
+            ri = (i + offset) % num_rows;
+            if (ri < 0){
+                ri = num_rows + ri;
+            }
+        }
+
+        _text_rects[i].x = pattern_x;
+        _text_rects[i].y = pattern_y + ri * _line_height;
         SDL_Color lc = colors[hcolor[i%8]];
 
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
         SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
+        SDL_Delay(1);
     }
+    // cout << endl;
+};
+
+void Pattern::scroll_vertical(int numrows){
+    // pattern_y += (numrows * _line_height);
+    shift_vertical_times += copysign(1, numrows);
+    cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
 };
 
 
@@ -119,8 +133,27 @@ void Pattern::change_octave(int direction){
     cout << octave << endl;
 };
 
+void Pattern::adjust_visual_cursor_for_scroll(int &row_number){
+    /*
+    the row_number visually is different from the row number of the selection.
+    */
+
+    if (shift_vertical_times != 0){
+
+        int offset = shift_vertical_times * 16;
+        int ri = (row_number + offset) % _nrows;
+        
+        if (ri < 0){ 
+            ri = _nrows + ri;  
+        }
+        row_number = ri;
+    }
+
+};
 
 void Pattern::set_char_at(int row_number, int col_number, string character){
+
+    adjust_visual_cursor_for_scroll(row_number);
 
     /*
                                         28           41
@@ -236,6 +269,9 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     int last_col_idx = selection_range[1];
     int first_row_idx = selection_range[2];
     int last_row_idx = selection_range[3];
+
+    adjust_visual_cursor_for_scroll(first_row_idx);
+    adjust_visual_cursor_for_scroll(last_row_idx);
 
     int selection_length = (last_col_idx - first_col_idx) + 1;
     int selection_start = first_col_idx + char_offset;

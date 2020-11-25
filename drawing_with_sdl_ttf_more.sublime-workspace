@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"sh",
+				"shift_vertical_times"
+			],
+			[
 				"pol",
 				"pollModifierKeys"
 			],
@@ -254,8 +258,8 @@
 		"cols":
 		[
 			0.0,
-			0.388763904664,
-			0.569452733246,
+			0.266219239374,
+			0.36022044456,
 			1.0
 		],
 		"rows":

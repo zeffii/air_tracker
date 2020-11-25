@@ -35,6 +35,9 @@ class Pattern {
 
         void carrot_hop_forward(int &c_index);
         void carrot_hop_backward(int &c_index);
+        void scroll_vertical(int numrows);
+
+        void adjust_visual_cursor_for_scroll(int &row_number);
 
     private:
         string pattern_descriptor_str;
@@ -50,10 +53,23 @@ class Pattern {
         int _nchars_inrow;
         int _nrows;
 
+        int pattern_x = 20;
+        int pattern_y = 20;
+        int shift_vertical_times = 0;
+
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;
         std::vector<int> _hex_indices;
         std::vector<int> _carret_single_hop;
         std::vector<int> _carret_double_hop_fw;
         std::vector<int> _carret_double_hop_bw;
+
+        // theme data
+
+        int hcolor[8] = {2, 0, 0, 0, 1, 0, 0, 0};
+        SDL_Color colors[3] = {
+            {122, 122, 122, 255},
+            {182, 202, 212, 255},
+            {222, 222, 222, 255}
+        };
 };

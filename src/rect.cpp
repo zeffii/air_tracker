@@ -81,17 +81,27 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
 
             case SDLK_UP:
-                row_index -= 1;
-                if (row_index < 0) { row_index = (nrows-1); }
-                _y = y_offset + (row_index * line_height);
-                update_selection_if_active(selection, column_index, row_index);
+                if (window.is_lshift_pressed()){
+                    mypat.scroll_vertical(16);
+                }
+                else {
+                    row_index -= 1;
+                    if (row_index < 0) { row_index = (nrows-1); }
+                    _y = y_offset + (row_index * line_height);
+                    update_selection_if_active(selection, column_index, row_index);
+                }
                 break;
 
             case SDLK_DOWN:
-                row_index += 1;
-                row_index %= nrows;
-                _y = y_offset + (row_index * line_height);
-                update_selection_if_active(selection, column_index, row_index);
+                if (window.is_lshift_pressed()){
+                    mypat.scroll_vertical(-16);
+                }
+                else {            
+                    row_index += 1;
+                    row_index %= nrows;
+                    _y = y_offset + (row_index * line_height);
+                    update_selection_if_active(selection, column_index, row_index);
+                }
                 break;
 
             case SDLK_RETURN:
@@ -211,12 +221,10 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_i:
                 if (window.is_ctrl_pressed()){
-                    // cout << "interpolation function triggered" << endl;
-                    vector<int> selection_range = selection.get_dimensions();
-                    mypat.perform_selection_interpolation(selection_range);
+                    mypat.perform_selection_interpolation(selection.get_dimensions());
                 }
                 else {
-                    mypat.set_char_at(row_index, column_index, "I");  //       note C +2
+                    mypat.set_char_at(row_index, column_index, "I");  //   note C +2
                 }
                 break;
             case SDLK_9:
