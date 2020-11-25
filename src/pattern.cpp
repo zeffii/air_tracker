@@ -155,8 +155,6 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
 
     adjust_visual_cursor_for_scroll(row_number);
 
-
-
     /*
                                         28           41
                3  6   10 13  17 20  24 27  31 34 37 40  44 47
