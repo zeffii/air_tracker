@@ -87,6 +87,8 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
     for (int unsigned i = 0; i < pattern_data.size(); i++){
 
+        int ri = i;
+
         if (shift_vertical_times != 0){
             int skip_rendering_n_rows = shift_vertical_times * 16;
 
@@ -95,13 +97,13 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
             }
         }
 
-        _text_rects[i].x = pattern_x;
-        _text_rects[i].y = pattern_y + i * _line_height;
-        SDL_Color lc = colors[hcolor[i%8]];
+        _text_rects[ri].x = pattern_x;
+        _text_rects[ri].y = pattern_y + ri * _line_height;
+        SDL_Color lc = colors[hcolor[ri%8]];
 
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
-        SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
-        SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
+        SDL_SetTextureColorMod( _text_textures[ri], lc.r, lc.g, lc.b );
+        SDL_RenderCopy(renderer, _text_textures[ri], nullptr, &_text_rects[ri]);
     }
 };
 
