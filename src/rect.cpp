@@ -221,8 +221,11 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_i:
                 if (window.is_ctrl_pressed()){
-                    mypat.perform_selection_interpolation(selection.get_dimensions());
+                    mypat.perform_selection_interpolation(selection.get_dimensions(), "tween");
                 }
+                else if (window.is_lshift_pressed()){
+                    mypat.perform_selection_interpolation(selection.get_dimensions(), "multi");
+                } 
                 else {
                     mypat.set_char_at(row_index, column_index, "I");  //   note C +2
                 }

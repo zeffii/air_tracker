@@ -261,7 +261,7 @@ bool does_selection_contain_dots(string input_hex1, string input_hex2){
 };
 
 
-void Pattern::perform_selection_interpolation(vector<int> selection_range){
+void Pattern::perform_selection_interpolation(vector<int> selection_range, string mode){
 
     int char_offset = 4;
 
@@ -301,6 +301,11 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     }
 
     // TODO -- guard against notes! 
+
+    // TODO -- 
+    if (mode == "multi"){
+        cout << "performing multi value linear interpolation\n";
+    }
 
     vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
     
