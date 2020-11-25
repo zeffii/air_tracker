@@ -85,25 +85,32 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
 
-    for (int unsigned i = 0; i < pattern_data.size(); i++){
+    int offset = shift_vertical_times * 16;
+    int num_rows = static_cast<int>(pattern_data.size());
+    
+    for (int i = 0; i < num_rows; i++){
 
         int ri = i;
 
         if (shift_vertical_times != 0){
-            int skip_rendering_n_rows = shift_vertical_times * 16;
-
-            if (copysign(i, shift_vertical_times) > skip_rendering_n_rows){
-                continue;
-            }
+            ri = (i + offset) % num_rows;
+            cout << ri << endl;
         }
+        // }
+        //     int skip_rendering_n_rows = shift_vertical_times * 16;
 
-        _text_rects[ri].x = pattern_x;
-        _text_rects[ri].y = pattern_y + ri * _line_height;
-        SDL_Color lc = colors[hcolor[ri%8]];
+        //     if (copysign(i, shift_vertical_times) > skip_rendering_n_rows){
+        //         continue;
+        //     }
+        // }
+
+        _text_rects[i].x = pattern_x;
+        _text_rects[i].y = pattern_y + i * _line_height;
+        SDL_Color lc = colors[hcolor[i%8]];
 
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
-        SDL_SetTextureColorMod( _text_textures[ri], lc.r, lc.g, lc.b );
-        SDL_RenderCopy(renderer, _text_textures[ri], nullptr, &_text_rects[ri]);
+        SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
+        SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
     }
 };
 
