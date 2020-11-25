@@ -94,28 +94,25 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
         if (shift_vertical_times != 0){
             ri = (i + offset) % num_rows;
-            cout << ri << endl;
+            if (ri < 0){
+                ri = num_rows + ri;
+            }
         }
-        // }
-        //     int skip_rendering_n_rows = shift_vertical_times * 16;
-
-        //     if (copysign(i, shift_vertical_times) > skip_rendering_n_rows){
-        //         continue;
-        //     }
-        // }
 
         _text_rects[i].x = pattern_x;
-        _text_rects[i].y = pattern_y + i * _line_height;
+        _text_rects[i].y = pattern_y + ri * _line_height;
         SDL_Color lc = colors[hcolor[i%8]];
 
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
         SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
+        SDL_Delay(1);
     }
+    // cout << endl;
 };
 
 void Pattern::scroll_vertical(int numrows){
-    pattern_y += (numrows * _line_height);
+    // pattern_y += (numrows * _line_height);
     shift_vertical_times += copysign(1, numrows);
     cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
 };
@@ -136,8 +133,29 @@ void Pattern::change_octave(int direction){
     cout << octave << endl;
 };
 
+void Pattern::adjust_visual_cursor_for_scroll(int &row_number){
+    /*
+    the row_number visually is different from the row number of the selection.
+    */
+
+    if (shift_vertical_times != 0){
+
+        int offset = shift_vertical_times * 16;
+        int ri = (row_number + offset) % _nrows;
+        
+        if (ri < 0){ 
+            ri = _nrows + ri;  
+        }
+        row_number = ri;
+    }
+
+};
 
 void Pattern::set_char_at(int row_number, int col_number, string character){
+
+    adjust_visual_cursor_for_scroll(row_number);
+
+
 
     /*
                                         28           41
@@ -253,6 +271,9 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
     int last_col_idx = selection_range[1];
     int first_row_idx = selection_range[2];
     int last_row_idx = selection_range[3];
+
+    adjust_visual_cursor_for_scroll(first_row_idx);
+    adjust_visual_cursor_for_scroll(last_row_idx);
 
     int selection_length = (last_col_idx - first_col_idx) + 1;
     int selection_start = first_col_idx + char_offset;

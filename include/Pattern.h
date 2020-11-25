@@ -37,6 +37,8 @@ class Pattern {
         void carrot_hop_backward(int &c_index);
         void scroll_vertical(int numrows);
 
+        void adjust_visual_cursor_for_scroll(int &row_number);
+
     private:
         string pattern_descriptor_str;
         std::vector<string> pattern_data;

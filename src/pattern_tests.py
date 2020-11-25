@@ -4,7 +4,9 @@ import pathlib
 def print_shifted(data, offset=0):
     num_rows = len(data)
     for i in range(num_rows):
-        print(data[(i+offset)%num_rows])
+        ri = (i+offset)%num_rows
+        print(ri)
+        print(data[ri])
 
 p = pathlib.Path(__file__).parent.absolute()
 p = os.path.dirname(p)
@@ -17,4 +19,4 @@ with open(pattern_path) as f:
     content = f.readlines()
     pattern_data = [x.strip() for x in content[1:]]
 
-print_shifted(pattern_data, 16)
+print_shifted(pattern_data, -16)
