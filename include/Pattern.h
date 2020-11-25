@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "Selector.h"
 #include "Hex_functions.h"
+#include "SelectRange.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class Pattern {
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
         void perform_selection_interpolation(vector<int> selection_range, string mode);
+        void interpolate_single(Selection_Params sel);
 
         int get_nchars_in_row();
         int get_nrows_in_column();

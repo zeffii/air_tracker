@@ -14,6 +14,7 @@
 #include "Functions.h"
 #include "Hex_functions.h"
 
+
 using namespace std;
 
 
@@ -260,6 +261,24 @@ bool does_selection_contain_dots(string input_hex1, string input_hex2){
     return ((findex >= 0) or (findex2 >= 0)) ? true : false;
 };
 
+void Pattern::interpolate_single(Selection_Params s){
+    vector<string> data_replacement = interpolate_hex(s.numrows, s.first_hex, s.last_hex);
+    
+    if (int(data_replacement.size()) == s.numrows) { 
+
+        int m = 0;
+        for (int i = s.first_row_idx; i < (s.first_row_idx + s.numrows); i++){
+            pattern_data[i].replace(s.selection_start, s.selection_length, data_replacement[m]);
+            m += 1;
+        }
+        texture_pattern(renderer_placeholder);
+    }
+    else {
+        cout << "not equal!\n";
+    }
+
+}
+
 
 void Pattern::perform_selection_interpolation(vector<int> selection_range, string mode){
 
@@ -275,7 +294,7 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
 
     int selection_length = (last_col_idx - first_col_idx) + 1;
     int selection_start = first_col_idx + char_offset;
-    int numrows = (last_row_idx - first_row_idx) + 1;
+    int numrows = (last_row_idx - first_row_idx) + 1;  // num rows in selection
 
     if (first_row_idx == last_row_idx){
         cout << "end early, not possible to interpolate a single value\n";
@@ -305,21 +324,23 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
     // TODO -- 
     if (mode == "multi"){
         cout << "performing multi value linear interpolation\n";
-    }
 
-    vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
-    
-    if (int(data_replacement.size()) == numrows) {
 
-        int m = 0;
-        for (int i = first_row_idx; i < (first_row_idx + numrows); i++){
-            pattern_data[i].replace(selection_start, selection_length, data_replacement[m]);
-            m += 1;
-        }
-        texture_pattern(renderer_placeholder);
+
+
+        
     }
-    else {
-        cout << "not equal!\n";
+    else if (mode == "tween"){
+
+        Selection_Params sel;
+        sel.first_hex = first_hex;
+        sel.last_hex = last_hex;
+        sel.numrows = numrows;
+        sel.first_row_idx = first_row_idx;
+        sel.selection_start = selection_start;
+        sel.selection_length = selection_length;
+        interpolate_single(sel);
+
     }
     
 };
