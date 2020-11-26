@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"row",
+				"row_value"
+			],
+			[
+				"Sel",
+				"Selection_Params"
+			],
+			[
+				"fir",
+				"first_row_idx"
+			],
+			[
+				"nm",
+				"numrows"
+			],
+			[
+				"pat",
+				"pattern_path"
+			],
+			[
 				"sh",
 				"shift_vertical_times"
 			],
@@ -38,10 +58,6 @@
 			[
 				"jo",
 				"join_two_vectors"
-			],
-			[
-				"pat",
-				"pattern_descriptor_str"
 			],
 			[
 				"fo",
@@ -258,8 +274,8 @@
 		"cols":
 		[
 			0.0,
-			0.266219239374,
-			0.36022044456,
+			0.287665818627,
+			0.83605092871,
 			1.0
 		],
 		"rows":
@@ -271,7 +287,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 211.0
+		"height": 199.0
 	},
 	"output.find_results":
 	{
@@ -317,7 +333,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 197.0,
+	"side_bar_width": 246.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

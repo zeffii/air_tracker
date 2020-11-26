@@ -301,10 +301,6 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
         return;
     }
 
-    // print selection for debug
-    // for (int i = first_row_idx; i <= last_row_idx; i++){
-    //     cout << pattern_d[i].substr(selection_start, selection_length) << endl;
-    // }
 
     string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
@@ -313,22 +309,33 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
         cout << "selection contains a gutter, currently only single rows are supported\n";
         return;
     }
-
     if (does_selection_contain_dots(first_hex, last_hex)){
         cout << "one of the selection extents contains a dot (.), currently not supported\n";
         return;
     }
+    if (first_hex.length() == 3){
+        cout << "note column not yet supported\n";
+        return;
+    }
 
-    // TODO -- guard against notes! 
-
-    // TODO -- 
     if (mode == "multi"){
         cout << "performing multi value linear interpolation\n";
-
-
-
-
         
+        vector<Sparse_Selection> sparse_selection_vector;
+
+        for (int i = first_row_idx; i <= last_row_idx; i++){
+            string row_value = pattern_data[i].substr(selection_start, selection_length);
+            int row_contains_dot = row_value.find(".");
+            if (row_contains_dot < 0){
+                sparse_selection_vector.push_back({i, row_value});
+            }
+        }
+
+        for (auto v : sparse_selection_vector){
+            cout << v.start_idx << " --> " << v.hex_value << endl;
+        }
+
+
     }
     else if (mode == "tween"){
 
