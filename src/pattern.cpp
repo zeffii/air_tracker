@@ -341,7 +341,15 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
                 if ((v2.start_idx - v.start_idx) == 1){
                     continue;
                 }
-                cout << v.start_idx << ":" << v.hex_value << "-->" << v2.start_idx << ":" << v2.hex_value << endl;
+                // cout << v.start_idx << ":" << v.hex_value << "-->" << v2.start_idx << ":" << v2.hex_value << endl;
+                interpolate_single({
+                    v.hex_value,                        // first hex
+                    v2.hex_value,                       // second hex
+                    ((v2.start_idx - v.start_idx) + 1), // numrows
+                    v.start_idx,                        // first row idx
+                    selection_start,                    // column selection start
+                    selection_length}                   // column selection length
+                );
             }
         }
 
