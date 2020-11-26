@@ -382,7 +382,6 @@ void Pattern::randomize_selection(vector<int> selection_range, int factor){
 
     int selection_length = (last_col_idx - first_col_idx) + 1;
     int selection_start = first_col_idx + char_offset;
-    // int numrows = (last_row_idx - first_row_idx) + 1;  // num rows in selection
 
     int changes = 0;
     for (int i = first_row_idx; i <= last_row_idx; i++){
