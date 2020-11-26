@@ -14,6 +14,7 @@
 #include "Functions.h"
 #include "Hex_functions.h"
 
+
 using namespace std;
 
 
@@ -260,8 +261,26 @@ bool does_selection_contain_dots(string input_hex1, string input_hex2){
     return ((findex >= 0) or (findex2 >= 0)) ? true : false;
 };
 
+void Pattern::interpolate_single(Selection_Params s){
+    vector<string> data_replacement = interpolate_hex(s.numrows, s.first_hex, s.last_hex);
+    
+    if (int(data_replacement.size()) == s.numrows) { 
 
-void Pattern::perform_selection_interpolation(vector<int> selection_range){
+        int m = 0;
+        for (int i = s.first_row_idx; i < (s.first_row_idx + s.numrows); i++){
+            pattern_data[i].replace(s.selection_start, s.selection_length, data_replacement[m]);
+            m += 1;
+        }
+        texture_pattern(renderer_placeholder);
+    }
+    else {
+        cout << "not equal!\n";
+    }
+
+}
+
+
+void Pattern::perform_selection_interpolation(vector<int> selection_range, string mode){
 
     int char_offset = 4;
 
@@ -275,17 +294,13 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
 
     int selection_length = (last_col_idx - first_col_idx) + 1;
     int selection_start = first_col_idx + char_offset;
-    int numrows = (last_row_idx - first_row_idx) + 1;
+    int numrows = (last_row_idx - first_row_idx) + 1;  // num rows in selection
 
     if (first_row_idx == last_row_idx){
         cout << "end early, not possible to interpolate a single value\n";
         return;
     }
 
-    // print selection for debug
-    // for (int i = first_row_idx; i <= last_row_idx; i++){
-    //     cout << pattern_d[i].substr(selection_start, selection_length) << endl;
-    // }
 
     string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
     string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
@@ -294,29 +309,104 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range){
         cout << "selection contains a gutter, currently only single rows are supported\n";
         return;
     }
-
     if (does_selection_contain_dots(first_hex, last_hex)){
         cout << "one of the selection extents contains a dot (.), currently not supported\n";
         return;
     }
+    if (first_hex.length() == 3){
+        cout << "note column not yet supported\n";
+        return;
+    }
 
-    // TODO -- guard against notes! 
+    if (mode == "multi"){
+        cout << "performing multi value linear interpolation\n";
+        
+        vector<Sparse_Selection> sparse_selection_vector;
 
-    vector<string> data_replacement = interpolate_hex(numrows, first_hex, last_hex);
-    
-    if (int(data_replacement.size()) == numrows) {
-
-        int m = 0;
-        for (int i = first_row_idx; i < (first_row_idx + numrows); i++){
-            pattern_data[i].replace(selection_start, selection_length, data_replacement[m]);
-            m += 1;
+        for (int i = first_row_idx; i <= last_row_idx; i++){
+            string row_value = pattern_data[i].substr(selection_start, selection_length);
+            int row_contains_dot = row_value.find(".");
+            if (row_contains_dot < 0){
+                sparse_selection_vector.push_back({i, row_value});
+            }
         }
+
+        if (sparse_selection_vector.size() >= 3){
+            cout << "2 or more transitions!\n";
+
+            for (int unsigned i = 0; i < sparse_selection_vector.size()-1; i++){
+                Sparse_Selection v = sparse_selection_vector[i];
+                Sparse_Selection v2 = sparse_selection_vector[i+1];
+
+                if ((v2.start_idx - v.start_idx) == 1){
+                    continue;
+                }
+                interpolate_single({
+                    v.hex_value,                        // first hex
+                    v2.hex_value,                       // second hex
+                    ((v2.start_idx - v.start_idx) + 1), // numrows
+                    v.start_idx,                        // first row idx
+                    selection_start,                    // column selection start
+                    selection_length}                   // column selection length
+                );
+            }
+        }
+
+    }
+    else if (mode == "tween"){
+
+        Selection_Params sel;
+        sel.first_hex = first_hex;
+        sel.last_hex = last_hex;
+        sel.numrows = numrows;
+        sel.first_row_idx = first_row_idx;
+        sel.selection_start = selection_start;
+        sel.selection_length = selection_length;
+        interpolate_single(sel);
+
+    }
+    
+};
+
+void Pattern::randomize_selection(vector<int> selection_range, int factor){
+
+    int char_offset = 4;
+
+    int first_col_idx = selection_range[0];
+    int last_col_idx = selection_range[1];
+    int first_row_idx = selection_range[2];
+    int last_row_idx = selection_range[3];
+
+    adjust_visual_cursor_for_scroll(first_row_idx);
+    adjust_visual_cursor_for_scroll(last_row_idx);
+
+    int selection_length = (last_col_idx - first_col_idx) + 1;
+    int selection_start = first_col_idx + char_offset;
+    // int numrows = (last_row_idx - first_row_idx) + 1;  // num rows in selection
+
+    int changes = 0;
+    for (int i = first_row_idx; i <= last_row_idx; i++){
+
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+
+            cout << row_value;
+            int numchars = row_value.length();
+
+            string replacement = pick_random_hex(numchars);
+            cout << " <<< " << replacement << endl;
+
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            changes += 1;
+        }
+    }
+
+    if (changes > 0){
+        cout << "randomize " << changes << " values\n";
         texture_pattern(renderer_placeholder);
     }
-    else {
-        cout << "not equal!\n";
-    }
-    
+
 };
 
 

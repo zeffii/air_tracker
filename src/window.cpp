@@ -109,3 +109,7 @@ bool Window::is_lshift_pressed(){
 void Window::set_pressing_lshift(bool newstate){ 
     _pressing_lshift = newstate; 
 };
+
+// void Window::set_window_title(const char *newtitle){
+//     SDL_SetWindowTitle(_window, newtitle);
+// };

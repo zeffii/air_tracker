@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
     for (int unsigned i=0; i < A.size(); i++){

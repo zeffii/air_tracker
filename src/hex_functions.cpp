@@ -3,12 +3,21 @@
 #include <string>
 #include <math.h>
 #include <vector>
+#include <random>
+#include <iomanip>
+
 
 using namespace std;
 
-string helper_converter(int num){
+/*
+
+*/
+
+string helper_converter(int num, int numchars){
+
+    string retval = "";
     stringstream stream;
-    stream << std::hex << num;
+    stream << std::setfill('0') << std::setw(numchars) << std::hex << num;
     return stream.str();
 };
 
@@ -24,10 +33,6 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     - first convert h_start amd h_end to integers
     - generate the range between these integers (given range of n elements)
     - print the hex range of these newly generated elements.
-
-    - limitation, 
-       -- expects first hex to be lower than the second, 
-       -- expects both to be different
     */
     unsigned int x_1, x_2;
     stringstream ss_1, ss_2;
@@ -43,7 +48,8 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     for (int i = 0 ; i < elements; i++){
         float intermediate_value = x_1 + (stepsize * i);
         int temp_int = round(intermediate_value);
-        string hex_value = helper_converter(temp_int);
+        int numchars = h_start.length();
+        string hex_value = helper_converter(temp_int, numchars);
         hex_value = uppercase(hex_value);
         data_replacement.push_back(hex_value);
     }
@@ -51,3 +57,32 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     return data_replacement;
 }
 
+
+string pick_random_hex(int numchars){
+
+    vector<string> hexvals {
+        "A", "B", "C", "D", "E", "F",
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+    };
+    int unsigned len = hexvals.size() - 1;
+    string replacement = (numchars == 1) ? "." : "..";
+   
+    switch (numchars){
+        case 1:
+            {
+                replacement = hexvals[rand() % len];
+            }
+            break;
+        case 2:
+            {
+                replacement = hexvals[rand() % len] + hexvals[rand() % len];
+            }
+            break;
+        default:
+            break;
+    }
+
+    return replacement;
+
+
+};
