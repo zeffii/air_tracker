@@ -331,10 +331,19 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
             }
         }
 
-        for (auto v : sparse_selection_vector){
-            cout << v.start_idx << " --> " << v.hex_value << endl;
-        }
+        if (sparse_selection_vector.size() >= 3){
+            cout << "2 or more transitions!\n";
 
+            for (int unsigned i = 0; i < sparse_selection_vector.size()-1; i++){
+                Sparse_Selection v = sparse_selection_vector[i];
+                Sparse_Selection v2 = sparse_selection_vector[i+1];
+
+                if ((v2.start_idx - v.start_idx) == 1){
+                    continue;
+                }
+                cout << v.start_idx << ":" << v.hex_value << "-->" << v2.start_idx << ":" << v2.hex_value << endl;
+            }
+        }
 
     }
     else if (mode == "tween"){
