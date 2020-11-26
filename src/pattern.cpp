@@ -391,10 +391,11 @@ void Pattern::randomize_selection(vector<int> selection_range, int factor){
         int row_contains_dot = row_value.find(".");
         if (row_contains_dot < 0){
 
-            cout << row_value << endl;
+            cout << row_value;
             int numchars = row_value.length();
 
             string replacement = pick_random_hex(numchars);
+            cout << " <<< " << replacement << endl;
 
             pattern_data[i].replace(selection_start, selection_length, replacement);
             changes += 1;

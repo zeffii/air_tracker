@@ -10,7 +10,11 @@ using namespace std;
 string helper_converter(int num){
     stringstream stream;
     stream << std::hex << num;
-    return stream.str();
+    // eventually hex will be called with the needed size.. this blows.
+    string retval = stream.str();
+    if (retval.length() == 1)
+        retval = "0" + retval;
+    return retval;
 };
 
 string uppercase(string str){
@@ -44,7 +48,7 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     for (int i = 0 ; i < elements; i++){
         float intermediate_value = x_1 + (stepsize * i);
         int temp_int = round(intermediate_value);
-        string hex_value = helper_converter(temp_int);
+        string hex_value = helper_converter(temp_int);   // ,numchars)  // for padding
         hex_value = uppercase(hex_value);
         data_replacement.push_back(hex_value);
     }
