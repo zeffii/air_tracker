@@ -7,6 +7,23 @@
 
 using namespace std;
 
+/*
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+    string retval = "";
+    stringstream ss;
+    for (auto stream_str: characters){
+       ss << std::setfill('0') << std::setw(2);
+       ss << stream_str << endl;
+       retval = ss.str();
+
+*/
+
 string helper_converter(int num){
     stringstream stream;
     stream << std::hex << num;
@@ -15,6 +32,9 @@ string helper_converter(int num){
     if (retval.length() == 1)
         retval = "0" + retval;
     return retval;
+
+    // #include <iomanip>
+    // retval = std::stringstream << std::setfill('0') << std::setw(numchars) << stream.str() << endl;
 };
 
 string uppercase(string str){
