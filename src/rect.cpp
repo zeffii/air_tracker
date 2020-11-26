@@ -151,7 +151,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "B");  // hex   note G
                 break;
             case SDLK_c:
-                mypat.set_char_at(row_index, column_index, "C");  // hex   note D
+                if (window.is_ctrl_pressed()){
+                    // copy to clipboard
+                    // mypat.store_selection(selection.get_dimensions())
+                } else {
+                    mypat.set_char_at(row_index, column_index, "C");  // hex   note D
+                }
                 break;
             case SDLK_d:
                 mypat.set_char_at(row_index, column_index, "D");  // hex   note D#
@@ -264,12 +269,21 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "S");  //       note C#
                 break;
             case SDLK_x:
-                mypat.set_char_at(row_index, column_index, "X");  //       note D
+                if (window.is_ctrl_pressed()){
+                    // mypath.store_selection(selection);
+                    // mypath.wipe_selection(selection);
+                } else {
+                    mypat.set_char_at(row_index, column_index, "X");  //   note D
+                }
                 break;
             //case SDLK_d:                                        //       note D#
             //case SDLK_c:                                        //       note E
             case SDLK_v:
-                mypat.set_char_at(row_index, column_index, "V");  //       note F
+                if (window.is_ctrl_pressed()){
+                    // mypat.paste_selection(selection);
+                } else {
+                    mypat.set_char_at(row_index, column_index, "V");  //   note F
+                }
                 break;
             case SDLK_g:
                 mypat.set_char_at(row_index, column_index, "G");  //       note F#
