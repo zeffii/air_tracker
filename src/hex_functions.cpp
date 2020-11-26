@@ -4,37 +4,21 @@
 #include <math.h>
 #include <vector>
 #include <random>
+#include <iomanip>
+
 
 using namespace std;
 
 /*
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <sstream>
-using namespace std;
-
-    string retval = "";
-    stringstream ss;
-    for (auto stream_str: characters){
-       ss << std::setfill('0') << std::setw(2);
-       ss << stream_str << endl;
-       retval = ss.str();
 
 */
 
-string helper_converter(int num){
-    stringstream stream;
-    stream << std::hex << num;
-    // eventually hex will be called with the needed size.. this blows.
-    string retval = stream.str();
-    if (retval.length() == 1)
-        retval = "0" + retval;
-    return retval;
+string helper_converter(int num, int numchars){
 
-    // #include <iomanip>
-    // retval = std::stringstream << std::setfill('0') << std::setw(numchars) << stream.str() << endl;
+    string retval = "";
+    stringstream stream;
+    stream << std::setfill('0') << std::setw(numchars) << std::hex << num;
+    return stream.str();
 };
 
 string uppercase(string str){
@@ -49,10 +33,6 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     - first convert h_start amd h_end to integers
     - generate the range between these integers (given range of n elements)
     - print the hex range of these newly generated elements.
-
-    - limitation, 
-       -- expects first hex to be lower than the second, 
-       -- expects both to be different
     */
     unsigned int x_1, x_2;
     stringstream ss_1, ss_2;
@@ -68,7 +48,8 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     for (int i = 0 ; i < elements; i++){
         float intermediate_value = x_1 + (stepsize * i);
         int temp_int = round(intermediate_value);
-        string hex_value = helper_converter(temp_int);   // ,numchars)  // for padding
+        int numchars = h_start.length();
+        string hex_value = helper_converter(temp_int, numchars);
         hex_value = uppercase(hex_value);
         data_replacement.push_back(hex_value);
     }
