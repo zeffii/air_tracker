@@ -199,7 +199,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             // case SDLK_e: //                                    //       note E +1
             case SDLK_r:
-                mypat.set_char_at(row_index, column_index, "R");  //       note F +1
+                if (window.is_ctrl_pressed()){
+                    mypat.randomize_selection(selection.get_dimensions(), 4);
+                }
+                else {
+                    mypat.set_char_at(row_index, column_index, "R");  //   note F +1
+                }
                 break;
             case SDLK_5:
                 mypat.set_char_at(row_index, column_index, "5");  //       note F#+1

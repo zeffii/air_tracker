@@ -341,7 +341,6 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
                 if ((v2.start_idx - v.start_idx) == 1){
                     continue;
                 }
-                // cout << v.start_idx << ":" << v.hex_value << "-->" << v2.start_idx << ":" << v2.hex_value << endl;
                 interpolate_single({
                     v.hex_value,                        // first hex
                     v2.hex_value,                       // second hex
@@ -367,6 +366,46 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
 
     }
     
+};
+
+void Pattern::randomize_selection(vector<int> selection_range, int factor){
+
+    int char_offset = 4;
+
+    int first_col_idx = selection_range[0];
+    int last_col_idx = selection_range[1];
+    int first_row_idx = selection_range[2];
+    int last_row_idx = selection_range[3];
+
+    adjust_visual_cursor_for_scroll(first_row_idx);
+    adjust_visual_cursor_for_scroll(last_row_idx);
+
+    int selection_length = (last_col_idx - first_col_idx) + 1;
+    int selection_start = first_col_idx + char_offset;
+    // int numrows = (last_row_idx - first_row_idx) + 1;  // num rows in selection
+
+    int changes = 0;
+    for (int i = first_row_idx; i <= last_row_idx; i++){
+
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+
+            cout << row_value << endl;
+            int numchars = row_value.length();
+
+            string replacement = pick_random_hex(numchars);
+
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            changes += 1;
+        }
+    }
+
+    if (changes > 0){
+        cout << "randomize " << changes << " values\n";
+        texture_pattern(renderer_placeholder);
+    }
+
 };
 
 

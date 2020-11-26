@@ -22,6 +22,7 @@ class Pattern {
         void set_char_at(int row_number, int col_number, string character);
         void perform_selection_interpolation(vector<int> selection_range, string mode);
         void interpolate_single(Selection_Params sel);
+        void randomize_selection(vector<int> selection_range, int factor);
 
         int get_nchars_in_row();
         int get_nrows_in_column();

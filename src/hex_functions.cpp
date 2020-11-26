@@ -3,6 +3,7 @@
 #include <string>
 #include <math.h>
 #include <vector>
+#include <random>
 
 using namespace std;
 
@@ -51,3 +52,32 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     return data_replacement;
 }
 
+
+string pick_random_hex(int numchars){
+
+    vector<string> hexvals {
+        "A", "B", "C", "D", "E", "F",
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+    };
+    int unsigned len = hexvals.size() - 1;
+    string replacement = (numchars == 1) ? "." : "..";
+   
+    switch (numchars){
+        case 1:
+            {
+                replacement = hexvals[rand() % len];
+            }
+            break;
+        case 2:
+            {
+                replacement = hexvals[rand() % len] + hexvals[rand() % len];
+            }
+            break;
+        default:
+            break;
+    }
+
+    return replacement;
+
+
+};
