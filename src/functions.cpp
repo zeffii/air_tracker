@@ -106,6 +106,18 @@ int find_int_in_vector(int num_to_find, vector<int> inarray){
 };
 
 
+string get_empty_repr_of_row(string row){
+    int numchars = row.length();
+    string empty_str (numchars, ' ');
+
+    for (int i = 0; i < numchars; i++){
+        if (!(row[i] == ' ')){
+            empty_str[i] = '.';
+        }
+    } 
+    return empty_str;
+};
+
 string kb_key_to_noterepr(string kb_key, int octave){
     // before it enters this function, kb string is checked.
     // but we'll test again :)

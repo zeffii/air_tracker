@@ -280,10 +280,13 @@ void Pattern::get_corrected_selection_range(Selector &selection, Selection_Range
     sr = {sel_vec[0], sel_vec[1], sel_vec[2], sel_vec[3]};
 };
 
+
 void Pattern::wipe_selection(Selector &selection){
     Selection_Range sr = {};
     get_corrected_selection_range(selection, sr);
-    // cout << sr.first_col_idx << "," << sr.last_col_idx << ", ...etc\n";
+    /*
+    string row = "AE FE .. ... .. ... . .... ... ... .. .. 03 24 .. ";
+    */   
 };
 
 void Pattern::store_selection_in_clipboard(Selector &selection){

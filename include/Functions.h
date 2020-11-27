@@ -16,6 +16,7 @@ int find_int_in_array(int num_to_find, int numbers[], int arraysize);
 vector<int> add_indices_for_hex2(vector<int> inarray);
 vector<int> find_token_in_string(string input_string, string token);
 
+string get_empty_repr_of_row(string row);
 string kb_key_to_noterepr(string kb_key, int octave);
 
 void print_string_vector(vector<string> cp);
