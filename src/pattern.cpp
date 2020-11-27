@@ -293,6 +293,15 @@ void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
 
 };
 
+bool source_and_destination_similar(int column_index){
+
+    // compare signature of stored clipboard data with 
+    // the proposed paste location. If the two do not match, then 
+    // report that they are unmatched, and don't paste.
+    return true;
+
+};
+
 void Pattern::paste_clipboard(int row_index, int column_index){
     int char_offset = 4;
     adjust_visual_cursor_for_scroll(row_index);
@@ -302,9 +311,11 @@ void Pattern::paste_clipboard(int row_index, int column_index){
         cout << "clipboard is empty\n";
         return;
     }
-    // compare signature of stored clipboard data with 
-    // the proposed paste location. If the two do not match, then 
-    // report that they are unmatched, and don't paste.
+
+    if (!source_and_destination_similar(column_index + char_offset)){
+        return;
+    }
+
     cout << "preparing: paste clipboard\n";
     print_string_vector(clipboard);
 
