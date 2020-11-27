@@ -109,7 +109,12 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
         SDL_Delay(1);
     }
-    // cout << endl;
+    
+    // draw the marker
+    // int line_y_pos = offset
+    SDL_SetRenderDrawColor(renderer, 255, 115, 115, 255);
+    SDL_RenderDrawLine(renderer, 18, 20, 0, 20);
+    SDL_RenderPresent(renderer);
 };
 
 void Pattern::scroll_vertical(int numrows){
