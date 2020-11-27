@@ -130,7 +130,11 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
 
             case SDLK_PERIOD:
-                mypat.set_char_at(row_index, column_index, ".");
+                if (window.is_ctrl_pressed()){
+                    mypat.wipe_selection(selection);  // .get_dimensions());
+                } else {
+                    mypat.set_char_at(row_index, column_index, ".");
+                }
                 break;
 
             // CHANGE OCTAVE
@@ -152,7 +156,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_c:
                 if (window.is_ctrl_pressed()){
-                    mypat.store_selection_in_clipboard(selection.get_dimensions());
+                    mypat.store_selection_in_clipboard(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, "C");  // hex   note D
                 }
@@ -269,8 +273,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_x:
                 if (window.is_ctrl_pressed()){
-                    // mypath.store_selection(selection);
-                    // mypath.wipe_selection(selection);
+                    // mypat.store_selection_in_clipboard(selection);
+                    // mypat.wipe_selection(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, "X");  //   note D
                 }

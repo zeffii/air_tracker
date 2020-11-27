@@ -273,10 +273,22 @@ void Pattern::interpolate_single(Selection_Params s){
 
 }
 
-void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
+void Pattern::get_corrected_selection_range(Selector &selection, Selection_Range &sr){
+    vector<int> sel_vec = selection.get_dimensions();
     adjust_visual_cursor_for_scroll(sel_vec[2]);
-    adjust_visual_cursor_for_scroll(sel_vec[3]);    
-    Selection_Range sr = {sel_vec[0], sel_vec[1], sel_vec[2], sel_vec[3]};
+    adjust_visual_cursor_for_scroll(sel_vec[3]);
+    sr = {sel_vec[0], sel_vec[1], sel_vec[2], sel_vec[3]};
+};
+
+void Pattern::wipe_selection(Selector &selection){
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+    // cout << sr.first_col_idx << "," << sr.last_col_idx << ", ...etc\n";
+};
+
+void Pattern::store_selection_in_clipboard(Selector &selection){
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
 
     int char_offset = 4;
     int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;

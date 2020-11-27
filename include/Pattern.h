@@ -18,8 +18,11 @@ class Pattern {
         Pattern(SDL_Renderer *renderer, const char* pattern_path);
         void display(int x, int y, SDL_Renderer *renderer) const;
         void texture_pattern(SDL_Renderer *renderer);
-        void store_selection_in_clipboard(vector<int> sel_vec);
+        void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
+
+        void store_selection_in_clipboard(Selector &selection);
         void paste_clipboard(int row_index, int column_index);
+        void wipe_selection(Selector &selection);
 
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
