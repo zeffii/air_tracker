@@ -65,9 +65,11 @@ void Selector::draw() const {
             SDL_RenderFillRect(Window::renderer, &rect);            
         }
 
-        SDL_Rect outlineRect = {_x-1, _y-1, _w+2, _h};
-        SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
-        SDL_RenderDrawRect(Window::renderer, &outlineRect );
+        if (selector_state == 1){
+            SDL_Rect outlineRect = {_x-1, _y-1, _w+2, _h};
+            SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
+            SDL_RenderDrawRect(Window::renderer, &outlineRect );
+        }
 
     }
 };

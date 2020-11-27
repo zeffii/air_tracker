@@ -8,8 +8,8 @@
 #include <fstream>
 #include <algorithm>
 #include <stdio.h>
-#include "Selector.h"
 #include "Pattern.h"
+#include "Selector.h"
 #include "Window.h"
 #include "Functions.h"
 #include "Hex_functions.h"
@@ -278,6 +278,17 @@ void Pattern::interpolate_single(Selection_Params s){
     }
 
 }
+
+void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
+    adjust_visual_cursor_for_scroll(sel_vec[2]);
+    adjust_visual_cursor_for_scroll(sel_vec[3]);    
+    Selection_Range sel_range = {sel_vec[0], sel_vec[1], sel_vec[2], sel_vec[3]};
+
+    cout << sel_range.first_col_idx << endl;
+    cout << sel_range.last_col_idx << endl;
+    cout << sel_range.first_row_idx << endl;
+    cout << sel_range.last_row_idx << endl;
+};
 
 
 void Pattern::perform_selection_interpolation(vector<int> selection_range, string mode){

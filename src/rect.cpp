@@ -152,8 +152,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_c:
                 if (window.is_ctrl_pressed()){
-                    // copy to clipboard
-                    // mypat.store_selection(selection.get_dimensions())
+                    mypat.store_selection_in_clipboard(selection.get_dimensions());
                 } else {
                     mypat.set_char_at(row_index, column_index, "C");  // hex   note D
                 }
