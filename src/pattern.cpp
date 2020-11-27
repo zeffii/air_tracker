@@ -293,6 +293,14 @@ void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
 
 };
 
+void Pattern::paste_clipboard(int row_index, int column_index){
+    adjust_visual_cursor_for_scroll(row_index);
+    // compare signature of stored clipboard data with 
+    // the proposed paste location. If the two do not match, then 
+    // report that they are unmatched, and don't paste.
+    print_string_vector(clipboard);
+};
+
 
 void Pattern::perform_selection_interpolation(vector<int> selection_range, string mode){
 

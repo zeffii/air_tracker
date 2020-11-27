@@ -279,7 +279,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             //case SDLK_c:                                        //       note E
             case SDLK_v:
                 if (window.is_ctrl_pressed()){
-                    // mypat.paste_selection(selection);
+                    mypat.paste_clipboard(row_index, column_index);
                 } else {
                     mypat.set_char_at(row_index, column_index, "V");  //   note F
                 }
