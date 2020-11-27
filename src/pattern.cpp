@@ -295,10 +295,34 @@ void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
 
 void Pattern::paste_clipboard(int row_index, int column_index){
     adjust_visual_cursor_for_scroll(row_index);
+    int unsigned selection_length = clipboard[0].size();
+
+    if (selection_length == 0){
+        cout << "clipboard is empty\n";
+        return;
+    }
     // compare signature of stored clipboard data with 
     // the proposed paste location. If the two do not match, then 
     // report that they are unmatched, and don't paste.
+    cout << "preparing: paste clipboard\n";
     print_string_vector(clipboard);
+
+    int num_rows_to_paste = clipboard.size();
+    int num_remaining_rows = _nrows - row_index;
+    if (num_remaining_rows < num_rows_to_paste){
+        num_rows_to_paste = num_remaining_rows;
+    }
+    
+    int m = 0;
+    for (int i = row_index; i < row_index + num_remaining_rows; i++){
+        string row_value = pattern_data[i].substr(column_index, selection_length);
+        string replacement = clipboard[m];
+        cout << "replace |" << row_value << "| with |" << replacement << endl;
+        // pattern_data[i].replace(selection_start, selection_length, replacement);
+        m += 1;
+    }
+
+    
 };
 
 
