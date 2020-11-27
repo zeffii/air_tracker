@@ -293,31 +293,52 @@ void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
 
 };
 
-bool source_and_destination_similar(int column_index){
+bool Pattern::source_and_destination_similar(int column_index, int selection_length){
 
-    // compare signature of stored clipboard data with 
-    // the proposed paste location. If the two do not match, then 
-    // report that they are unmatched, and don't paste.
+    /*
+    compare signature of stored clipboard data with proposed destination starting
+    from the current correct column
+    */
+
+    string destination = pattern_data[0].substr(column_index, selection_length);
+    string source = clipboard[0];
+    
+    if (destination.length() != source.length()){
+        cout << "destination and source column width do not math\n";
+        return false;
+    }
+
+    // use whitespace to decide similarity (edge case is partial note column
+    // in selection - tough luck)
+    vector<int> v1 = find_token_in_string(source, " ");
+    vector<int> v2 = find_token_in_string(destination, " ");
+    if (v1 != v2){
+        return false;
+    }
+    
     return true;
 
 };
 
 void Pattern::paste_clipboard(int row_index, int column_index){
-    int char_offset = 4;
-    adjust_visual_cursor_for_scroll(row_index);
-    int unsigned selection_length = clipboard[0].length();
 
-    if (selection_length == 0){
+    if (clipboard.empty()){
         cout << "clipboard is empty\n";
         return;
     }
 
-    if (!source_and_destination_similar(column_index + char_offset)){
+    int char_offset = 4;
+    int cci = column_index + char_offset;  // correct column index offset by 4 chars
+
+    adjust_visual_cursor_for_scroll(row_index);
+    int selection_length = clipboard[0].length();
+
+    if (!source_and_destination_similar(cci, selection_length)){
         return;
     }
 
-    cout << "preparing: paste clipboard\n";
-    print_string_vector(clipboard);
+    // cout << "preparing: paste clipboard\n";
+    // print_string_vector(clipboard);
 
     int num_rows_to_paste = clipboard.size();
     int num_remaining_rows = _nrows - row_index;
@@ -328,7 +349,7 @@ void Pattern::paste_clipboard(int row_index, int column_index){
     int m = 0;
     for (int i = row_index; i < row_index + num_rows_to_paste; i++){
         string replacement = clipboard[m];
-        pattern_data[i].replace(column_index + char_offset, selection_length, replacement);
+        pattern_data[i].replace(cci, selection_length, replacement);
         m += 1;
     }
     texture_pattern(renderer_placeholder);

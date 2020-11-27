@@ -24,6 +24,7 @@ class Pattern {
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
 
+        bool source_and_destination_similar(int column_index, int selection_length);
         void perform_selection_interpolation(vector<int> selection_range, string mode);
         void interpolate_single(Selection_Params sel);
         void randomize_selection(vector<int> selection_range, int factor);
