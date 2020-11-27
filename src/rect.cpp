@@ -131,7 +131,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_PERIOD:
                 if (window.is_ctrl_pressed()){
-                    mypat.wipe_selection(selection);  // .get_dimensions());
+                    mypat.wipe_selection(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, ".");
                 }
@@ -273,8 +273,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_x:
                 if (window.is_ctrl_pressed()){
-                    // mypat.store_selection_in_clipboard(selection);
-                    // mypat.wipe_selection(selection);
+                    mypat.store_selection_in_clipboard(selection);
+                    mypat.wipe_selection(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, "X");  //   note D
                 }
