@@ -382,30 +382,23 @@ void Pattern::paste_clipboard(int row_index, int column_index){
 };
 
 
-void Pattern::perform_selection_interpolation(vector<int> selection_range, string mode){
+void Pattern::perform_selection_interpolation(Selector &selection, string mode){
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
 
     int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+    int numrows = (sr.last_row_idx - sr.first_row_idx) + 1;  // num rows in selection
 
-    int first_col_idx = selection_range[0];
-    int last_col_idx = selection_range[1];
-    int first_row_idx = selection_range[2];
-    int last_row_idx = selection_range[3];
-
-    adjust_visual_cursor_for_scroll(first_row_idx);
-    adjust_visual_cursor_for_scroll(last_row_idx);
-
-    int selection_length = (last_col_idx - first_col_idx) + 1;
-    int selection_start = first_col_idx + char_offset;
-    int numrows = (last_row_idx - first_row_idx) + 1;  // num rows in selection
-
-    if (first_row_idx == last_row_idx){
+    if (sr.first_row_idx == sr.last_row_idx){
         cout << "end early, not possible to interpolate a single value\n";
         return;
     }
 
-
-    string first_hex = pattern_data[first_row_idx].substr(selection_start, selection_length);
-    string last_hex = pattern_data[last_row_idx].substr(selection_start, selection_length);
+    string first_hex = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+    string last_hex = pattern_data[sr.last_row_idx].substr(selection_start, selection_length);
 
     if (does_selection_contain_gutter(first_hex)){
         cout << "selection contains a gutter, currently only single rows are supported\n";
@@ -425,7 +418,7 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
         
         vector<Sparse_Selection> sparse_selection_vector;
 
-        for (int i = first_row_idx; i <= last_row_idx; i++){
+        for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
             string row_value = pattern_data[i].substr(selection_start, selection_length);
             int row_contains_dot = row_value.find(".");
             if (row_contains_dot < 0){
@@ -461,7 +454,7 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
         sel.first_hex = first_hex;
         sel.last_hex = last_hex;
         sel.numrows = numrows;
-        sel.first_row_idx = first_row_idx;
+        sel.first_row_idx = sr.first_row_idx;
         sel.selection_start = selection_start;
         sel.selection_length = selection_length;
         interpolate_single(sel);
@@ -505,7 +498,7 @@ void Pattern::randomize_selection(Selector &selection, int factor){
     }
 
     if (changes > 0){
-        cout << "randomize " << changes << " values\n";
+        // cout << "randomize " << changes << " values\n";
         texture_pattern(renderer_placeholder);
     }
 
