@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"num",
+				"numchars"
+			],
+			[
+				"Selec",
+				"Selection_Params"
+			],
+			[
 				"row",
 				"row_value"
 			],
@@ -181,6 +189,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/multi_interpolator_test.py",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SelectRange.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/rates.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/.gitignore",
@@ -274,8 +284,8 @@
 		"cols":
 		[
 			0.0,
-			0.287665818627,
-			0.83605092871,
+			0.455113675626,
+			0.561348212017,
 			1.0
 		],
 		"rows":
@@ -287,7 +297,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 199.0
+		"height": 111.0
 	},
 	"output.find_results":
 	{
@@ -333,7 +343,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 246.0,
+	"side_bar_width": 260.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

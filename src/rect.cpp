@@ -130,7 +130,11 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
 
             case SDLK_PERIOD:
-                mypat.set_char_at(row_index, column_index, ".");
+                if (window.is_ctrl_pressed()){
+                    mypat.wipe_selection(selection);
+                } else {
+                    mypat.set_char_at(row_index, column_index, ".");
+                }
                 break;
 
             // CHANGE OCTAVE
@@ -152,8 +156,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_c:
                 if (window.is_ctrl_pressed()){
-                    // copy to clipboard
-                    // mypat.store_selection(selection.get_dimensions())
+                    mypat.store_selection_in_clipboard(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, "C");  // hex   note D
                 }
@@ -205,7 +208,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             // case SDLK_e: //                                    //       note E +1
             case SDLK_r:
                 if (window.is_ctrl_pressed()){
-                    mypat.randomize_selection(selection.get_dimensions(), 4);
+                    mypat.randomize_selection(selection, 4);
                 }
                 else {
                     mypat.set_char_at(row_index, column_index, "R");  //   note F +1
@@ -231,10 +234,10 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_i:
                 if (window.is_ctrl_pressed()){
-                    mypat.perform_selection_interpolation(selection.get_dimensions(), "tween");
+                    mypat.perform_selection_interpolation(selection, "tween");
                 }
                 else if (window.is_lshift_pressed()){
-                    mypat.perform_selection_interpolation(selection.get_dimensions(), "multi");
+                    mypat.perform_selection_interpolation(selection, "multi");
                 } 
                 else {
                     mypat.set_char_at(row_index, column_index, "I");  //   note C +2
@@ -270,8 +273,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             case SDLK_x:
                 if (window.is_ctrl_pressed()){
-                    // mypath.store_selection(selection);
-                    // mypath.wipe_selection(selection);
+                    mypat.store_selection_in_clipboard(selection);
+                    mypat.wipe_selection(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, "X");  //   note D
                 }
@@ -280,7 +283,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             //case SDLK_c:                                        //       note E
             case SDLK_v:
                 if (window.is_ctrl_pressed()){
-                    // mypat.paste_selection(selection);
+                    mypat.paste_clipboard(row_index, column_index);
                 } else {
                     mypat.set_char_at(row_index, column_index, "V");  //   note F
                 }

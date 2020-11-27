@@ -73,6 +73,11 @@ void print_int_array(vector<int> inarray){
     }
 };
 
+void print_string_vector(vector<string> cp){
+    for (auto s: cp){
+        cout << s << endl;
+    }
+};
 
 vector<int> find_token_in_string(string input_string, string token){
     vector<int> indices;
@@ -100,6 +105,18 @@ int find_int_in_vector(int num_to_find, vector<int> inarray){
     return (it != inarray.end()) ? 1 : 0;
 };
 
+
+string get_empty_repr_of_row(string row){
+    int numchars = row.length();
+    string empty_str (numchars, ' ');
+
+    for (int i = 0; i < numchars; i++){
+        if (!(row[i] == ' ')){
+            empty_str[i] = '.';
+        }
+    } 
+    return empty_str;
+};
 
 string kb_key_to_noterepr(string kb_key, int octave){
     // before it enters this function, kb string is checked.

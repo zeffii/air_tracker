@@ -57,6 +57,7 @@ bool Window::init(){
     }
 
     renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_PRESENTVSYNC);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
     if (renderer == nullptr) {
         cerr << "Failed to create renderer!\n";

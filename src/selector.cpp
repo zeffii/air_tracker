@@ -59,24 +59,17 @@ void Selector::draw() const {
 
     if (selector_state == 1 or selector_state == 2){
         
-        SDL_Rect outlineRect = {_x-1, _y-1, _w+2, _h};
-        SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
-        SDL_RenderDrawRect(Window::renderer, &outlineRect );    
+        if (selector_state == 2){
+            SDL_Rect rect = {_x, _y, _w, _h};
+            SDL_SetRenderDrawColor(Window::renderer, (int)_r/3, (int)_g/3, (int)_b/3, (int)_a/2);
+            SDL_RenderFillRect(Window::renderer, &rect);            
+        }
+
+        if (selector_state == 1){
+            SDL_Rect outlineRect = {_x-1, _y-1, _w+2, _h};
+            SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
+            SDL_RenderDrawRect(Window::renderer, &outlineRect );
+        }
+
     }
 };
-
-// void Selector::pollEvents(SDL_Event &event, Pattern &mypat, Window &window){
-
-//     // if (event.type == SDL_KEYDOWN){
-//     //     switch (event.key.keysym.sym) {
-//     //         case SDLK_LEFT:
-//     //             column_index -= 1;
-//     //             mypat.carrot_hop_backward(column_index);
-//     //             if (column_index < 0) { column_index = nchars_inrow-5; }
-//     //             _x = (x_offset + 4 * charwidth) + (column_index * charwidth);
-//     //             break;
-//     //         default:
-//     //             break;
-//     //     }
-//     // }
-// };

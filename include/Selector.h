@@ -13,7 +13,6 @@ class Selector{
 public:
     Selector(int w, int h, int x, int y, int r, int g, int b, int a);
     void draw() const;
-    // void pollEvents(SDL_Event &event, Pattern &mypat, Window &window);
     
     int get_selector_state();
     void push_selector_state();

@@ -15,3 +15,10 @@ struct Sparse_Selection {
     int start_idx;
     string hex_value;
 };
+
+struct Selection_Range {
+    int first_col_idx;
+    int last_col_idx;
+    int first_row_idx;
+    int last_row_idx;
+};

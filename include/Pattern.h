@@ -18,11 +18,19 @@ class Pattern {
         Pattern(SDL_Renderer *renderer, const char* pattern_path);
         void display(int x, int y, SDL_Renderer *renderer) const;
         void texture_pattern(SDL_Renderer *renderer);
+        void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
+
+        void store_selection_in_clipboard(Selector &selection);
+        void paste_clipboard(int row_index, int column_index);
+        void wipe_selection(Selector &selection);
+
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
-        void perform_selection_interpolation(vector<int> selection_range, string mode);
+
+        bool source_and_destination_similar(int column_index, int selection_length);
+        void perform_selection_interpolation(Selector &selection, string mode);
         void interpolate_single(Selection_Params sel);
-        void randomize_selection(vector<int> selection_range, int factor);
+        void randomize_selection(Selector &selection, int factor);
 
         int get_nchars_in_row();
         int get_nrows_in_column();
@@ -45,6 +53,7 @@ class Pattern {
     private:
         string pattern_descriptor_str;
         std::vector<string> pattern_data;
+        std::vector<string> clipboard;
 
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
