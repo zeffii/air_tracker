@@ -242,12 +242,6 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
     }
 };
 
-void print_string_vector(vector<string> yourvec){
-    for (int unsigned i = 0; i < yourvec.size(); i++){
-        cout << yourvec[i] << "," << endl;
-    }
-};
-
 bool does_selection_contain_gutter(string input_hex){
     // selection always contains equal data in each row, we only test the first row
     int findex = input_hex.find(" ");
@@ -282,12 +276,21 @@ void Pattern::interpolate_single(Selection_Params s){
 void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
     adjust_visual_cursor_for_scroll(sel_vec[2]);
     adjust_visual_cursor_for_scroll(sel_vec[3]);    
-    Selection_Range sel_range = {sel_vec[0], sel_vec[1], sel_vec[2], sel_vec[3]};
+    Selection_Range sr = {sel_vec[0], sel_vec[1], sel_vec[2], sel_vec[3]};
 
-    cout << sel_range.first_col_idx << endl;
-    cout << sel_range.last_col_idx << endl;
-    cout << sel_range.first_row_idx << endl;
-    cout << sel_range.last_row_idx << endl;
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    clipboard.clear();
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+        clipboard.push_back(row_value);
+    }
+    cout << "clipboad start\n";
+    print_string_vector(clipboard);
+    cout << "end clipboad\n";
+
 };
 
 

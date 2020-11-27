@@ -73,6 +73,11 @@ void print_int_array(vector<int> inarray){
     }
 };
 
+void print_string_vector(vector<string> cp){
+    for (auto s: cp){
+        cout << s << endl;
+    }
+};
 
 vector<int> find_token_in_string(string input_string, string token){
     vector<int> indices;
