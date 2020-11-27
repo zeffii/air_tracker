@@ -287,9 +287,9 @@ void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
         string row_value = pattern_data[i].substr(selection_start, selection_length);
         clipboard.push_back(row_value);
     }
-    cout << "clipboad start\n";
-    print_string_vector(clipboard);
-    cout << "end clipboad\n";
+    // cout << "clipboad start\n";
+    // print_string_vector(clipboard);
+    // cout << "end clipboad\n";
 
 };
 
