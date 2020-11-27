@@ -30,7 +30,7 @@ class Pattern {
         bool source_and_destination_similar(int column_index, int selection_length);
         void perform_selection_interpolation(vector<int> selection_range, string mode);
         void interpolate_single(Selection_Params sel);
-        void randomize_selection(vector<int> selection_range, int factor);
+        void randomize_selection(Selector &selection, int factor);
 
         int get_nchars_in_row();
         int get_nrows_in_column();

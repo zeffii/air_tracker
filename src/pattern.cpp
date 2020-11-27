@@ -470,25 +470,27 @@ void Pattern::perform_selection_interpolation(vector<int> selection_range, strin
     
 };
 
-void Pattern::randomize_selection(vector<int> selection_range, int factor){
+void Pattern::randomize_selection(Selector &selection, int factor){
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
 
     int char_offset = 4;
-
-    int first_col_idx = selection_range[0];
-    int last_col_idx = selection_range[1];
-    int first_row_idx = selection_range[2];
-    int last_row_idx = selection_range[3];
-
-    adjust_visual_cursor_for_scroll(first_row_idx);
-    adjust_visual_cursor_for_scroll(last_row_idx);
-
-    int selection_length = (last_col_idx - first_col_idx) + 1;
-    int selection_start = first_col_idx + char_offset;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
 
     int changes = 0;
-    for (int i = first_row_idx; i <= last_row_idx; i++){
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
 
         string row_value = pattern_data[i].substr(selection_start, selection_length);
+
+        int row_contains_gap = row_value.find(" ");
+        if (row_contains_gap >= 0){
+            changes = 0;
+            cout << "selection contains spacers, aborting\n";
+            break;
+        }
+
         int row_contains_dot = row_value.find(".");
         if (row_contains_dot < 0){
 
@@ -496,8 +498,7 @@ void Pattern::randomize_selection(vector<int> selection_range, int factor){
             int numchars = row_value.length();
 
             string replacement = pick_random_hex(numchars);
-            cout << " <<< " << replacement << endl;
-
+            // cout << " <<< " << replacement << endl;
             pattern_data[i].replace(selection_start, selection_length, replacement);
             changes += 1;
         }

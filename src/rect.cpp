@@ -208,7 +208,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             // case SDLK_e: //                                    //       note E +1
             case SDLK_r:
                 if (window.is_ctrl_pressed()){
-                    mypat.randomize_selection(selection.get_dimensions(), 4);
+                    mypat.randomize_selection(selection, 4);
                 }
                 else {
                     mypat.set_char_at(row_index, column_index, "R");  //   note F +1
