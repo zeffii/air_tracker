@@ -294,8 +294,9 @@ void Pattern::store_selection_in_clipboard(vector<int> sel_vec){
 };
 
 void Pattern::paste_clipboard(int row_index, int column_index){
+    int char_offset = 4;
     adjust_visual_cursor_for_scroll(row_index);
-    int unsigned selection_length = clipboard[0].size();
+    int unsigned selection_length = clipboard[0].length();
 
     if (selection_length == 0){
         cout << "clipboard is empty\n";
@@ -314,15 +315,12 @@ void Pattern::paste_clipboard(int row_index, int column_index){
     }
     
     int m = 0;
-    for (int i = row_index; i < row_index + num_remaining_rows; i++){
-        string row_value = pattern_data[i].substr(column_index, selection_length);
+    for (int i = row_index; i < row_index + num_rows_to_paste; i++){
         string replacement = clipboard[m];
-        cout << "replace |" << row_value << "| with |" << replacement << endl;
-        // pattern_data[i].replace(selection_start, selection_length, replacement);
+        pattern_data[i].replace(column_index + char_offset, selection_length, replacement);
         m += 1;
     }
-
-    
+    texture_pattern(renderer_placeholder);
 };
 
 
