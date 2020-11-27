@@ -284,10 +284,21 @@ void Pattern::get_corrected_selection_range(Selector &selection, Selection_Range
 void Pattern::wipe_selection(Selector &selection){
     Selection_Range sr = {};
     get_corrected_selection_range(selection, sr);
-    /*
-    string row = "AE FE .. ... .. ... . .... ... ... .. .. 03 24 .. ";
-    */   
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    // get an empty (row) representation to replace the selection with
+    string row = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+    string replacement = get_empty_repr_of_row(row);
+
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+        pattern_data[i].replace(selection_start, selection_length, replacement);
+    }
+    texture_pattern(renderer_placeholder);
 };
+
 
 void Pattern::store_selection_in_clipboard(Selector &selection){
     Selection_Range sr = {};
