@@ -549,7 +549,10 @@ void Pattern::carrot_hop_backward(int &c_index){
 
 void Pattern::set_console_listening_state(bool state){
     console_running = state;
+    console_string = ": ";
     cout << "console listening state: " << console_running << endl;
+    // SDL_StartTextInput()
+    // SDL_StopTextInput()
 };
 
 bool Pattern::get_console_listening_state(){
@@ -557,5 +560,13 @@ bool Pattern::get_console_listening_state(){
 };
 
 void Pattern::execute_console_command(){
-    
+    cout << "executing@" << console_string;
+};
+
+string Pattern::get_console_string(){
+    return console_string;
+};
+
+void Pattern::update_console_string(string new_console_string){
+    console_string = new_console_string;
 };

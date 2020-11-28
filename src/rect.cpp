@@ -57,6 +57,26 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     int nchars_inrow = mypat.get_nchars_in_row();
     int nrows = mypat.get_nrows_in_column();
 
+/*
+    while (mypat.get_console_listening_state() == true){
+
+        if (event.type == SDL_TEXTINPUT || event.type == SDL_KEYDOWN) {
+            system('cls');  // or 'clear' for 'nx
+            if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE && text.length() > 2)
+                text = text.substr(0, text.length() -1);
+            else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
+                mypat.set_console_listening_state(false);
+                mypat.execute_console_command();
+            }
+            else if (event.type == SDL_TEXTINPUT)
+                text += ev.text.text;
+
+            std::cout << text << std::endl;
+        }
+    }
+*/
+
+
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
 

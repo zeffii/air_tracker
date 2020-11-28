@@ -54,6 +54,9 @@ class Pattern {
         bool get_console_listening_state();
         void execute_console_command();
 
+        string get_console_string();
+        void update_console_string(string new_console_string);
+
     private:
         string pattern_descriptor_str;
         std::vector<string> pattern_data;

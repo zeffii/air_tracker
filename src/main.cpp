@@ -33,26 +33,6 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selectio
 //     window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
 // }
 
-/*
-
-SDL_Event ev;
-
-...
-
-while (SDL_PollEvent(&ev) != 0){
-
-    if (ev.type == SDL_TEXTINPUT || ev.type == SDL_KEYDOWN) {
-        system('cls');  // or 'clear' for 'nx
-        if(ev.type == SDL_KEYDOWN && ev.key.keysym.sym == SDLK_BACKSPACE && text.length() > 0)
-            text = text.substr(0, text.length() -1);
-        else if (ev.type == SDL_TEXTINPUT)
-            text += ev.text.text;
-
-        std::cout << text << std::endl;
-    }
-}
-
-*/
 
 int main(int argc, char* args[])
 {
