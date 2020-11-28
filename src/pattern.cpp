@@ -597,7 +597,7 @@ bool Pattern::get_console_listening_state(){
 };
 
 void Pattern::execute_console_command(){
-    cout << "executing@" << console_string << endl;;
+    cout << "executing" << console_string << endl;;
     console_string = ":";
 };
 
@@ -607,4 +607,7 @@ string Pattern::get_console_string(){
 
 void Pattern::update_console_string(string new_console_string){
     console_string = new_console_string;
+    if (console_string == "::"){
+        console_string = ":";
+    }
 };

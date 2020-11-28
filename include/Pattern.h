@@ -75,7 +75,7 @@ class Pattern {
         // console 
         SDL_Texture *_console_texture;
         SDL_Rect _console_rect = {20, 6, 0, 0};
-        SDL_Color _console_color = {115, 255, 65, 255};
+        SDL_Color _console_color = {115, 255, 165, 255};
         bool console_running = false;
         string console_string = "";
 
