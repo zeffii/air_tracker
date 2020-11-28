@@ -16,10 +16,17 @@ class Pattern {
 
     public:
         Pattern(SDL_Renderer *renderer, const char* pattern_path);
-        void display(int x, int y, SDL_Renderer *renderer) const;
-        void texture_pattern(SDL_Renderer *renderer);
-        void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
+        ~Pattern();
+        void load_font();
+        void close_font();
 
+        void texture_pattern(SDL_Renderer *renderer);
+        void display(int x, int y, SDL_Renderer *renderer) const;
+
+        void texture_console(SDL_Renderer *renderer);
+        void display_console(SDL_Renderer *renderer) const;
+
+        void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
         void store_selection_in_clipboard(Selector &selection);
         void paste_clipboard(int row_index, int column_index);
         void wipe_selection(Selector &selection);
@@ -50,6 +57,13 @@ class Pattern {
 
         void adjust_visual_cursor_for_scroll(int &row_number);
 
+        void set_console_listening_state(bool state);
+        bool get_console_listening_state();
+        void execute_console_command();
+
+        string get_console_string();
+        void update_console_string(string new_console_string);
+
     private:
         string pattern_descriptor_str;
         std::vector<string> pattern_data;
@@ -57,7 +71,17 @@ class Pattern {
 
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
+
+        // console 
+        SDL_Texture *_console_texture;
+        SDL_Rect _console_rect = {20, 6, 0, 0};
+        SDL_Color _console_color = {115, 255, 165, 255};
+        bool console_running = false;
+        string console_string = "";
+
+        // misc
         SDL_Renderer *renderer_placeholder;
+        TTF_Font *font;
         
         int octave = 5;
         int _line_height = 13;
@@ -68,6 +92,7 @@ class Pattern {
         int pattern_x = 20;
         int pattern_y = 20;
         int shift_vertical_times = 0;
+
 
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;

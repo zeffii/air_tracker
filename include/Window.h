@@ -13,6 +13,7 @@ class Window {
         // void set_window_title(const char *newtitle);
 
         void pollEvents(SDL_Event &event);
+
         bool is_ctrl_pressed();
         bool is_lshift_pressed();
         void set_pressing_ctrl(bool newstate);
@@ -28,7 +29,6 @@ class Window {
 
         bool _pressing_ctrl = false;
         bool _pressing_lshift = false;
-
 
         SDL_Window *_window = nullptr;
     public:

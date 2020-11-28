@@ -57,6 +57,35 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     int nchars_inrow = mypat.get_nchars_in_row();
     int nrows = mypat.get_nrows_in_column();
 
+
+    if (mypat.get_console_listening_state() == true){
+
+        string text = mypat.get_console_string();
+
+        if (event.type == SDL_TEXTINPUT || event.type == SDL_KEYDOWN) {
+            
+            if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE && text.length() > 1){
+
+                text = mypat.get_console_string();
+                text = text.substr(0, text.length() -1);
+                mypat.update_console_string(text);
+            }
+            else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
+                mypat.set_console_listening_state(false);
+                mypat.execute_console_command();
+            }
+            else if (event.type == SDL_TEXTINPUT){
+                text = mypat.get_console_string();
+                text += event.text.text;
+                mypat.update_console_string(text);
+            }
+            mypat.texture_console(Window::renderer);
+
+        }
+        return;
+    }
+
+
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
 
@@ -134,6 +163,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                     mypat.wipe_selection(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, ".");
+                }
+                break;
+
+            case SDLK_SEMICOLON:
+                if (window.is_lshift_pressed()){
+                    mypat.set_console_listening_state(true);
                 }
                 break;
 

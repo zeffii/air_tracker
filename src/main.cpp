@@ -33,6 +33,7 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selectio
 //     window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
 // }
 
+
 int main(int argc, char* args[])
 {
     int tick_offsetx = 4 * 6;
@@ -57,6 +58,11 @@ int main(int argc, char* args[])
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);
+
+        if (mypat.get_console_listening_state() == true){
+            mypat.display_console(Window::renderer);
+        }
+
         window.clear();
     }
     return 0;

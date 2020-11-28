@@ -35,6 +35,8 @@ void readPattern(const char* filename, std::vector<string> &lines, string &patte
 }
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
+
+    load_font();
     readPattern(pattern_path, pattern_data, pattern_descriptor_str);
     _nchars_inrow = pattern_descriptor_str.length();
     _nrows = pattern_data.size();
@@ -42,11 +44,23 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
     renderer_placeholder = renderer;
     texture_pattern(renderer);
     pattern_descriptor_to_handler(pattern_descriptor_str, *this);
+
+};
+
+Pattern::~Pattern(){
+    close_font();
+};
+
+void Pattern::load_font(){
+    font = TTF_OpenFont("res/consola.ttf", 11);
+};
+void Pattern::close_font(){
+    TTF_CloseFont(font);
 };
 
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
-    TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
+    
     if (!font) { cerr << "failed to load font\n"; }
 
     SDL_Color colwhite = {255, 255, 255, 255};
@@ -81,7 +95,7 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
     }
-    TTF_CloseFont( font );
+
 };
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
@@ -107,15 +121,43 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
         SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
-        SDL_Delay(1);
+
     }
-    // cout << endl;
+    
+    // draw the marker
+    int line_y_pos = (offset * _line_height) + 20;
+    SDL_SetRenderDrawColor(renderer, 255, 115, 115, 255);
+    SDL_RenderDrawLine(renderer, 18, line_y_pos, 0, line_y_pos);
+    SDL_RenderPresent(renderer);
 };
+
+
+void Pattern::texture_console(SDL_Renderer *renderer){
+    auto console_surface = TTF_RenderText_Blended(font, console_string.c_str(), _console_color);
+    if (!console_surface) { cerr << "failed to create console surface \n"; }
+
+    _console_texture = SDL_CreateTextureFromSurface(renderer, console_surface);
+    if (!_console_texture) { cerr << "failed to create console texture \n"; }
+
+    SDL_FreeSurface(console_surface);
+    SDL_QueryTexture(_console_texture, nullptr, nullptr, &_console_rect.w, &_console_rect.h);
+};
+
+void Pattern::display_console(SDL_Renderer *renderer) const {
+    SDL_RenderCopy(renderer, _console_texture, nullptr, &_console_rect);
+};
+
+
+
 
 void Pattern::scroll_vertical(int numrows){
     // pattern_y += (numrows * _line_height);
-    shift_vertical_times += copysign(1, numrows);
-    cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
+    if (!pattern_data.empty()){
+        shift_vertical_times += copysign(1, numrows);
+        // cout << "adjusted" << shift_vertical_times % (pattern_data.size() / numrows);
+        cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
+    }
+
 };
 
 
@@ -536,4 +578,36 @@ void Pattern::carrot_hop_forward(int &c_index){
 void Pattern::carrot_hop_backward(int &c_index){
     if (find_int_in_vector(c_index, _carret_single_hop)) { c_index -= 1; }
     else if (find_int_in_vector(c_index, _carret_double_hop_bw)) { c_index -= 2; }
+};
+
+void Pattern::set_console_listening_state(bool state){
+    console_running = state;
+    cout << "console listening state: " << console_running << endl;
+    if (state){
+        console_string = ":";
+        SDL_StartTextInput();
+    }
+    else { 
+        SDL_StopTextInput(); 
+    }
+};
+
+bool Pattern::get_console_listening_state(){
+    return console_running;
+};
+
+void Pattern::execute_console_command(){
+    cout << "executing" << console_string << endl;;
+    console_string = ":";
+};
+
+string Pattern::get_console_string(){
+    return console_string;
+};
+
+void Pattern::update_console_string(string new_console_string){
+    console_string = new_console_string;
+    if (console_string == "::"){
+        console_string = ":";
+    }
 };
