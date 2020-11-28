@@ -77,7 +77,7 @@ class Pattern {
         int shift_vertical_times = 0;
 
         bool console_running = false;
-        string console_string = ": ";
+        string console_string = "";
 
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;

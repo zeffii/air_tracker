@@ -107,7 +107,7 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
         SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
-        SDL_Delay(1);
+        //SDL_Delay(1);
     }
     
     // draw the marker
@@ -549,10 +549,14 @@ void Pattern::carrot_hop_backward(int &c_index){
 
 void Pattern::set_console_listening_state(bool state){
     console_running = state;
-    console_string = ": ";
     cout << "console listening state: " << console_running << endl;
-    // SDL_StartTextInput()
-    // SDL_StopTextInput()
+    if (state){
+        console_string = "";
+        SDL_StartTextInput();
+    }
+    else { 
+        SDL_StopTextInput(); 
+    }
 };
 
 bool Pattern::get_console_listening_state(){
@@ -560,7 +564,7 @@ bool Pattern::get_console_listening_state(){
 };
 
 void Pattern::execute_console_command(){
-    cout << "executing@" << console_string;
+    cout << "executing@" << console_string << endl;;
 };
 
 string Pattern::get_console_string(){
