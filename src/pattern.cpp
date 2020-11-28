@@ -119,8 +119,12 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
 void Pattern::scroll_vertical(int numrows){
     // pattern_y += (numrows * _line_height);
-    shift_vertical_times += copysign(1, numrows);
-    cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
+    if (!pattern_data.empty()){
+        shift_vertical_times += copysign(1, numrows);
+        // cout << "adjusted" << shift_vertical_times % (pattern_data.size() / numrows);
+        cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
+    }
+
 };
 
 
