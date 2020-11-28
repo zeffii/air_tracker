@@ -95,8 +95,7 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
     }
-    // TTF_CloseFont( font );
-    // close_font();
+
 };
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
@@ -122,7 +121,7 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
         // SDL_SetTextureColorMod( _text_textures[i], 155, 233, 222 );
         SDL_SetTextureColorMod( _text_textures[i], lc.r, lc.g, lc.b );
         SDL_RenderCopy(renderer, _text_textures[i], nullptr, &_text_rects[i]);
-        //SDL_Delay(1);
+
     }
     
     // draw the marker
@@ -131,6 +130,17 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
     SDL_RenderDrawLine(renderer, 18, line_y_pos, 0, line_y_pos);
     SDL_RenderPresent(renderer);
 };
+
+
+void Pattern::texture_console(SDL_Renderer *renderer){
+
+};
+void Pattern::display_console(int x, int y, SDL_Renderer *renderer) const {
+
+};
+
+
+
 
 void Pattern::scroll_vertical(int numrows){
     // pattern_y += (numrows * _line_height);
