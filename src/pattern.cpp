@@ -111,9 +111,9 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
     }
     
     // draw the marker
-    // int line_y_pos = offset
+    int line_y_pos = (offset * _line_height) + 20;
     SDL_SetRenderDrawColor(renderer, 255, 115, 115, 255);
-    SDL_RenderDrawLine(renderer, 18, 20, 0, 20);
+    SDL_RenderDrawLine(renderer, 18, line_y_pos, 0, line_y_pos);
     SDL_RenderPresent(renderer);
 };
 

@@ -4,8 +4,44 @@
 		"selected_items":
 		[
 			[
+				"char",
+				"char_offset"
+			],
+			[
+				"emp",
+				"empty_str"
+			],
+			[
+				"first_",
+				"first_col_idx"
+			],
+			[
+				"selec",
+				"selection_length"
+			],
+			[
+				"column",
+				"column_index"
+			],
+			[
+				"col",
+				"column_index"
+			],
+			[
+				"sel",
+				"selection_start"
+			],
+			[
+				"rema",
+				"remaining_rows"
+			],
+			[
 				"num",
-				"numchars"
+				"num_rows_to_paste"
+			],
+			[
+				"Sele",
+				"Selector"
 			],
 			[
 				"Selec",
@@ -90,10 +126,6 @@
 			[
 				"SDL_",
 				"SDL_Renderer"
-			],
-			[
-				"col",
-				"col_number"
 			],
 			[
 				"air",
@@ -228,6 +260,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"print_int_vector",
+			"print_string_vector",
 			"16",
 			"15",
 			"get_dimensions",
@@ -284,8 +318,8 @@
 		"cols":
 		[
 			0.0,
-			0.455113675626,
-			0.561348212017,
+			0.403615514307,
+			0.56882889767,
 			1.0
 		],
 		"rows":
@@ -297,7 +331,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 111.0
+		"height": 103.0
 	},
 	"output.find_results":
 	{
@@ -343,7 +377,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 260.0,
+	"side_bar_width": 165.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
