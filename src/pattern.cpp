@@ -35,6 +35,8 @@ void readPattern(const char* filename, std::vector<string> &lines, string &patte
 }
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
+
+    load_font();
     readPattern(pattern_path, pattern_data, pattern_descriptor_str);
     _nchars_inrow = pattern_descriptor_str.length();
     _nrows = pattern_data.size();
@@ -42,6 +44,7 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
     renderer_placeholder = renderer;
     texture_pattern(renderer);
     pattern_descriptor_to_handler(pattern_descriptor_str, *this);
+
 };
 
 Pattern::~Pattern(){
@@ -57,8 +60,6 @@ void Pattern::close_font(){
 
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
-    // TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
-    load_font();
     
     if (!font) { cerr << "failed to load font\n"; }
 
