@@ -24,7 +24,7 @@ class Pattern {
         void display(int x, int y, SDL_Renderer *renderer) const;
 
         void texture_console(SDL_Renderer *renderer);
-        void display_console(int x, int y, SDL_Renderer *renderer) const;
+        void display_console(SDL_Renderer *renderer) const;
 
         void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
         void store_selection_in_clipboard(Selector &selection);
@@ -72,9 +72,14 @@ class Pattern {
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
 
+        // console 
         SDL_Texture *_console_texture;
-        SDL_Rect _console_rect;
+        SDL_Rect _console_rect = {20, 6, 0, 0};
+        SDL_Color _console_color = {115, 255, 65, 255};
+        bool console_running = false;
+        string console_string = "";
 
+        // misc
         SDL_Renderer *renderer_placeholder;
         TTF_Font *font;
         
@@ -88,8 +93,6 @@ class Pattern {
         int pattern_y = 20;
         int shift_vertical_times = 0;
 
-        bool console_running = false;
-        string console_string = "";
 
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;

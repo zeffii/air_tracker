@@ -133,10 +133,18 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
 
 void Pattern::texture_console(SDL_Renderer *renderer){
+    auto console_surface = TTF_RenderText_Blended(font, console_string.c_str(), _console_color);
+    if (!console_surface) { cerr << "failed to create console surface \n"; }
 
+    _console_texture = SDL_CreateTextureFromSurface(renderer, console_surface);
+    if (!_console_texture) { cerr << "failed to create console texture \n"; }
+
+    SDL_FreeSurface(console_surface);
+    SDL_QueryTexture(_console_texture, nullptr, nullptr, &_console_rect.w, &_console_rect.h);
 };
-void Pattern::display_console(int x, int y, SDL_Renderer *renderer) const {
 
+void Pattern::display_console(SDL_Renderer *renderer) const {
+    SDL_RenderCopy(renderer, _console_texture, nullptr, &_console_rect);
 };
 
 
@@ -576,7 +584,7 @@ void Pattern::set_console_listening_state(bool state){
     console_running = state;
     cout << "console listening state: " << console_running << endl;
     if (state){
-        console_string = "";
+        console_string = ":";
         SDL_StartTextInput();
     }
     else { 
@@ -590,6 +598,7 @@ bool Pattern::get_console_listening_state(){
 
 void Pattern::execute_console_command(){
     cout << "executing@" << console_string << endl;;
+    console_string = ":";
 };
 
 string Pattern::get_console_string(){

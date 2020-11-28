@@ -58,6 +58,11 @@ int main(int argc, char* args[])
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);
+
+        if (mypat.get_console_listening_state() == true){
+            mypat.display_console(Window::renderer);
+        }
+
         window.clear();
     }
     return 0;
