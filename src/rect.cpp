@@ -64,6 +64,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
         if (event.type == SDL_TEXTINPUT || event.type == SDL_KEYDOWN) {
             
+            // interesting..
+            // http://cplusplus.com/forum/beginner/100115/
             system("cls");
             
             if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE && text.length() > 0){
@@ -76,7 +78,6 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
                 mypat.set_console_listening_state(false);
                 mypat.execute_console_command();
-                return;
             }
             else if (event.type == SDL_TEXTINPUT){
                 text = mypat.get_console_string();

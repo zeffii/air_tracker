@@ -16,6 +16,10 @@ class Pattern {
 
     public:
         Pattern(SDL_Renderer *renderer, const char* pattern_path);
+        ~Pattern();
+        void load_font();
+        void close_font();
+
         void display(int x, int y, SDL_Renderer *renderer) const;
         void texture_pattern(SDL_Renderer *renderer);
         void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
@@ -64,7 +68,9 @@ class Pattern {
 
         std::vector<SDL_Texture *> _text_textures;
         mutable std::vector<SDL_Rect> _text_rects;
+
         SDL_Renderer *renderer_placeholder;
+        TTF_Font *font;
         
         int octave = 5;
         int _line_height = 13;

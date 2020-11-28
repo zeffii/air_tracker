@@ -44,9 +44,22 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
     pattern_descriptor_to_handler(pattern_descriptor_str, *this);
 };
 
+Pattern::~Pattern(){
+    close_font();
+};
+
+void Pattern::load_font(){
+    font = TTF_OpenFont("res/consola.ttf", 11);
+};
+void Pattern::close_font(){
+    TTF_CloseFont(font);
+};
+
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
-    TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
+    // TTF_Font *font = TTF_OpenFont("res/consola.ttf", 11);
+    load_font();
+    
     if (!font) { cerr << "failed to load font\n"; }
 
     SDL_Color colwhite = {255, 255, 255, 255};
@@ -81,7 +94,8 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
         _text_rects.push_back(trect);
         _text_textures.push_back(text_texture);
     }
-    TTF_CloseFont( font );
+    // TTF_CloseFont( font );
+    // close_font();
 };
 
 void Pattern::display(int x, int y, SDL_Renderer *renderer) const { 
