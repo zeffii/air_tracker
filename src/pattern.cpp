@@ -546,3 +546,16 @@ void Pattern::carrot_hop_backward(int &c_index){
     if (find_int_in_vector(c_index, _carret_single_hop)) { c_index -= 1; }
     else if (find_int_in_vector(c_index, _carret_double_hop_bw)) { c_index -= 2; }
 };
+
+void Pattern::set_console_listening_state(bool state){
+    console_running = state;
+    cout << "console listening state: " << console_running << endl;
+};
+
+bool Pattern::get_console_listening_state(){
+    return console_running;
+};
+
+void Pattern::execute_console_command(){
+    
+};

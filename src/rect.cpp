@@ -137,6 +137,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 }
                 break;
 
+            case SDLK_SEMICOLON:
+                if (window.is_lshift_pressed()){
+                    mypat.set_console_listening_state(true);
+                }
+                break;
+
             // CHANGE OCTAVE
 
             case SDLK_LEFTBRACKET:

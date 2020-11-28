@@ -114,3 +114,4 @@ void Window::set_pressing_lshift(bool newstate){
 // void Window::set_window_title(const char *newtitle){
 //     SDL_SetWindowTitle(_window, newtitle);
 // };
+

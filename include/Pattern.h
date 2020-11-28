@@ -50,6 +50,10 @@ class Pattern {
 
         void adjust_visual_cursor_for_scroll(int &row_number);
 
+        void set_console_listening_state(bool state);
+        bool get_console_listening_state();
+        void execute_console_command();
+
     private:
         string pattern_descriptor_str;
         std::vector<string> pattern_data;
@@ -68,6 +72,9 @@ class Pattern {
         int pattern_x = 20;
         int pattern_y = 20;
         int shift_vertical_times = 0;
+
+        bool console_running = false;
+        string console_string = ": ";
 
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;
