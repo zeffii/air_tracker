@@ -12,10 +12,6 @@ SDL_Renderer *Window::renderer = nullptr;
 Window::Window(const string &title, int width, int height)
 :_title(title), _width(width), _height(height)
 {
-    // if (!init()){
-    //     _closed = true;
-    // }
-
     _closed = !init();
 }
 
