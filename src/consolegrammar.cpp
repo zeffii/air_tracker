@@ -21,7 +21,9 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
     try {
         operand = commands.substr(0, 3);
         if (operand == "amp") {
-            cout << "Attempting to amplify.";
+            string rest = commands.substr(3);
+            double amt = ::atof(rest.c_str());
+            cout << "Attempting to amplify. by " << amt << endl;
         } else {
             throw 99;
         }
