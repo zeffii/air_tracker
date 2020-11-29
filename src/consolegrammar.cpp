@@ -8,6 +8,19 @@
 
 using namespace std;
 
+vector<string> split_string(string str, string delim){
+
+    vector<string> v;
+    size_t pos = 0;
+    string token;
+    while ((pos = str.find(delim)) != string::npos) {
+        token = str.substr(0, pos);
+        v.push_back(token);
+        str.erase(0, pos + delimiter.length());
+    }
+    return v;
+};
+
 ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string commands){
     cout << ">" << commands << endl;
     cout << "current selection state: " << selection.get_selector_state() << endl;
