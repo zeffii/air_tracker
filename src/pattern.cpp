@@ -596,9 +596,18 @@ bool Pattern::get_console_listening_state(){
     return console_running;
 };
 
-void Pattern::execute_console_command(){
+void Pattern::execute_console_command(Selector &selection){
     cout << "executing" << console_string << endl;;
     console_string = ":";
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+    cout << selection_start << ", " << selection_length << endl;
+
 };
 
 string Pattern::get_console_string(){

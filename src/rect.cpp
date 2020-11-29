@@ -72,7 +72,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             }
             else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
                 mypat.set_console_listening_state(false);
-                mypat.execute_console_command();
+                mypat.execute_console_command(selection);
             }
             else if (event.type == SDL_TEXTINPUT){
                 text = mypat.get_console_string();

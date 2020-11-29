@@ -59,7 +59,7 @@ class Pattern {
 
         void set_console_listening_state(bool state);
         bool get_console_listening_state();
-        void execute_console_command();
+        void execute_console_command(Selector &selection);
 
         string get_console_string();
         void update_console_string(string new_console_string);
