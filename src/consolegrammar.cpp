@@ -8,14 +8,20 @@
 
 using namespace std;
 
-ConsoleGrammar::ConsoleGrammar(Selection_Range sr, Pattern &mypat, string commands){
+ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string commands){
     cout << ">" << commands << endl;
-    cout << sr.first_col_idx << endl;
-    cout << sr.last_col_idx << endl;
-    cout << sr.first_row_idx << endl;
-    cout << sr.last_row_idx << endl;    
-    cout << "----\n";
+    cout << "current selection state: " << selection.get_selector_state() << endl;
 
+    if (selection.get_selector_state()){
+
+        Selection_Range sr = {};
+        mypat.get_corrected_selection_range(selection, sr);
+
+        int char_offset = 4;
+        int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+        int selection_start = sr.first_col_idx + char_offset;
+        cout << selection_start << ", " << selection_length << endl;
+    }
 };
 
 

@@ -69,18 +69,19 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 text = mypat.get_console_string();
                 text = text.substr(0, text.length() -1);
                 mypat.update_console_string(text);
+                mypat.texture_console(Window::renderer);
             }
             else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
                 mypat.set_console_listening_state(false);
                 mypat.execute_console_command(selection);
+                mypat.texture_console(Window::renderer);
             }
             else if (event.type == SDL_TEXTINPUT){
                 text = mypat.get_console_string();
                 text += event.text.text;
                 mypat.update_console_string(text);
+                mypat.texture_console(Window::renderer);
             }
-            mypat.texture_console(Window::renderer);
-
         }
         return;
     }

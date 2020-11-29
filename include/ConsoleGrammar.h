@@ -11,7 +11,7 @@ using namespace std;
 class ConsoleGrammar {
 
     public:
-        ConsoleGrammar(Selection_Range sr, Pattern &mypat, string commands);
+        ConsoleGrammar(Selector &selection, Pattern &mypat, string commands);
 
     private:
         vector<string> replacement_data;
