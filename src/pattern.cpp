@@ -609,6 +609,8 @@ void Pattern::execute_console_command(Selector &selection){
     cout << selection_start << ", " << selection_length << endl;
     cout << "executing: " << commands << endl;
 
+    ConsoleGrammar cs(sr, *this, commands);
+
 };
 
 string Pattern::get_console_string(){
