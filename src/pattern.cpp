@@ -13,7 +13,7 @@
 #include "Window.h"
 #include "Functions.h"
 #include "Hex_functions.h"
-
+#include "ConsoleGrammar.h"
 
 using namespace std;
 
@@ -597,7 +597,7 @@ bool Pattern::get_console_listening_state(){
 };
 
 void Pattern::execute_console_command(Selector &selection){
-    cout << "executing" << console_string << endl;;
+    string commands = console_string.substr(1);
     console_string = ":";
 
     Selection_Range sr = {};
@@ -607,6 +607,7 @@ void Pattern::execute_console_command(Selector &selection){
     int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
     int selection_start = sr.first_col_idx + char_offset;
     cout << selection_start << ", " << selection_length << endl;
+    cout << "executing: " << commands << endl;
 
 };
 

@@ -6,6 +6,7 @@
 #include "Pattern.h"
 #include "Functions.h"
 #include "Selector.h"
+#include "ConsoleGrammar.h"
 
 #include <vector>
 #include <iostream>
