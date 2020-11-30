@@ -8,6 +8,22 @@
 
 using namespace std;
 
+bool is_string_numeric(string str){
+    /*
+    numeric strings may contain numbers, and at most one decimal point. 
+    */
+    int point = 0;
+    for (int i = 0; i < str.length(); i++){
+        if (isdigit(str[i])) { continue; }
+
+        else if ((str[i] == '.') && (point == 0)) {
+            point += 1;
+        } 
+        else { return false; }
+    }
+    return true;
+}    
+
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
@@ -103,6 +119,13 @@ int find_int_in_array(int num_to_find, int numbers[], int arraysize){
 int find_int_in_vector(int num_to_find, vector<int> inarray){
     vector<int>::iterator it = std::find(inarray.begin(), inarray.end(), num_to_find);
     return (it != inarray.end()) ? 1 : 0;
+};
+
+bool find_str_in_vector(vector<string> inarray, string token){
+    for (auto s: inarray)
+        if (s == token)
+            return true;
+    return false;
 };
 
 

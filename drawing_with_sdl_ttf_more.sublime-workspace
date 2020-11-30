@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"_cons",
+				"_console_rect"
+			],
+			[
+				"r",
+				"renderer"
+			],
+			[
+				"console",
+				"console_running"
+			],
+			[
 				"char",
 				"char_offset"
 			],
@@ -200,6 +212,11 @@
 		"height": 131.0,
 		"history":
 		[
+			"5*19",
+			"3/114 vs 114",
+			"114/6",
+			"38*3",
+			"38*2",
 			"100 / (300000000 / 263156)",
 			"263156 / 3000000000",
 			"263156 / 300000000",
@@ -260,6 +277,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"split",
+			"delay",
 			"print_int_vector",
 			"print_string_vector",
 			"16",
@@ -318,8 +337,8 @@
 		"cols":
 		[
 			0.0,
-			0.403615514307,
-			0.56882889767,
+			0.426708727655,
+			0.632597266036,
 			1.0
 		],
 		"rows":
@@ -331,7 +350,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 103.0
+		"height": 220.0
 	},
 	"output.find_results":
 	{
@@ -377,7 +396,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 165.0,
+	"side_bar_width": 244.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
