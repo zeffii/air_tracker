@@ -14,3 +14,4 @@ string uppercase(string str);
 vector<string> interpolate_hex(int elements, string h_start, string h_end);
 
 string pick_random_hex(int numchars);
+string multiply_hex(string hexvalue, float amount);

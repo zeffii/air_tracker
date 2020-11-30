@@ -613,3 +613,41 @@ void Pattern::update_console_string(string new_console_string){
         console_string = ":";
     }
 };
+
+void Pattern::amp_selection(Selector &selection, float amount){
+    Selection_Range sr = {};
+    mypat.get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+    cout << selection_start << ", " << selection_length << endl;
+
+    string first_hex = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+
+    if (does_selection_contain_gutter(first_hex)){
+        cout << "selection contains a gutter, currently only single rows are supported\n";
+        return;
+    }
+
+    int changes = 0;
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+
+            // string replacement = multiply_hex(row_value, amt);
+            // pattern_data[i].replace(selection_start, selection_length, replacement);
+            changes += 1;
+        }
+    }
+
+    if (changes > 0){
+        // cout << "randomize " << changes << " values\n";
+        texture_pattern(renderer_placeholder);
+    }
+
+
+};

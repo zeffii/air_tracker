@@ -65,16 +65,11 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
         if (elements.size() == 2){
             double amt = ::atof(elements[1].c_str());
             cout << "Attempting to amplify. by " << amt << endl;
+            mypat.amp_selection(selection, amt);
         }
     }
 
-    Selection_Range sr = {};
-    mypat.get_corrected_selection_range(selection, sr);
 
-    int char_offset = 4;
-    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
-    int selection_start = sr.first_col_idx + char_offset;
-    cout << selection_start << ", " << selection_length << endl;
     
 };
 

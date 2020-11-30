@@ -6,12 +6,8 @@
 #include <random>
 #include <iomanip>
 
-
 using namespace std;
 
-/*
-
-*/
 
 string helper_converter(int num, int numchars){
 
@@ -84,5 +80,21 @@ string pick_random_hex(int numchars){
 
     return replacement;
 
+
+};
+
+string multiply_hex(string hexvalue, float amount){
+
+    unsigned int x_1;
+    stringstream ss_1;
+
+    ss_1 << std::hex << hexvalue;
+    ss_1 >> x_1;
+
+    int temp_int = round(x_1 * amount);
+    int numchars = hexvalue.length();
+    string hex_result = helper_converter(temp_int, numchars);
+    hex_result = uppercase(hex_result);
+    return hex_result;
 
 };
