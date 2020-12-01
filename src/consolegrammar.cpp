@@ -15,9 +15,11 @@ vector<string> operands = {
     "spd",  //   spd dbl   |  spd 2.0  | spd 0.5
     "linf", //   linf      |  linf a, b  (a=start amp, b=end amp)  -> linf 1.0 0.2
             //   default => linf => linf 1.0 0.0
-    "rep"   //   rep
+    "rep",  //   rep
             //   default => rep ^  (repeat selection till end of pattern)
             //   rep 12  => repeat 12 times (or until end of pattern)
+    "avg",  //   average all values in selection, set all values to the avg
+    "hum"   //   humanize  ( hum 20 )
 };
 
 

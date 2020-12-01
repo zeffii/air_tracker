@@ -168,7 +168,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
 
             case SDLK_SEMICOLON:
-                if (window.is_lshift_pressed()){
+                if (window.is_lshift_pressed() || window.is_rshift_pressed()){
                     mypat.set_console_listening_state(true);
                 }
                 break;
