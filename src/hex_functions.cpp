@@ -85,16 +85,41 @@ string pick_random_hex(int numchars){
 
 string multiply_hex(string hexvalue, float amount){
 
+    int maxintval = 0;
+    string maxhexval = "F";
+    string hex_result = "";
+
     unsigned int x_1;
     stringstream ss_1;
 
     ss_1 << std::hex << hexvalue;
     ss_1 >> x_1;
 
-    int temp_int = round((float)x_1 * amount);
     int numchars = hexvalue.length();
-    string hex_result = helper_converter(temp_int, numchars);
-    hex_result = uppercase(hex_result);
+    switch (numchars) {
+        case 4:
+            maxintval = 65535;
+            maxhexval = "FFFF";
+            break;
+        case 2:
+            maxintval = 255;
+            maxhexval = "FF";
+            break;
+        case 1:
+            maxintval = 16;
+            maxhexval = "F";
+            break;
+        default:
+            return hexvalue;
+    }
+
+    int temp_int = round((float)x_1 * amount);
+    if (temp_int > maxintval) {
+        hex_result = maxhexval;
+    } else {
+        hex_result = helper_converter(temp_int, numchars);
+        hex_result = uppercase(hex_result);
+    }
     return hex_result;
 
 };
