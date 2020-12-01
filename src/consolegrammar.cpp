@@ -18,7 +18,7 @@ vector<string> operands = {
     "rep",  //   rep
             //   default => rep ^  (repeat selection till end of pattern)
             //   rep 12  => repeat 12 times (or until end of pattern)
-    "avg",  //   average all values in selection, set all values to the avg
+    "avg",  //   "avg |" average all values in selection, set all values to the avg
     "hum"   //   humanize  ( hum 20 )
 };
 
@@ -56,11 +56,8 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
             mypat.amp_selection(selection, amt);
             return;
         }
-        
-    } else if (operand == "avg"){
 
-        cout << "attempting to average values\n";
-    }
+    } else if (operand == "avg"){ mypat.average_selection(selection); }
 
     cout << "command not implemented yet --->" << commands << endl;
     

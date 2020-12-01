@@ -668,29 +668,34 @@ void Pattern::average_selection(Selector &selection){
         return;
     }
 
-
+    int numchars = test_row.length();
     int changes = 0;
+    vector<int> nums_to_avg;
+    vector<int> rows_to_replace;
+
+    // get all row data that doesn't include a dot. get int from hex.
     for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
 
         string row_value = pattern_data[i].substr(selection_start, selection_length);
-
         int row_contains_dot = row_value.find(".");
         if (row_contains_dot < 0){
 
-            cout << row_value;
-            int numchars = row_value.length();
-
-            string replacement = pick_random_hex(numchars);
-            // cout << " <<< " << replacement << endl;
-            pattern_data[i].replace(selection_start, selection_length, replacement);
+            nums_to_avg.push_back(hex_to_int(row_value));
+            rows_to_replace.push_back(i);
             changes += 1;
         }
     }
 
-    if (changes > 0){
-        // cout << "randomize " << changes << " values\n";
-        texture_pattern(renderer_placeholder);
-    }
+    // end early in case of no changes.
+    if (changes == 0){ return; }
 
+    // if reaching here, it means something did indeed get stored into nums_to_sum
+    int avg_decimal = average_int_vector(nums_to_avg);
+    string avg_hex = int_to_hex(avg_decimal, numchars);
+
+    for (auto i: rows_to_replace)
+        pattern_data[i].replace(selection_start, selection_length, avg_hex);
+
+    texture_pattern(renderer_placeholder);
 };
 

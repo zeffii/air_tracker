@@ -24,6 +24,13 @@ bool is_string_numeric(string str){
     return true;
 };    
 
+int average_int_vector(vector<int> invec){
+    int _val = 0;
+    for (auto i: invec)
+        _val += i;
+    return (int) _val / invec.size();
+};
+
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
