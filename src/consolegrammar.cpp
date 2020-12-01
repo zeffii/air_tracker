@@ -48,10 +48,11 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
             double amt = ::atof(elements[1].c_str());
             cout << "Attempting to amplify. by " << amt << endl;
             mypat.amp_selection(selection, amt);
+            return;
         }
     }
 
-
+    cout << "command not implemented yet --->" << commands << endl;
     
 };
 
