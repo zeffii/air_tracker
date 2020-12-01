@@ -43,8 +43,10 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
         return;
     }
 
+    string operand = elements[0];
 
-    if (elements[0] == "amp"){
+    if (operand == "amp"){
+
         cout << elements.size() << endl;
         print_string_vector(elements);
         if ((elements.size() == 2) && is_string_numeric(elements[1])){
@@ -54,6 +56,10 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
             mypat.amp_selection(selection, amt);
             return;
         }
+        
+    } else if (operand == "avg"){
+
+        cout << "attempting to average values\n";
     }
 
     cout << "command not implemented yet --->" << commands << endl;
