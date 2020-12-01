@@ -649,5 +649,48 @@ void Pattern::amp_selection(Selector &selection, float amount){
         texture_pattern(renderer_placeholder);
     }
 
+};
+
+void Pattern::average_selection(Selector &selection){
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    // test of this is a single lane (columnar) selection
+    string test_row = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+    int row_contains_gap = test_row.find(" ");
+    if (row_contains_gap >= 0){
+        cout << "selection contains spacers, aborting\n";
+        return;
+    }
+
+
+    int changes = 0;
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+
+            cout << row_value;
+            int numchars = row_value.length();
+
+            string replacement = pick_random_hex(numchars);
+            // cout << " <<< " << replacement << endl;
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            changes += 1;
+        }
+    }
+
+    if (changes > 0){
+        // cout << "randomize " << changes << " values\n";
+        texture_pattern(renderer_placeholder);
+    }
 
 };
+
