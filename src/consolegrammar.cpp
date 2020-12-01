@@ -10,9 +10,15 @@
 using namespace std;
 
 vector<string> operands = {
-    "amp", "rev", "spd", "linf", "rep"
+    "amp",  //   amp value |
+    "rev",  //   rev       |  rev row
+    "spd",  //   spd dbl   |  spd 2.0  | spd 0.5
+    "linf", //   linf      |  linf a, b  (a=start amp, b=end amp)  -> linf 1.0 0.2
+            //   default => linf => linf 1.0 0.0
+    "rep"   //   rep
+            //   default => rep ^  (repeat selection till end of pattern)
+            //   rep 12  => repeat 12 times (or until end of pattern)
 };
-
 
 
 ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string commands){
