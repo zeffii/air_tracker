@@ -43,6 +43,7 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
         return;
     }
 
+
     if (elements[0] == "amp"){
         cout << elements.size() << endl;
         print_string_vector(elements);
