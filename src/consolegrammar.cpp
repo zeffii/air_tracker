@@ -13,24 +13,7 @@ vector<string> operands = {
     "amp", "rev", "spd", "linf", "rep"
 };
 
-vector<string> split_string(string str, string delim){
 
-    vector<string> v;
-
-    auto start = 0U;
-    auto end = str.find(delim);
-    while (end != std::string::npos) {
-        v.push_back(str.substr(start, end - start));
-        start = end + delim.length();
-        end = str.find(delim, start);
-    }
-    v.push_back(str.substr(start, end));
-
-    if (v.empty())
-        v.push_back("FAIL");
-
-    return v;
-};
 
 ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string commands){
     //cout << ">" << commands << endl;
@@ -42,8 +25,8 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
     }
 
     vector<string> elements = split_string(commands, " ");
-    if (elements[0] == "FAIL"){
-        cout << "parsing failed, see the manual!\n";
+    if (elements.size() == 1){
+        cout << "parsing |" << elements[0] << "| failed, see the manual!\n";
         return;
     }
 

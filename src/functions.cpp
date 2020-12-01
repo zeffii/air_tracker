@@ -128,6 +128,22 @@ bool find_str_in_vector(vector<string> inarray, string token){
     return false;
 };
 
+vector<string> split_string(string str, string delim){
+
+    vector<string> v;
+
+    auto start = 0U;
+    auto end = str.find(delim);
+    while (end != std::string::npos) {
+        v.push_back(str.substr(start, end - start));
+        start = end + delim.length();
+        end = str.find(delim, start);
+    }
+    v.push_back(str.substr(start, end));
+
+    return v;
+};
+
 
 string get_empty_repr_of_row(string row){
     int numchars = row.length();
