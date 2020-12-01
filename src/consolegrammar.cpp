@@ -16,39 +16,30 @@ vector<string> operands = {
 vector<string> split_string(string str, string delim){
 
     vector<string> v;
-    size_t pos = 0;
-    string token;
 
-    try {
-
-        while ((pos = str.find(delim)) != string::npos) {
-            token = str.substr(0, pos);
-            if (token == " ")
-                continue;        
-            v.push_back(token);
-            str.erase(0, pos + delim.length());
-        }
+    auto start = 0U;
+    auto end = str.find(delim);
+    while (end != std::string::npos) {
+        v.push_back(str.substr(start, end - start));
+        start = end + delim.length();
+        end = str.find(delim, start);
     }
-    catch (...) {
-        v.clear();
+    v.push_back(str.substr(start, end));
+
+    if (v.empty())
         v.push_back("FAIL");
-    }
-
 
     return v;
 };
 
 ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string commands){
-    cout << ">" << commands << endl;
-    cout << "current selection state: " << selection.get_selector_state() << endl;
+    //cout << ">" << commands << endl;
+    //cout << "current selection state: " << selection.get_selector_state() << endl;
 
     if (!(selection.get_selector_state())){
-        // do something else.
+        cout << "end earlier state\n";
         return;
     }
-
-    string operand = "";
-
 
     vector<string> elements = split_string(commands, " ");
     if (elements[0] == "FAIL"){
@@ -62,6 +53,8 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
     }
 
     if (elements[0] == "amp"){
+        cout << elements.size() << endl;
+        print_string_vector(elements);
         if (elements.size() == 2){
             double amt = ::atof(elements[1].c_str());
             cout << "Attempting to amplify. by " << amt << endl;

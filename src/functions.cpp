@@ -13,7 +13,7 @@ bool is_string_numeric(string str){
     numeric strings may contain numbers, and at most one decimal point. 
     */
     int point = 0;
-    for (int i = 0; i < str.length(); i++){
+    for (int unsigned i = 0; i < str.length(); i++){
         if (isdigit(str[i])) { continue; }
 
         else if ((str[i] == '.') && (point == 0)) {
@@ -22,7 +22,7 @@ bool is_string_numeric(string str){
         else { return false; }
     }
     return true;
-}    
+};    
 
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B){

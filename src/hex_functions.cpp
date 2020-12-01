@@ -91,7 +91,7 @@ string multiply_hex(string hexvalue, float amount){
     ss_1 << std::hex << hexvalue;
     ss_1 >> x_1;
 
-    int temp_int = round(x_1 * amount);
+    int temp_int = round((float)x_1 * amount);
     int numchars = hexvalue.length();
     string hex_result = helper_converter(temp_int, numchars);
     hex_result = uppercase(hex_result);

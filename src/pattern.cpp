@@ -616,7 +616,7 @@ void Pattern::update_console_string(string new_console_string){
 
 void Pattern::amp_selection(Selector &selection, float amount){
     Selection_Range sr = {};
-    mypat.get_corrected_selection_range(selection, sr);
+    get_corrected_selection_range(selection, sr);
 
     int char_offset = 4;
     int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
@@ -638,8 +638,8 @@ void Pattern::amp_selection(Selector &selection, float amount){
         int row_contains_dot = row_value.find(".");
         if (row_contains_dot < 0){
 
-            // string replacement = multiply_hex(row_value, amt);
-            // pattern_data[i].replace(selection_start, selection_length, replacement);
+            string replacement = multiply_hex(row_value, amount);
+            pattern_data[i].replace(selection_start, selection_length, replacement);
             changes += 1;
         }
     }

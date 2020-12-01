@@ -39,7 +39,7 @@ class Pattern {
         void perform_selection_interpolation(Selector &selection, string mode);
         void interpolate_single(Selection_Params sel);
         void randomize_selection(Selector &selection, int factor);
-        void amp_selection(Selector &selection, float amount)
+        void amp_selection(Selector &selection, float amount);
 
         int get_nchars_in_row();
         int get_nrows_in_column();

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-bool is_string_numeric(string str)
+bool is_string_numeric(string str);
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B);
 vector<int> filter_out_int_array_A_from_B(vector<int> inarray, vector<int> drop);
