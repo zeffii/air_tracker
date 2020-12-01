@@ -24,6 +24,20 @@ string uppercase(string str){
     return str;
 };
 
+int hex_to_int(string hexvalue){
+    unsigned int x_1;
+    stringstream ss_1;
+    ss_1 << std::hex << hexvalue;
+    ss_1 >> x_1;
+    return x_1;
+};
+
+string int_to_hex(int num, int numchars){
+    string interim_hex = helper_converter(num, numchars);
+    return uppercase(interim_hex);
+};
+
+
 vector<string> interpolate_hex(int elements, string h_start, string h_end){
     /*
     - first convert h_start amd h_end to integers
