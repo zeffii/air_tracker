@@ -728,6 +728,7 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     int num_times;
 
     if (behaviour == "^"){
+        cout << "here...\n";
         num_times = -1;
     }
     else if (is_string_numeric(behaviour)){
@@ -744,22 +745,28 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
     // cout << sr.first_row_idx << ", " << sr.last_row_idx << endl;
     
-    int num_remaining_rows = _nrows - sr.first_col_idx;
+    int num_remaining_rows = _nrows - sr.first_row_idx;
     int possible_full_copies = num_remaining_rows / num_rows_in_selection;
     int rows_in_partial_copy = num_remaining_rows % num_rows_in_selection;
 
-    // if (num_remaining_rows < num_rows_to_paste){
-    //     num_rows_to_paste = num_remaining_rows;
-    // }
-    
-    // int m = 0;
-    // for (int i = row_index; i < row_index + num_rows_to_paste; i++){
-    //     string replacement = clipboard[m];
-    //     pattern_data[i].replace(cci, selection_length, replacement);
-    //     m += 1;
-    // }
-    // texture_pattern(renderer_placeholder);
+    if (num_times == -1)
+        num_times = possible_full_copies;
 
+    cout << "num times: " << num_times << endl;
 
+    // full copies
+    for (int i = 0; i < num_times; i++){
+        for (int m = sr.first_row_idx; m < sr.first_row_idx + num_rows_in_selection; m++){
+            string replacement = pattern_data[m].substr(selection_start, selection_length);
+            int j = (i * num_rows_in_selection) + m;
+            pattern_data[j].replace(selection_start, selection_length, replacement);
+        }
+    }
+
+    // partial copies
+    //
+    //
+
+    texture_pattern(renderer_placeholder);
 
 };
