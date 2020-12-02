@@ -49,12 +49,13 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
 
         cout << elements.size() << endl;
         print_string_vector(elements);
-        if ((elements.size() == 2) && is_string_numeric(elements[1])){
+        if ((elements.size() == 2) && is_string_numeric(elements[1])) {
             mypat.amp_selection(selection, ::atof(elements[1].c_str()));
             return;
         }
-
-    } else if (operand == "avg"){ mypat.average_selection(selection); return;}
+    } 
+    else if (operand == "avg") { mypat.average_selection(selection); return;}
+    else if (operand == "rep") { return;   }
 
     cout << "command not implemented yet --->" << commands << endl;
     
