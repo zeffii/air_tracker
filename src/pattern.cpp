@@ -722,5 +722,12 @@ void Pattern::average_selection(Selector &selection){
 };
 
 void Pattern::repeat_selection(Selector &selection, string behaviour){
+    if (behaviour == "^"){
+        // repeat till end
+    }
+    else if (is_string_numeric(behaviour)){
+        int num_times = ::atof(behaviour.c_str());
+
+    }
 
 };
