@@ -722,6 +722,10 @@ void Pattern::average_selection(Selector &selection){
 };
 
 void Pattern::repeat_selection(Selector &selection, string behaviour){
+    /*
+        this does not use the clipboad.
+
+    */
     if (behaviour == "^"){
         // repeat till end
     }
@@ -729,5 +733,30 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
         int num_times = ::atof(behaviour.c_str());
 
     }
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
+    // cout << sr.first_row_idx << ", " << sr.last_row_idx << endl;
+    
+    int num_remaining_rows = _nrows - row_index;
+    // if (num_remaining_rows < num_rows_to_paste){
+    //     num_rows_to_paste = num_remaining_rows;
+    // }
+    
+    // int m = 0;
+    // for (int i = row_index; i < row_index + num_rows_to_paste; i++){
+    //     string replacement = clipboard[m];
+    //     pattern_data[i].replace(cci, selection_length, replacement);
+    //     m += 1;
+    // }
+    // texture_pattern(renderer_placeholder);
+
+
 
 };
