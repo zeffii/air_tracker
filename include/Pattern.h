@@ -31,7 +31,8 @@ class Pattern {
         void store_selection_in_clipboard(Selector &selection);
         void paste_clipboard(int row_index, int column_index);
         void wipe_selection(Selector &selection);
-
+        void wipe_cell(Selector &selection, int row_index, int column_index);
+        
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
 
@@ -41,6 +42,7 @@ class Pattern {
         void randomize_selection(Selector &selection, int factor);
         void amp_selection(Selector &selection, float amount);
         void average_selection(Selector &selection);
+        void repeat_selection(Selector &selection, string behaviour);
 
         int get_nchars_in_row();
         int get_nrows_in_column();

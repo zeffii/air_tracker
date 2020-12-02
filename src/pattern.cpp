@@ -342,6 +342,10 @@ void Pattern::wipe_selection(Selector &selection){
     texture_pattern(renderer_placeholder);
 };
 
+void Pattern::wipe_cell(Selector &selection, int row_index, int column_index){
+
+
+};
 
 void Pattern::store_selection_in_clipboard(Selector &selection){
     Selection_Range sr = {};
@@ -700,3 +704,6 @@ void Pattern::average_selection(Selector &selection){
     texture_pattern(renderer_placeholder);
 };
 
+void Pattern::repeat_selection(Selector &selection, string behaviour){
+
+};

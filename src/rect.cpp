@@ -134,6 +134,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 }
                 break;
 
+            case SDLK_DELETE: {
+                mypat.wipe_cell(selection, column_index, row_index);
+                row_index += 1;
+                row_index %= nrows;
+            }
+
             case SDLK_RETURN:
                 mypat.print_row(row_index);
                 break;
