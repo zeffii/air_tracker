@@ -22,3 +22,8 @@ struct Selection_Range {
     int first_row_idx;
     int last_row_idx;
 };
+
+struct Cell_Range {
+    int cell_start, cell_length;
+    string cell_replacement;
+};

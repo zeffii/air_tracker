@@ -28,6 +28,8 @@ class Pattern {
         void display_console(SDL_Renderer *renderer) const;
 
         void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
+        void get_range_of_cell(int row_index, int column_index, Cell_Range &cr);
+
         void store_selection_in_clipboard(Selector &selection);
         void paste_clipboard(int row_index, int column_index);
         void wipe_selection(Selector &selection);
