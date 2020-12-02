@@ -352,15 +352,16 @@ void Pattern::get_range_of_cell(int row_index, int column_index, Cell_Range &cr)
   
     int char_offset = 4;
     cr.cell_start = cell_start + char_offset;
-    cout << "cell start: " << cr.cell_start << endl;
+    // cout << "cell start: " << cr.cell_start << endl;
     cr.cell_length = (cell_end - cell_start);
-    cout << "cell length: " << cr.cell_length << endl;
+    // cout << "cell length: " << cr.cell_length << endl;
     cr.cell_replacement = std::string(cr.cell_length, '.');
-    cout << "cell replacement: " << cr.cell_replacement << endl;
-    cout << "|" << cr.cell_replacement << "|";
+    // cout << "cell replacement: " << cr.cell_replacement << endl;
+    // cout << "|" << cr.cell_replacement << "|";
 };
 
-void Pattern::wipe_cell(Selector &selection, int row_index, int column_index){
+void Pattern::wipe_cell(Selector &selection, int column_index, int row_index){
+    // cout << "pre changes: row=" << row_index << ", col=" << column_index << endl;
     adjust_visual_cursor_for_scroll(row_index);
     // first we figure out if we are at the beginning of a cell, and set get the row index
     // of the start of that cell (it might already be in that "string-index", we need to know)

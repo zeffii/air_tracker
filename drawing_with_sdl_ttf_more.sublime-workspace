@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"cell",
+				"cell_replacement"
+			],
+			[
+				"row",
+				"row_index"
+			],
+			[
+				"sele",
+				"selection_start"
+			],
+			[
 				"av",
 				"avg_decimal"
 			],
@@ -66,10 +78,6 @@
 			[
 				"Selec",
 				"Selection_Params"
-			],
-			[
-				"row",
-				"row_value"
 			],
 			[
 				"Sel",
@@ -229,7 +237,7 @@
 			]
 		]
 	],
-	"build_varint": "Run",
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -321,6 +329,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"SDL_UpdateTexture",
 			"split",
 			"delay",
 			"print_int_vector",
@@ -375,7 +384,7 @@
 		"cols":
 		[
 			0.0,
-			0.435371769242,
+			0.483647631311,
 			1.0
 		],
 		"rows":

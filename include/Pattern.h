@@ -33,7 +33,7 @@ class Pattern {
         void store_selection_in_clipboard(Selector &selection);
         void paste_clipboard(int row_index, int column_index);
         void wipe_selection(Selector &selection);
-        void wipe_cell(Selector &selection, int row_index, int column_index);
+        void wipe_cell(Selector &selection, int column_index, int row_index);
         
         void print_row(int row_number);
         void set_char_at(int row_number, int col_number, string character);
