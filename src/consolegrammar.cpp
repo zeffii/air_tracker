@@ -28,7 +28,7 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
     //cout << "current selection state: " << selection.get_selector_state() << endl;
 
     if (!(selection.get_selector_state())){
-        cout << "end earlier state\n";
+        cout << "selection must be active or completed\n";
         return;
     }
 
@@ -46,9 +46,6 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
     string operand = elements[0];
 
     if (operand == "amp"){
-
-        cout << elements.size() << endl;
-        print_string_vector(elements);
         if ((elements.size() == 2) && is_string_numeric(elements[1])) {
             mypat.amp_selection(selection, ::atof(elements[1].c_str()));
             return;
