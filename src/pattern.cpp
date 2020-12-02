@@ -743,7 +743,6 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     int selection_start = sr.first_col_idx + char_offset;
 
     int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
-    // cout << sr.first_row_idx << ", " << sr.last_row_idx << endl;
     
     int num_remaining_rows = _nrows - sr.first_row_idx;
     int possible_full_copies = num_remaining_rows / num_rows_in_selection;
@@ -763,8 +762,8 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
         }
     }
 
-    // partial copies
-    //
+    // partial copy
+    // use j, pull it out of the for loop.
     //
 
     texture_pattern(renderer_placeholder);
