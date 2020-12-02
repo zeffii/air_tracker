@@ -138,6 +138,8 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.wipe_cell(selection, column_index, row_index);
                 row_index += 1;
                 row_index %= nrows;
+                _y = y_offset + (row_index * line_height);
+                break;
             }
 
             case SDLK_RETURN:
