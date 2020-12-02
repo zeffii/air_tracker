@@ -279,7 +279,7 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
         int findex = allowed.find(character);
         if (findex >= 0){
             pattern_data[row_number].replace(col_number + 4, 1, character);
-            texture_pattern(renderer_placeholder);            
+            texture_pattern(renderer_placeholder);
         }
 
     }
@@ -343,18 +343,28 @@ void Pattern::wipe_selection(Selector &selection){
 };
 
 void Pattern::get_range_of_cell(int row_index, int column_index, Cell_Range &cr){
+    string temp_row_repr = pattern_data[row_index];
 
+    int cell_end = temp_row_repr.find(" ", column_index);
+
+    string remaining_str = temp_row_repr.substr(0, cell_end);
+    int cell_start = remaining_str.find_last_of(" ");
+  
+    int char_offset = 4;
+    cr.cell_start = cell_start + char_offset;
+    cr.cell_length = (cell_end - cell_start);
+    cr.cell_replacement = std::string(cr.cell_length, '.');
+    cout << "|" << cr.cell_replacement << "|";
 };
 
 void Pattern::wipe_cell(Selector &selection, int row_index, int column_index){
     adjust_visual_cursor_for_scroll(row_index);
     // first we figure out if we are at the beginning of a cell, and set get the row index
     // of the start of that cell (it might already be in that "string-index", we need to know)
-    /*
     Cell_Range cr = {};
     get_range_of_cell(row_index, column_index, cr);
     pattern_data[row_index].replace(cr.cell_start, cr.cell_length, cr.cell_replacement);
-    */
+    texture_pattern(renderer_placeholder);
 };
 
 void Pattern::store_selection_in_clipboard(Selector &selection){
