@@ -50,14 +50,11 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
         cout << elements.size() << endl;
         print_string_vector(elements);
         if ((elements.size() == 2) && is_string_numeric(elements[1])){
-
-            double amt = ::atof(elements[1].c_str());
-            cout << "Attempting to amplify. by " << amt << endl;
-            mypat.amp_selection(selection, amt);
+            mypat.amp_selection(selection, ::atof(elements[1].c_str()));
             return;
         }
 
-    } else if (operand == "avg"){ mypat.average_selection(selection); }
+    } else if (operand == "avg"){ mypat.average_selection(selection); return;}
 
     cout << "command not implemented yet --->" << commands << endl;
     
