@@ -345,19 +345,15 @@ void Pattern::wipe_selection(Selector &selection){
 void Pattern::get_range_of_cell(int row_index, int column_index, Cell_Range &cr){
     string temp_row_repr = pattern_data[row_index];
 
-    int cell_end = temp_row_repr.find(" ", column_index);
+    int char_offset = 4;
+    int cell_end = temp_row_repr.find(" ", column_index + char_offset);
 
     string remaining_str = temp_row_repr.substr(0, cell_end);
     int cell_start = remaining_str.find_last_of(" ") + 1;
   
-    int char_offset = 4;
-    cr.cell_start = cell_start + char_offset;
-    // cout << "cell start: " << cr.cell_start << endl;
+    cr.cell_start = cell_start;
     cr.cell_length = (cell_end - cell_start);
-    // cout << "cell length: " << cr.cell_length << endl;
     cr.cell_replacement = std::string(cr.cell_length, '.');
-    // cout << "cell replacement: " << cr.cell_replacement << endl;
-    // cout << "|" << cr.cell_replacement << "|";
 };
 
 void Pattern::wipe_cell(Selector &selection, int column_index, int row_index){
