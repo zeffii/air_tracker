@@ -8,6 +8,29 @@
 
 using namespace std;
 
+bool is_string_numeric(string str){
+    /*
+    numeric strings may contain numbers, and at most one decimal point. 
+    */
+    int point = 0;
+    for (int unsigned i = 0; i < str.length(); i++){
+        if (isdigit(str[i])) { continue; }
+
+        else if ((str[i] == '.') && (point == 0)) {
+            point += 1;
+        } 
+        else { return false; }
+    }
+    return true;
+};    
+
+int average_int_vector(vector<int> invec){
+    int _val = 0;
+    for (auto i: invec)
+        _val += i;
+    return (int) _val / invec.size();
+};
+
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
@@ -103,6 +126,29 @@ int find_int_in_array(int num_to_find, int numbers[], int arraysize){
 int find_int_in_vector(int num_to_find, vector<int> inarray){
     vector<int>::iterator it = std::find(inarray.begin(), inarray.end(), num_to_find);
     return (it != inarray.end()) ? 1 : 0;
+};
+
+bool find_str_in_vector(vector<string> inarray, string token){
+    for (auto s: inarray)
+        if (s == token)
+            return true;
+    return false;
+};
+
+vector<string> split_string(string str, string delim){
+
+    vector<string> v;
+
+    auto start = 0U;
+    auto end = str.find(delim);
+    while (end != std::string::npos) {
+        v.push_back(str.substr(start, end - start));
+        start = end + delim.length();
+        end = str.find(delim, start);
+    }
+    v.push_back(str.substr(start, end));
+
+    return v;
 };
 
 

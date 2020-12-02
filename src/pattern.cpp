@@ -13,7 +13,7 @@
 #include "Window.h"
 #include "Functions.h"
 #include "Hex_functions.h"
-
+#include "ConsoleGrammar.h"
 
 using namespace std;
 
@@ -72,9 +72,10 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
     }
     else {
         //cout << "re-using _text_textures to populate more!\b";
-        //for (int unsigned i = 0; i < _text_textures.size(); i++){
-        //    SDL_DestroyTexture(_text_textures[i]);
-        //}
+        for (auto texture: _text_textures){
+            SDL_DestroyTexture(texture);
+        }
+        // SDL_UpdateTexture(...) <--- how to use?
         _text_textures.clear();
     }
 
@@ -596,9 +597,11 @@ bool Pattern::get_console_listening_state(){
     return console_running;
 };
 
-void Pattern::execute_console_command(){
-    cout << "executing" << console_string << endl;;
+void Pattern::execute_console_command(Selector &selection){
+    string commands = console_string.substr(1);
     console_string = ":";
+    cout << "executing: " << commands << endl;
+    ConsoleGrammar cs(selection, *this, commands);
 };
 
 string Pattern::get_console_string(){
@@ -611,3 +614,89 @@ void Pattern::update_console_string(string new_console_string){
         console_string = ":";
     }
 };
+
+void Pattern::amp_selection(Selector &selection, float amount){
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+    cout << selection_start << ", " << selection_length << endl;
+
+    string first_hex = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+
+    if (does_selection_contain_gutter(first_hex)){
+        cout << "selection contains a gutter, currently only single rows are supported\n";
+        return;
+    }
+
+    int changes = 0;
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+
+            string replacement = multiply_hex(row_value, amount);
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            changes += 1;
+        }
+    }
+
+    if (changes > 0){
+        // cout << "randomize " << changes << " values\n";
+        texture_pattern(renderer_placeholder);
+    }
+
+};
+
+void Pattern::average_selection(Selector &selection){
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    // test of this is a single lane (columnar) selection
+    string test_row = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+    int row_contains_gap = test_row.find(" ");
+    if (row_contains_gap >= 0){
+        cout << "selection contains spacers, aborting\n";
+        return;
+    }
+
+    int numchars = test_row.length();
+    int changes = 0;
+    vector<int> nums_to_avg;
+    vector<int> rows_to_replace;
+
+    // get all row data that doesn't include a dot. get int from hex.
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+
+            nums_to_avg.push_back(hex_to_int(row_value));
+            rows_to_replace.push_back(i);
+            changes += 1;
+        }
+    }
+
+    // end early in case of no changes.
+    if (changes == 0){ return; }
+
+    // if reaching here, it means something did indeed get stored into nums_to_sum
+    int avg_decimal = average_int_vector(nums_to_avg);
+    string avg_hex = int_to_hex(avg_decimal, numchars);
+
+    for (auto i: rows_to_replace)
+        pattern_data[i].replace(selection_start, selection_length, avg_hex);
+
+    texture_pattern(renderer_placeholder);
+};
+

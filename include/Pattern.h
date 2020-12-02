@@ -9,6 +9,7 @@
 #include "Selector.h"
 #include "Hex_functions.h"
 #include "SelectRange.h"
+// #include "ConsoleGrammar.h"
 
 using namespace std;
 
@@ -38,6 +39,8 @@ class Pattern {
         void perform_selection_interpolation(Selector &selection, string mode);
         void interpolate_single(Selection_Params sel);
         void randomize_selection(Selector &selection, int factor);
+        void amp_selection(Selector &selection, float amount);
+        void average_selection(Selector &selection);
 
         int get_nchars_in_row();
         int get_nrows_in_column();
@@ -59,7 +62,7 @@ class Pattern {
 
         void set_console_listening_state(bool state);
         bool get_console_listening_state();
-        void execute_console_command();
+        void execute_console_command(Selector &selection);
 
         string get_console_string();
         void update_console_string(string new_console_string);

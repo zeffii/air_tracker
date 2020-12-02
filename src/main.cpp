@@ -6,6 +6,7 @@
 #include "Pattern.h"
 #include "Functions.h"
 #include "Selector.h"
+#include "ConsoleGrammar.h"
 
 #include <vector>
 #include <iostream>
@@ -52,6 +53,7 @@ int main(int argc, char* args[])
         SDL_PumpEvents();
         window.set_pressing_ctrl(keyState[SDL_SCANCODE_LCTRL]);
         window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
+        window.set_pressing_rshift(keyState[SDL_SCANCODE_RSHIFT]);
  
         pollEvents(window, cursor, mypat, selection);
         
