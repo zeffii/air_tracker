@@ -357,10 +357,7 @@ void Pattern::get_range_of_cell(int row_index, int column_index, Cell_Range &cr)
 };
 
 void Pattern::wipe_cell(Selector &selection, int column_index, int row_index){
-    // cout << "pre changes: row=" << row_index << ", col=" << column_index << endl;
     adjust_visual_cursor_for_scroll(row_index);
-    // first we figure out if we are at the beginning of a cell, and set get the row index
-    // of the start of that cell (it might already be in that "string-index", we need to know)
     Cell_Range cr = {};
     get_range_of_cell(row_index, column_index, cr);
     pattern_data[row_index].replace(cr.cell_start, cr.cell_length, cr.cell_replacement);
