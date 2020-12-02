@@ -724,14 +724,14 @@ void Pattern::average_selection(Selector &selection){
 void Pattern::repeat_selection(Selector &selection, string behaviour){
     /*
         this does not use the clipboad.
-
     */
-    int num_times; = -1;
+    int num_times;
+
     if (behaviour == "^"){
         num_times = -1;
     }
     else if (is_string_numeric(behaviour)){
-        num_times = ::atof(behaviour.c_str());
+        num_times = (int) ::atof(behaviour.c_str());
     }
 
     Selection_Range sr = {};
@@ -744,7 +744,7 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
     // cout << sr.first_row_idx << ", " << sr.last_row_idx << endl;
     
-    int num_remaining_rows = _nrows - row_index;
+    int num_remaining_rows = _nrows - sr.first_col_idx;
     int possible_full_copies = num_remaining_rows / num_rows_in_selection;
     int rows_in_partial_copy = num_remaining_rows % num_rows_in_selection;
 
