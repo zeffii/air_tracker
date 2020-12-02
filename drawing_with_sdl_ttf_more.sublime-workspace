@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"av",
+				"avg_decimal"
+			],
+			[
+				"max",
+				"maxintval"
+			],
+			[
 				"_cons",
 				"_console_rect"
 			],
@@ -185,11 +193,43 @@
 			]
 		]
 	},
-	"build_system": "",
+	"build_system": "Packages/User/cpp14.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/cpp14.sublime-build",
+					""
+				],
+				[
+					"Packages/User/cpp14.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/cpp14.sublime-build",
+				"Run"
+			]
+		]
 	],
-	"build_varint": "",
+	"build_varint": "Run",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -238,6 +278,10 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/temp_file_test.cpp",
+		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/cpp14.sublime-build",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/drawing_with_sdl_ttf_more.sublime-project",
+		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/py37_blender_wshell.sublime-build",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/multi_interpolator_test.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SelectRange.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
@@ -326,19 +370,12 @@
 				0,
 				2,
 				1
-			],
-			[
-				2,
-				0,
-				3,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.190746582545,
-			0.582754994743,
+			0.435371769242,
 			1.0
 		],
 		"rows":
@@ -350,7 +387,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 149.0
+		"height": 103.0
 	},
 	"output.find_results":
 	{
@@ -392,11 +429,11 @@
 	"settings":
 	{
 	},
-	"show_minimap": false,
+	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 244.0,
+	"side_bar_width": 273.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

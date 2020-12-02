@@ -72,9 +72,10 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
     }
     else {
         //cout << "re-using _text_textures to populate more!\b";
-        //for (int unsigned i = 0; i < _text_textures.size(); i++){
-        //    SDL_DestroyTexture(_text_textures[i]);
-        //}
+        for (auto texture: _text_textures){
+            SDL_DestroyTexture(texture);
+        }
+        // SDL_UpdateTexture(...) <--- how to use?
         _text_textures.clear();
     }
 
