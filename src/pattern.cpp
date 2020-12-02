@@ -726,12 +726,12 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
         this does not use the clipboad.
 
     */
+    int num_times; = -1;
     if (behaviour == "^"){
-        // repeat till end
+        num_times = -1;
     }
     else if (is_string_numeric(behaviour)){
-        int num_times = ::atof(behaviour.c_str());
-
+        num_times = ::atof(behaviour.c_str());
     }
 
     Selection_Range sr = {};
@@ -745,6 +745,9 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     // cout << sr.first_row_idx << ", " << sr.last_row_idx << endl;
     
     int num_remaining_rows = _nrows - row_index;
+    int possible_full_copies = num_remaining_rows / num_rows_in_selection;
+    int rows_in_partial_copy = num_remaining_rows % num_rows_in_selection;
+
     // if (num_remaining_rows < num_rows_to_paste){
     //     num_rows_to_paste = num_remaining_rows;
     // }
