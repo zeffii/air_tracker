@@ -37,7 +37,7 @@ vector<float> range(float start, float end, int elements){
     float stepsize = ((float) end - start) / (elements - 1);
     for (int i = 0 ; i < elements; i++){
         float new_value = start + (i * stepsize);
-        cout << i << ": " << new_value << endl;
+        // cout << i << ": " << new_value << endl;
         v.push_back(new_value);
     };
     return v;

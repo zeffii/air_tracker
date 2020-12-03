@@ -689,26 +689,29 @@ void Pattern::amp_selection(Selector &selection, float start_amp, float end_amp)
         return;
     }
 
-    vector<float> amp_range;
-    
-    // int changes = 0;
-    // for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+    // generate the amplification range
+    int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
+    vector<float> amp_range = range(start_amp, end_amp, num_rows_in_selection);
 
-    //     string row_value = pattern_data[i].substr(selection_start, selection_length);
+    int changes = 0;
+    int range_idx = 0;
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
 
-    //     int row_contains_dot = row_value.find(".");
-    //     if (row_contains_dot < 0){
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
 
-    //         string replacement = multiply_hex(row_value, amount);
-    //         pattern_data[i].replace(selection_start, selection_length, replacement);
-    //         changes += 1;
-    //     }
-    // }
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+            float amount = amp_range[range_idx];
+            string replacement = multiply_hex(row_value, amount);
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            changes += 1;
+        }
+        range_idx += 1;
+    }
 
-    // if (changes > 0){
-    //     // cout << "randomize " << changes << " values\n";
-    //     texture_pattern(renderer_placeholder);
-    // }
+    if (changes > 0){
+        texture_pattern(renderer_placeholder);
+    }
 
 };
 
