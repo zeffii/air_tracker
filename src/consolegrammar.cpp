@@ -10,16 +10,15 @@
 using namespace std;
 
 vector<string> operands = {
-    "amp",  //   amp value |
-    "rev",  //   rev       |  rev row
-    "spd",  //   spd dbl   |  spd 2.0  | spd 0.5
-    "linf", //   linf      |  linf a, b  (a=start amp, b=end amp)  -> linf 1.0 0.2
-            //   default => linf => linf 1.0 0.0
-    "rep",  //   rep
-            //   default => rep ^  (repeat selection till end of pattern)
-            //   rep 12  => repeat 12 times (or until end of pattern)
-    "avg",  //   "avg |" average all values in selection, set all values to the avg
-    "hum"   //   humanize  ( hum 20 )
+    "amp",  // [x]  amp <float> => |
+    "rev",  // [ ]  rev         => rev row
+    "spd",  // [ ]  spd dbl     => spd 2.0  | spd 0.5
+    "linf", // [ ]  linf        => linf a, b  (a=start amp, b=end amp)  -> linf 1.0 0.2
+            // [ ]  default     => linf => linf 1.0 0.0
+    "rep",  // [x]  rep ^       => repeat selection till end of pattern 
+            //      rep <int>   => repeat n times (or until end of pattern, including partial copies)
+    "avg",  // [x]  avg |       => average all values in selection, set all values to the avg
+    "hum"   // [ ]  hum <int>   => humanize 20%
 };
 
 
