@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"num_rows",
+				"num_rows_in_selection"
+			],
+			[
 				"cell",
 				"cell_replacement"
 			],
@@ -384,7 +388,7 @@
 		"cols":
 		[
 			0.0,
-			0.483647631311,
+			0.399008132878,
 			1.0
 		],
 		"rows":
@@ -396,7 +400,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 103.0
+		"height": 339.0
 	},
 	"output.find_results":
 	{
