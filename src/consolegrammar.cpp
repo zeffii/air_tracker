@@ -69,7 +69,7 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
     }
     else if (operand == "avg") { mypat.average_selection(selection); return;}
     else if (operand == "rep") { mypat.repeat_selection(selection, elements[1]); return; }
-
+    else if (operand == "rev") { mypat.reverse_selection(selection); return;}
     cout << "command not implemented yet --->" << commands << endl;
     
 };

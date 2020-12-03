@@ -46,6 +46,7 @@ class Pattern {
         void amp_selection(Selector &selection, float start_amp, float end_amp);
         void average_selection(Selector &selection);
         void repeat_selection(Selector &selection, string behaviour);
+        void reverse_selection(Selector &selection);
 
         int get_nchars_in_row();
         int get_nrows_in_column();

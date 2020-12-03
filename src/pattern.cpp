@@ -825,3 +825,18 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     texture_pattern(renderer_placeholder);
 
 };
+
+
+void Pattern::reverse_selection(Selector &selection){
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+    int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
+
+    Vector<string> temp_copy;
+
+};

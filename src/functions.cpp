@@ -43,6 +43,25 @@ vector<float> range(float start, float end, int elements){
     return v;
 };
 
+/*
+vector<float> quadratic_interval(float start, float end, float thru){
+    float P0x = 0.0;
+    float P0y = startval;
+    float P2x = 1.0;
+    float P2y = endval;
+    vector<float> outputs;
+
+    for i in range(ntimes):
+        t = (1 / ntimes) * i
+        P1x = midval
+        P1y = (startval - endval) * midval
+        px = (1-t)**2 *P0x + 2*(1-t)*t*P1x + t*t*P2x
+        py = (1-t)**2 *P0y + 2*(1-t)*t*P1y + t*t*P2y
+        outputs[0].append((px, py, 0.0))
+
+};
+
+*/
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
