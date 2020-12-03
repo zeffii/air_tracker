@@ -180,6 +180,8 @@ void Pattern::change_octave(int direction){
 void Pattern::adjust_visual_cursor_for_scroll(int &row_number){
     /*
     the row_number visually is different from the row number of the selection.
+
+    - i think this is broken for positive scrolling.
     */
 
     if (shift_vertical_times != 0){
