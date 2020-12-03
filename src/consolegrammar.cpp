@@ -13,8 +13,6 @@ vector<string> operands = {
     "amp",  // [x]  amp <float> => |
     "rev",  // [ ]  rev         => rev row
     "spd",  // [ ]  spd dbl     => spd 2.0  | spd 0.5
-    "linf", // [ ]  linf        => linf a, b  (a=start amp, b=end amp)  -> linf 1.0 0.2
-            // [ ]  default     => linf => linf 1.0 0.0
     "rep",  // [x]  rep ^       => repeat selection till end of pattern 
             //      rep <int>   => repeat n times (or until end of pattern, including partial copies)
     "avg",  // [x]  avg |       => average all values in selection, set all values to the avg

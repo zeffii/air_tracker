@@ -670,7 +670,10 @@ void Pattern::amp_selection(Selector &selection, float amount){
         // cout << "randomize " << changes << " values\n";
         texture_pattern(renderer_placeholder);
     }
+};
 
+void Pattern::amp_selection(Selector &selection, float start_amp, float end_amp){
+    
 };
 
 void Pattern::average_selection(Selector &selection){
@@ -728,7 +731,7 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     int num_times;
 
     if (behaviour == "^"){
-        cout << "here...\n";
+        // cout << "here...\n";
         num_times = -1;
     }
     else if (is_string_numeric(behaviour)){
@@ -757,7 +760,7 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
         }
     }
 
-    cout << "num times: " << num_times << endl;
+    // cout << "num times: " << num_times << endl;
 
     // full copies
     int j = 0;

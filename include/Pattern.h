@@ -43,6 +43,7 @@ class Pattern {
         void interpolate_single(Selection_Params sel);
         void randomize_selection(Selector &selection, int factor);
         void amp_selection(Selector &selection, float amount);
+        void amp_selection(Selector &selection, float start_amp, float end_amp);
         void average_selection(Selector &selection);
         void repeat_selection(Selector &selection, string behaviour);
 
