@@ -674,6 +674,42 @@ void Pattern::amp_selection(Selector &selection, float amount){
 
 void Pattern::amp_selection(Selector &selection, float start_amp, float end_amp){
     cout << "amp " << start_amp << ", " << end_amp << endl;
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    // rudimentary selection test. end early if spaces found.
+    string test_hex = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+    if (does_selection_contain_gutter(test_hex)){
+        cout << "selection contains a gutter, currently only single rows are supported\n";
+        return;
+    }
+
+    vector<float> amp_range;
+    
+    // int changes = 0;
+    // for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+
+    //     string row_value = pattern_data[i].substr(selection_start, selection_length);
+
+    //     int row_contains_dot = row_value.find(".");
+    //     if (row_contains_dot < 0){
+
+    //         string replacement = multiply_hex(row_value, amount);
+    //         pattern_data[i].replace(selection_start, selection_length, replacement);
+    //         changes += 1;
+    //     }
+    // }
+
+    // if (changes > 0){
+    //     // cout << "randomize " << changes << " values\n";
+    //     texture_pattern(renderer_placeholder);
+    // }
+
 };
 
 void Pattern::average_selection(Selector &selection){

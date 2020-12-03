@@ -32,6 +32,18 @@ int average_int_vector(vector<int> invec){
 };
 
 
+vector<float> range(float start, float end, int elements){
+    vector<float> v;
+    float stepsize = ((float) end - start) / (elements - 1);
+    for (int i = 0 ; i < elements; i++){
+        float new_value = start + (i * stepsize);
+        cout << i << ": " << new_value << endl;
+        v.push_back(new_value);
+    };
+    return v;
+};
+
+
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
     for (int unsigned i=0; i < A.size(); i++){
