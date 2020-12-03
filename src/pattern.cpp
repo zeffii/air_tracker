@@ -748,8 +748,14 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     int possible_full_copies = num_remaining_rows / num_rows_in_selection;
     int rows_in_partial_copy = num_remaining_rows % num_rows_in_selection;
 
-    if (num_times == -1)
-        num_times = possible_full_copies;
+    switch (num_times) {
+        case -1: {num_times = possible_full_copies; break;}
+        default: {
+            if (num_times > possible_full_copies)
+                num_times = possible_full_copies;
+            break;
+        }
+    }
 
     cout << "num times: " << num_times << endl;
 
@@ -764,14 +770,15 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     }
 
     // partial copy
-    // if (rows_in_partial_copy > 0){
-    //     int k = 0;
-    //     for (int i = j; i < j + rows_in_partial_copy; i++){
-    //         string replacement = pattern_data[k + sr.first_row_idx].substr(selection_start, selection_length);
-    //         pattern_data[i].replace(selection_start, selection_length, replacement);
-    //         k++;
-    //     }
-    // }
+    if (rows_in_partial_copy > 0){
+        int k = 0;
+        j += 1;
+        for (int i = j; i < j + rows_in_partial_copy; i++){
+            string replacement = pattern_data[k + sr.first_row_idx].substr(selection_start, selection_length);
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            k++;
+        }
+    }
 
     texture_pattern(renderer_placeholder);
 
