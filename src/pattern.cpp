@@ -673,7 +673,7 @@ void Pattern::amp_selection(Selector &selection, float amount){
 };
 
 void Pattern::amp_selection(Selector &selection, float start_amp, float end_amp){
-    
+    cout << "amp " << start_amp << ", " << end_amp << endl;
 };
 
 void Pattern::average_selection(Selector &selection){

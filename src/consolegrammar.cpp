@@ -47,7 +47,16 @@ ConsoleGrammar::ConsoleGrammar(Selector &selection, Pattern &mypat, string comma
             mypat.amp_selection(selection, ::atof(elements[1].c_str()));
             return;
         }
-    } 
+        else if (elements.size() == 3) {
+            if (is_string_numeric(elements[1]) && is_string_numeric(elements[2])){
+                float start_amp = ::atof(elements[1].c_str());
+                float end_amp = ::atof(elements[2].c_str());
+                mypat.amp_selection(selection, start_amp, end_amp);
+                return;
+            }
+            cout << "expected:  amp <start float> <end float>\n";
+        }
+    }
     else if (operand == "avg") { mypat.average_selection(selection); return;}
     else if (operand == "rep") { mypat.repeat_selection(selection, elements[1]); return; }
 
