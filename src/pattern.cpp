@@ -113,6 +113,9 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
             if (ri < 0){
                 ri = num_rows + ri;
             }
+            //else if (ri > 0){
+            //    ri = num_rows + ri;   
+            //}
         }
 
         _text_rects[i].x = pattern_x;
