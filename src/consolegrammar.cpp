@@ -15,7 +15,8 @@ vector<string> operands = {
             // [x]  amp <float 1> <float 2>
             //      : linear amp transition  starting from float 1 going to float 2
 
-    "rev",  // [ ]  rev         => rev row
+    "rev",  // [x]  rev |
+            //      : reverse row
 
     "spd",  // [ ]  spd dbl     => spd 2.0  | spd 0.5
 
