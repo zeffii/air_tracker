@@ -10,12 +10,22 @@
 using namespace std;
 
 vector<string> operands = {
-    "amp",  // [x]  amp <float> => |
+    "amp",  // [x]  amp <float>
+            //      : amp all the same
+            // [x]  amp <float 1> <float 2>
+            //      : linear amp transition  starting from float 1 going to float 2
+
     "rev",  // [ ]  rev         => rev row
+
     "spd",  // [ ]  spd dbl     => spd 2.0  | spd 0.5
-    "rep",  // [x]  rep ^       => repeat selection till end of pattern 
-            //      rep <int>   => repeat n times (or until end of pattern, including partial copies)
+
+    "rep",  // [x]  rep ^       
+            //      : repeat selection till end of pattern 
+            // [x]  rep <int>   
+            //      : repeat n times (or until end of pattern, including partial copies)
+
     "avg",  // [x]  avg |       => average all values in selection, set all values to the avg
+
     "hum"   // [ ]  hum <int>   => humanize 20%
 };
 
