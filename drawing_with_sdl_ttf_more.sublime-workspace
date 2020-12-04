@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"poss",
+				"possible_full_copies"
+			],
+			[
+				"num",
+				"num_times"
+			],
+			[
+				"rows",
+				"rows_in_partial_copy"
+			],
+			[
 				"num_rows",
 				"num_rows_in_selection"
 			],
@@ -70,10 +82,6 @@
 			[
 				"rema",
 				"remaining_rows"
-			],
-			[
-				"num",
-				"num_rows_to_paste"
 			],
 			[
 				"Sele",
@@ -388,7 +396,7 @@
 		"cols":
 		[
 			0.0,
-			0.399008132878,
+			0.48934169279,
 			1.0
 		],
 		"rows":
@@ -400,7 +408,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 339.0
+		"height": 250.0
 	},
 	"output.find_results":
 	{

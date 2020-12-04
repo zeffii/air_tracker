@@ -112,7 +112,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_UP:
                 if (window.is_lshift_pressed()){
-                    mypat.scroll_vertical(16);
+                    //mypat.scroll_vertical(16);
                 }
                 else {
                     row_index -= 1;
@@ -124,7 +124,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_DOWN:
                 if (window.is_lshift_pressed()){
-                    mypat.scroll_vertical(-16);
+                    //mypat.scroll_vertical(-16);
                 }
                 else {            
                     row_index += 1;
@@ -133,6 +133,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                     update_selection_if_active(selection, column_index, row_index);
                 }
                 break;
+
+            case SDLK_PAGEUP:
+                mypat.scroll_vertical(16); break;
+
+            case SDLK_PAGEDOWN:
+                mypat.scroll_vertical(-16); break;
 
             case SDLK_DELETE: {
                 mypat.wipe_cell(selection, column_index, row_index);
