@@ -147,17 +147,26 @@ void Pattern::texture_console(SDL_Renderer *renderer){
     SDL_QueryTexture(_console_texture, nullptr, nullptr, &_console_rect.w, &_console_rect.h);
 };
 
+
 void Pattern::display_console(SDL_Renderer *renderer) const {
     SDL_RenderCopy(renderer, _console_texture, nullptr, &_console_rect);
 };
 
 
-
-
 void Pattern::scroll_vertical(int numrows){
-    // pattern_y += (numrows * _line_height);
+
+    int num_total_shifts_possible = _nrows / 16;
     if (!pattern_data.empty()){
         shift_vertical_times += copysign(1, numrows);
+
+        // hard modulo...
+        if ((shift_vertical_times < 0) && (shift_vertical_times < -num_total_shifts_possible)){
+            shift_vertical_times = 0;
+        }
+        else if ((shift_vertical_times > 0) && (shift_vertical_times > num_total_shifts_possible)){
+            shift_vertical_times = 0;
+        }
+
         // cout << "adjusted" << shift_vertical_times % (pattern_data.size() / numrows);
         cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
     }
