@@ -43,6 +43,14 @@ vector<float> range(float start, float end, int elements){
     return v;
 };
 
+vector<int> range(int start, int end){
+    vector<int> v;
+    for (int i = start ; i < end; i++){ v.push_back(i); };
+    return v;
+};
+
+
+
 /*
 vector<float> quadratic_interval(float start, float end, float thru){
     float P0x = 0.0;

@@ -7,7 +7,9 @@ using namespace std;
 
 bool is_string_numeric(string str);
 int average_int_vector(vector<int> invec);
+
 vector<float> range(float start, float end, int elements);
+vector<int> range(int start, int end);
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B);
 vector<int> filter_out_int_array_A_from_B(vector<int> inarray, vector<int> drop);

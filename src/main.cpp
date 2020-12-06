@@ -7,6 +7,7 @@
 #include "Functions.h"
 #include "Selector.h"
 #include "ConsoleGrammar.h"
+#include "Oscilloscope.h"
 
 #include <vector>
 #include <iostream>
@@ -39,7 +40,7 @@ int main(int argc, char* args[])
 {
     int tick_offsetx = 4 * 6;
 
-    Window window("Air Tracker", 900, 600);
+    Window window("Air Tracker", 700, 1000);
 
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
@@ -56,7 +57,8 @@ int main(int argc, char* args[])
         window.set_pressing_rshift(keyState[SDL_SCANCODE_RSHIFT]);
  
         pollEvents(window, cursor, mypat, selection);
-        
+
+        draw_oscilloscope(Window::renderer);        
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);

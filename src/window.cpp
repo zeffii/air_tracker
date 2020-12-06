@@ -5,9 +5,12 @@
 #include <string>
 #include <iostream>
 #include "Window.h"
+
 using namespace std;
 
+
 SDL_Renderer *Window::renderer = nullptr;
+
 
 Window::Window(const string &title, int width, int height)
 :_title(title), _width(width), _height(height)

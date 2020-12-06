@@ -4,12 +4,28 @@
 		"selected_items":
 		[
 			[
-				"poss",
-				"possible_full_copies"
+				"new",
+				"new_project_name"
+			],
+			[
+				"tem",
+				"template_folder"
+			],
+			[
+				"shif",
+				"shift_vertical_times"
 			],
 			[
 				"num",
-				"num_times"
+				"num_total_shifts_possible"
+			],
+			[
+				"shi",
+				"shift_vertical_times"
+			],
+			[
+				"poss",
+				"possible_full_copies"
 			],
 			[
 				"rows",
@@ -298,13 +314,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/temp_file_test.cpp",
 		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/cpp14.sublime-build",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/drawing_with_sdl_ttf_more.sublime-project",
 		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/py37_blender_wshell.sublime-build",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/multi_interpolator_test.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SelectRange.h",
-		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/rates.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/.gitignore",
 		"/C/2020/Blender-3dfile-svercok.tar/tartmp.PeIFPP",
@@ -396,7 +412,7 @@
 		"cols":
 		[
 			0.0,
-			0.48934169279,
+			0.39392424144,
 			1.0
 		],
 		"rows":
@@ -408,7 +424,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 250.0
+		"height": 150.0
 	},
 	"output.find_results":
 	{

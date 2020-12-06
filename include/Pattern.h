@@ -48,6 +48,7 @@ class Pattern {
         void average_selection(Selector &selection);
         void repeat_selection(Selector &selection, string behaviour);
         void reverse_selection(Selector &selection);
+        void spread_selection(Selector &selection);
 
         int get_octave();
         void change_octave(int direction);

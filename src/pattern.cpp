@@ -849,19 +849,25 @@ void Pattern::reverse_selection(Selector &selection){
     int char_offset = 4;
     int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
     int selection_start = sr.first_col_idx + char_offset;
-    int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
 
     vector<string> temp_copy;
-    for (int i = sr.first_row_idx; i < num_rows_in_selection; i++){
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
         string replacement = pattern_data[i].substr(selection_start, selection_length);
         temp_copy.push_back(replacement);
     }
+    cout << endl;
 
     int k = 0;
     for (int i=sr.last_row_idx; i >= sr.first_row_idx; i--){
         pattern_data[i].replace(selection_start, selection_length, temp_copy[k]);
         k++;
     }
+    cout << endl;
     texture_pattern(renderer_placeholder);
+};
+
+
+void Pattern::spread_selection(Selector &selection){
+    // todo later.
 
 };
