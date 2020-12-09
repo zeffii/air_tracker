@@ -101,7 +101,6 @@ class Pattern {
         int pattern_y = 20;
         int shift_vertical_times = 0;
 
-
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;
         std::vector<int> _hex_indices;

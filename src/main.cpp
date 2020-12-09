@@ -46,6 +46,7 @@ int main(int argc, char* args[])
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
+    SDL_Rect osc_rect = {400, 20, 270, 100};
     const Uint8 *keyState = SDL_GetKeyboardState(NULL);
     
     while (!window.isClosed()){
@@ -58,7 +59,7 @@ int main(int argc, char* args[])
  
         pollEvents(window, cursor, mypat, selection);
 
-        draw_oscilloscope(Window::renderer);        
+        draw_oscilloscope(Window::renderer, osc_rect);
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);
