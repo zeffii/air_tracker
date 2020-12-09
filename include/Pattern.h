@@ -23,27 +23,32 @@ class Pattern {
 
         void texture_pattern(SDL_Renderer *renderer);
         void display(int x, int y, SDL_Renderer *renderer) const;
+        void print_row(int row_number);
+
+        int get_nchars_in_row();
+        int get_nrows_in_column();
+        void set_char_at(int row_number, int col_number, string character);
+        void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
+        void get_range_of_cell(int row_index, int column_index, Cell_Range &cr);
+        bool source_and_destination_similar(int column_index, int selection_length);
 
         void texture_console(SDL_Renderer *renderer);
         void display_console(SDL_Renderer *renderer) const;
 
-        void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
         void store_selection_in_clipboard(Selector &selection);
         void paste_clipboard(int row_index, int column_index);
         void wipe_selection(Selector &selection);
+        void wipe_cell(Selector &selection, int column_index, int row_index);
 
-        void print_row(int row_number);
-        void set_char_at(int row_number, int col_number, string character);
-
-        bool source_and_destination_similar(int column_index, int selection_length);
         void perform_selection_interpolation(Selector &selection, string mode);
         void interpolate_single(Selection_Params sel);
         void randomize_selection(Selector &selection, int factor);
         void amp_selection(Selector &selection, float amount);
+        void amp_selection(Selector &selection, float start_amp, float end_amp);
         void average_selection(Selector &selection);
-
-        int get_nchars_in_row();
-        int get_nrows_in_column();
+        void repeat_selection(Selector &selection, string behaviour);
+        void reverse_selection(Selector &selection);
+        void spread_selection(Selector &selection);
 
         int get_octave();
         void change_octave(int direction);
@@ -95,7 +100,6 @@ class Pattern {
         int pattern_x = 20;
         int pattern_y = 20;
         int shift_vertical_times = 0;
-
 
         std::vector<int> _note_indices;
         std::vector<int> _octave_indices;

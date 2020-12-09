@@ -32,6 +32,45 @@ int average_int_vector(vector<int> invec){
 };
 
 
+vector<float> range(float start, float end, int elements){
+    vector<float> v;
+    float stepsize = ((float) end - start) / (elements - 1);
+    for (int i = 0 ; i < elements; i++){
+        float new_value = start + (i * stepsize);
+        // cout << i << ": " << new_value << endl;
+        v.push_back(new_value);
+    };
+    return v;
+};
+
+vector<int> range(int start, int end){
+    vector<int> v;
+    for (int i = start ; i < end; i++){ v.push_back(i); };
+    return v;
+};
+
+
+
+/*
+vector<float> quadratic_interval(float start, float end, float thru){
+    float P0x = 0.0;
+    float P0y = startval;
+    float P2x = 1.0;
+    float P2y = endval;
+    vector<float> outputs;
+
+    for i in range(ntimes):
+        t = (1 / ntimes) * i
+        P1x = midval
+        P1y = (startval - endval) * midval
+        px = (1-t)**2 *P0x + 2*(1-t)*t*P1x + t*t*P2x
+        py = (1-t)**2 *P0y + 2*(1-t)*t*P1y + t*t*P2y
+        outputs[0].append((px, py, 0.0))
+
+};
+
+*/
+
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
     for (int unsigned i=0; i < A.size(); i++){

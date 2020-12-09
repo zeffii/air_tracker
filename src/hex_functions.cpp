@@ -67,7 +67,6 @@ vector<string> interpolate_hex(int elements, string h_start, string h_end){
     return data_replacement;
 }
 
-
 string pick_random_hex(int numchars){
 
     vector<string> hexvals {

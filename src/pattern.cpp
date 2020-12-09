@@ -113,6 +113,9 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
             if (ri < 0){
                 ri = num_rows + ri;
             }
+            //else if (ri > 0){
+            //    ri = num_rows + ri;   
+            //}
         }
 
         _text_rects[i].x = pattern_x;
@@ -144,17 +147,26 @@ void Pattern::texture_console(SDL_Renderer *renderer){
     SDL_QueryTexture(_console_texture, nullptr, nullptr, &_console_rect.w, &_console_rect.h);
 };
 
+
 void Pattern::display_console(SDL_Renderer *renderer) const {
     SDL_RenderCopy(renderer, _console_texture, nullptr, &_console_rect);
 };
 
 
-
-
 void Pattern::scroll_vertical(int numrows){
-    // pattern_y += (numrows * _line_height);
+
+    int num_total_shifts_possible = _nrows / 16;
     if (!pattern_data.empty()){
         shift_vertical_times += copysign(1, numrows);
+
+        // hard modulo...
+        if ((shift_vertical_times < 0) && (shift_vertical_times < -num_total_shifts_possible)){
+            shift_vertical_times = 0;
+        }
+        else if ((shift_vertical_times > 0) && (shift_vertical_times > num_total_shifts_possible)){
+            shift_vertical_times = 0;
+        }
+
         // cout << "adjusted" << shift_vertical_times % (pattern_data.size() / numrows);
         cout << "scroll pattern " << numrows << " rows | shift by " << shift_vertical_times << "\n";
     }
@@ -180,6 +192,8 @@ void Pattern::change_octave(int direction){
 void Pattern::adjust_visual_cursor_for_scroll(int &row_number){
     /*
     the row_number visually is different from the row number of the selection.
+
+    - i think this is broken for positive scrolling.
     */
 
     if (shift_vertical_times != 0){
@@ -279,7 +293,7 @@ void Pattern::set_char_at(int row_number, int col_number, string character){
         int findex = allowed.find(character);
         if (findex >= 0){
             pattern_data[row_number].replace(col_number + 4, 1, character);
-            texture_pattern(renderer_placeholder);            
+            texture_pattern(renderer_placeholder);
         }
 
     }
@@ -342,6 +356,27 @@ void Pattern::wipe_selection(Selector &selection){
     texture_pattern(renderer_placeholder);
 };
 
+void Pattern::get_range_of_cell(int row_index, int column_index, Cell_Range &cr){
+    string temp_row_repr = pattern_data[row_index];
+
+    int char_offset = 4;
+    int cell_end = temp_row_repr.find(" ", column_index + char_offset);
+
+    string remaining_str = temp_row_repr.substr(0, cell_end);
+    int cell_start = remaining_str.find_last_of(" ") + 1;
+  
+    cr.cell_start = cell_start;
+    cr.cell_length = (cell_end - cell_start);
+    cr.cell_replacement = std::string(cr.cell_length, '.');
+};
+
+void Pattern::wipe_cell(Selector &selection, int column_index, int row_index){
+    adjust_visual_cursor_for_scroll(row_index);
+    Cell_Range cr = {};
+    get_range_of_cell(row_index, column_index, cr);
+    pattern_data[row_index].replace(cr.cell_start, cr.cell_length, cr.cell_replacement);
+    texture_pattern(renderer_placeholder);
+};
 
 void Pattern::store_selection_in_clipboard(Selector &selection){
     Selection_Range sr = {};
@@ -649,6 +684,48 @@ void Pattern::amp_selection(Selector &selection, float amount){
         // cout << "randomize " << changes << " values\n";
         texture_pattern(renderer_placeholder);
     }
+};
+
+void Pattern::amp_selection(Selector &selection, float start_amp, float end_amp){
+    cout << "amp " << start_amp << ", " << end_amp << endl;
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    // rudimentary selection test. end early if spaces found.
+    string test_hex = pattern_data[sr.first_row_idx].substr(selection_start, selection_length);
+    if (does_selection_contain_gutter(test_hex)){
+        cout << "selection contains a gutter, currently only single rows are supported\n";
+        return;
+    }
+
+    // generate the amplification range
+    int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
+    vector<float> amp_range = range(start_amp, end_amp, num_rows_in_selection);
+
+    int changes = 0;
+    int range_idx = 0;
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+
+        string row_value = pattern_data[i].substr(selection_start, selection_length);
+
+        int row_contains_dot = row_value.find(".");
+        if (row_contains_dot < 0){
+            float amount = amp_range[range_idx];
+            string replacement = multiply_hex(row_value, amount);
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            changes += 1;
+        }
+        range_idx += 1;
+    }
+
+    if (changes > 0){
+        texture_pattern(renderer_placeholder);
+    }
 
 };
 
@@ -700,3 +777,97 @@ void Pattern::average_selection(Selector &selection){
     texture_pattern(renderer_placeholder);
 };
 
+void Pattern::repeat_selection(Selector &selection, string behaviour){
+    /*
+        this does not use the clipboad.
+    */
+    int num_times;
+
+    if (behaviour == "^"){
+        // cout << "here...\n";
+        num_times = -1;
+    }
+    else if (is_string_numeric(behaviour)){
+        num_times = (int) ::atof(behaviour.c_str());
+    }
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    int num_rows_in_selection = (sr.last_row_idx - sr.first_row_idx) + 1;
+    
+    int num_remaining_rows = _nrows - sr.first_row_idx;
+    int possible_full_copies = num_remaining_rows / num_rows_in_selection;
+    int rows_in_partial_copy = num_remaining_rows % num_rows_in_selection;
+
+    switch (num_times) {
+        case -1: {num_times = possible_full_copies; break;}
+        default: {
+            if (num_times > possible_full_copies)
+                num_times = possible_full_copies;
+            break;
+        }
+    }
+
+    // cout << "num times: " << num_times << endl;
+
+    // full copies
+    int j = 0;
+    for (int i = 0; i < num_times; i++){
+        for (int m = sr.first_row_idx; m < sr.first_row_idx + num_rows_in_selection; m++){
+            string replacement = pattern_data[m].substr(selection_start, selection_length);
+            j = (i * num_rows_in_selection) + m;
+            pattern_data[j].replace(selection_start, selection_length, replacement);
+        }
+    }
+
+    // partial copy
+    if (rows_in_partial_copy > 0){
+        int k = 0;
+        j += 1;
+        for (int i = j; i < j + rows_in_partial_copy; i++){
+            string replacement = pattern_data[k + sr.first_row_idx].substr(selection_start, selection_length);
+            pattern_data[i].replace(selection_start, selection_length, replacement);
+            k++;
+        }
+    }
+
+    texture_pattern(renderer_placeholder);
+
+};
+
+
+void Pattern::reverse_selection(Selector &selection){
+
+    Selection_Range sr = {};
+    get_corrected_selection_range(selection, sr);
+
+    int char_offset = 4;
+    int selection_length = (sr.last_col_idx - sr.first_col_idx) + 1;
+    int selection_start = sr.first_col_idx + char_offset;
+
+    vector<string> temp_copy;
+    for (int i = sr.first_row_idx; i <= sr.last_row_idx; i++){
+        string replacement = pattern_data[i].substr(selection_start, selection_length);
+        temp_copy.push_back(replacement);
+    }
+    cout << endl;
+
+    int k = 0;
+    for (int i=sr.last_row_idx; i >= sr.first_row_idx; i--){
+        pattern_data[i].replace(selection_start, selection_length, temp_copy[k]);
+        k++;
+    }
+    cout << endl;
+    texture_pattern(renderer_placeholder);
+};
+
+
+void Pattern::spread_selection(Selector &selection){
+    // todo later.
+
+};

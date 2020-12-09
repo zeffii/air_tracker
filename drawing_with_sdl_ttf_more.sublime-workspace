@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"new",
+				"new_project_name"
+			],
+			[
+				"tem",
+				"template_folder"
+			],
+			[
+				"shif",
+				"shift_vertical_times"
+			],
+			[
+				"num",
+				"num_total_shifts_possible"
+			],
+			[
+				"shi",
+				"shift_vertical_times"
+			],
+			[
+				"poss",
+				"possible_full_copies"
+			],
+			[
+				"rows",
+				"rows_in_partial_copy"
+			],
+			[
+				"num_rows",
+				"num_rows_in_selection"
+			],
+			[
+				"cell",
+				"cell_replacement"
+			],
+			[
+				"row",
+				"row_index"
+			],
+			[
+				"sele",
+				"selection_start"
+			],
+			[
 				"av",
 				"avg_decimal"
 			],
@@ -56,20 +100,12 @@
 				"remaining_rows"
 			],
 			[
-				"num",
-				"num_rows_to_paste"
-			],
-			[
 				"Sele",
 				"Selector"
 			],
 			[
 				"Selec",
 				"Selection_Params"
-			],
-			[
-				"row",
-				"row_value"
 			],
 			[
 				"Sel",
@@ -229,7 +265,7 @@
 			]
 		]
 	],
-	"build_varint": "Run",
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 392.0,
@@ -278,13 +314,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/temp_file_test.cpp",
 		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/cpp14.sublime-build",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/drawing_with_sdl_ttf_more.sublime-project",
 		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/py37_blender_wshell.sublime-build",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/multi_interpolator_test.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SelectRange.h",
-		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/rates.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/.gitignore",
 		"/C/2020/Blender-3dfile-svercok.tar/tartmp.PeIFPP",
@@ -321,6 +357,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"SDL_UpdateTexture",
 			"split",
 			"delay",
 			"print_int_vector",
@@ -375,7 +412,7 @@
 		"cols":
 		[
 			0.0,
-			0.435371769242,
+			0.409878124388,
 			1.0
 		],
 		"rows":
@@ -387,7 +424,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 103.0
+		"height": 150.0
 	},
 	"output.find_results":
 	{
@@ -433,7 +470,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 273.0,
+	"side_bar_width": 276.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
