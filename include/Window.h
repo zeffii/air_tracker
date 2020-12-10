@@ -14,10 +14,12 @@ class Window {
 
         void pollEvents(SDL_Event &event);
 
-        bool is_ctrl_pressed();
+        bool is_lctrl_pressed();
+        bool is_rctrl_pressed();
         bool is_lshift_pressed();
         bool is_rshift_pressed();
-        void set_pressing_ctrl(bool newstate);
+        void set_pressing_lctrl(bool newstate);
+        void set_pressing_rctrl(bool newstate);
         void set_pressing_lshift(bool newstate);
         void set_pressing_rshift(bool newstate);
 
@@ -34,7 +36,8 @@ class Window {
         int _height = 600;
         bool _closed = false;
 
-        bool _pressing_ctrl = false;
+        bool _pressing_lctrl = false;
+        bool _pressing_rctrl = false;
         bool _pressing_lshift = false;
         bool _pressing_rshift = false;
 

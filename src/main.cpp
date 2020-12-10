@@ -54,7 +54,8 @@ int main(int argc, char* args[])
 
         //pollModifierKeys(window, (const Uint8**)keyState);
         SDL_PumpEvents();
-        window.set_pressing_ctrl(keyState[SDL_SCANCODE_LCTRL]);
+        window.set_pressing_lctrl(keyState[SDL_SCANCODE_LCTRL]);
+        window.set_pressing_rctrl(keyState[SDL_SCANCODE_RCTRL]);
         window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
         window.set_pressing_rshift(keyState[SDL_SCANCODE_RSHIFT]);
  

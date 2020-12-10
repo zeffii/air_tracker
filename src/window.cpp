@@ -102,12 +102,20 @@ void Window::clear() const {
 
 }
 
-bool Window::is_ctrl_pressed(){ 
-    return _pressing_ctrl; 
+bool Window::is_lctrl_pressed(){ 
+    return _pressing_lctrl; 
 };
 
-void Window::set_pressing_ctrl(bool newstate){ 
-    _pressing_ctrl = newstate; 
+void Window::set_pressing_lctrl(bool newstate){ 
+    _pressing_lctrl = newstate; 
+};
+
+bool Window::is_rctrl_pressed(){ 
+    return _pressing_rctrl; 
+};
+
+void Window::set_pressing_rctrl(bool newstate){ 
+    _pressing_rctrl = newstate; 
 };
 
 bool Window::is_lshift_pressed(){ 

@@ -342,7 +342,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 50.0
 	},
 	"find_in_files":
 	{
@@ -357,6 +357,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			",\n",
+			"window",
 			"SDL_UpdateTexture",
 			"split",
 			"delay",
@@ -412,7 +414,7 @@
 		"cols":
 		[
 			0.0,
-			0.409878124388,
+			0.512714753152,
 			1.0
 		],
 		"rows":
@@ -424,7 +426,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 150.0
+		"height": 342.0
 	},
 	"output.find_results":
 	{
@@ -470,7 +472,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 276.0,
+	"side_bar_width": 312.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -93,6 +93,11 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
         */
 
         if (event.type == SDL_KEYDOWN){
+
+            int movement = 1;
+            if (window.is_rctrl_pressed())
+                movement = 4;
+
             switch (event.key.keysym.sym) {
                 case SDLK_TAB:
                     window.set_active_area(+1);
@@ -107,16 +112,20 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                     cerr << "move to previous handle\n"; break;
 
                 case SDLK_LEFT:
-                    env.move_handle(-1, 0); break;
+                    env.move_handle(-movement, 0); 
+                    break;
 
                 case SDLK_RIGHT:
-                    env.move_handle(+1, 0); break;
+                    env.move_handle(movement, 0); 
+                    break;
 
                 case SDLK_UP:
-                    env.move_handle(0, -1); break;
+                    env.move_handle(0, -movement); 
+                    break;
 
                 case SDLK_DOWN:                
-                    env.move_handle(0, +1); break;
+                    env.move_handle(0, movement); 
+                    break;
 
                 default:
                     break;
@@ -218,7 +227,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
 
             case SDLK_PERIOD:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.wipe_selection(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, ".");
@@ -249,7 +258,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "B");  // hex   note G
                 break;
             case SDLK_c:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.store_selection_in_clipboard(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, "C");  // hex   note D
@@ -301,7 +310,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             // case SDLK_e: //                                    //       note E +1
             case SDLK_r:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.randomize_selection(selection, 4);
                 }
                 else {
@@ -327,7 +336,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "U");  //       note B +1
                 break;
             case SDLK_i:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.perform_selection_interpolation(selection, "tween");
                 }
                 else if (window.is_lshift_pressed()){
@@ -366,7 +375,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "S");  //       note C#
                 break;
             case SDLK_x:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.store_selection_in_clipboard(selection);
                     mypat.wipe_selection(selection);
                 } else {
@@ -376,7 +385,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             //case SDLK_d:                                        //       note D#
             //case SDLK_c:                                        //       note E
             case SDLK_v:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.paste_clipboard(row_index, column_index);
                 } else {
                     mypat.set_char_at(row_index, column_index, "V");  //   note F
