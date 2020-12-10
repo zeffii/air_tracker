@@ -43,7 +43,7 @@ int main(int argc, char* args[])
     Window window("Air Tracker", 700, 1000);
 
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
-    Envelope env(Window::renderer);
+    Envelope env("filter");
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
@@ -60,7 +60,7 @@ int main(int argc, char* args[])
  
         pollEvents(window, cursor, mypat, selection, env);
 
-        env.draw_envelope(window, osc_rect);
+        env.draw_envelope(window, Window::renderer, osc_rect);
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);
