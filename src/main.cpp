@@ -7,7 +7,7 @@
 #include "Functions.h"
 #include "Selector.h"
 #include "ConsoleGrammar.h"
-#include "Oscilloscope.h"
+#include "Envelope.h"
 
 #include <vector>
 #include <iostream>
@@ -59,7 +59,7 @@ int main(int argc, char* args[])
  
         pollEvents(window, cursor, mypat, selection);
 
-        draw_oscilloscope(Window::renderer, window, osc_rect);
+        draw_envelope(Window::renderer, window, osc_rect);
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);
