@@ -86,6 +86,33 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
         return;
     }
 
+    if (window.get_active_area() == 1){
+        /*
+        when the active area is an envelope, all subsequent key pressed should be captured
+        */
+
+        if (event.type == SDL_KEYDOWN){
+            switch (event.key.keysym.sym) {
+                case SDLK_TAB:
+                    window.set_active_area(+1);
+                    break;
+
+                case SDLK_PAGEUP:
+                    // mypat.scroll_vertical(16); break;
+                    cerr << "move to next handle\n"; break;
+
+                case SDLK_PAGEDOWN:
+                    // mypat.scroll_vertical(-16); break;
+                    cerr << "move to previous handle\n"; break;
+
+                default:
+                    break;
+            }
+        }
+
+        return;
+    }
+
 
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
