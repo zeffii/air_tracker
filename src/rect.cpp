@@ -106,6 +106,18 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                     env.set_active_handle(-1);
                     cerr << "move to previous handle\n"; break;
 
+                case SDLK_LEFT:
+                    env.move_handle(-1, 0); break;
+
+                case SDLK_RIGHT:
+                    env.move_handle(+1, 0); break;
+
+                case SDLK_UP:
+                    env.move_handle(0, -1); break;
+
+                case SDLK_DOWN:                
+                    env.move_handle(0, +1); break;
+
                 default:
                     break;
             }
