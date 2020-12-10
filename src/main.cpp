@@ -20,11 +20,11 @@ using namespace std;
 #define HEIGHT 720
 
 
-void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selection){
+void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selection, Envelope &env){
     SDL_Event event;
 
     if (SDL_PollEvent(&event)){
-        cursor.pollEvents(event, mypat, window, selection);
+        cursor.pollEvents(event, mypat, window, selection, env);
         window.pollEvents(event);
     }
 }
@@ -58,7 +58,7 @@ int main(int argc, char* args[])
         window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
         window.set_pressing_rshift(keyState[SDL_SCANCODE_RSHIFT]);
  
-        pollEvents(window, cursor, mypat, selection);
+        pollEvents(window, cursor, mypat, selection, env);
 
         env.draw_envelope(window, osc_rect);
         cursor.draw();

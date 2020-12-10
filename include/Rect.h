@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Pattern.h"
 #include "Selector.h"
+#include "Envelope.h"
 
 #include <string>
 #include <iostream>
@@ -16,7 +17,8 @@ public:
         SDL_Event &event,
         Pattern &mypat,
         Window &window,
-        Selector &selection
+        Selector &selection,
+        Envelope &env
     );
 
 private:
