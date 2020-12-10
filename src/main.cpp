@@ -59,7 +59,7 @@ int main(int argc, char* args[])
  
         pollEvents(window, cursor, mypat, selection);
 
-        draw_oscilloscope(Window::renderer, osc_rect);
+        draw_oscilloscope(Window::renderer, window, osc_rect);
         cursor.draw();
         selection.draw();
         mypat.display(20, 20, Window::renderer);

@@ -20,8 +20,13 @@ class Window {
         void set_pressing_ctrl(bool newstate);
         void set_pressing_lshift(bool newstate);
         void set_pressing_rshift(bool newstate);
+
+        void set_active_area(int shift_area);
+        int get_active_area();
+
         void clear() const;
         inline bool isClosed() const { return _closed; }
+
     private:
         bool init();
         string _title;
@@ -32,6 +37,9 @@ class Window {
         bool _pressing_ctrl = false;
         bool _pressing_lshift = false;
         bool _pressing_rshift = false;
+
+        int active_area = 0;
+        int number_of_areas = 2;  // 0 = pattern , 1 = envelope
 
         SDL_Window *_window = nullptr;
     public:

@@ -90,6 +90,10 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
 
+            case SDLK_TAB:
+                window.set_active_area(+1);
+                break;
+
             case SDLK_BACKSLASH:
                 handle_selection(selection, column_index, row_index);
                 break;

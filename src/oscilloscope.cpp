@@ -64,7 +64,7 @@ void SDLX_draw_dotted_line(SDL_Renderer *renderer, Line line, SDL_Color color){
 
 
 
-void draw_oscilloscope(SDL_Renderer *renderer, SDL_Rect osc_rect){
+void draw_oscilloscope(SDL_Renderer *renderer, Window &window, SDL_Rect osc_rect){
 
     SDL_Color col_elem = {255, 0, 0, 255};
     Line line = {osc_rect.x + 90, osc_rect.y, osc_rect.x + 90, osc_rect.y + osc_rect.h};
@@ -74,7 +74,11 @@ void draw_oscilloscope(SDL_Renderer *renderer, SDL_Rect osc_rect){
     Line line2 = {osc_rect.x + 190, osc_rect.y, osc_rect.x + 290, osc_rect.y + osc_rect.h};
     DrawDottedLine(renderer, line2, col_elem2);
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    if (window.get_active_area() == 0)
+        SDL_SetRenderDrawColor(renderer, 155, 20, 20, 255);
+    else
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    
     SDL_RenderDrawRect(renderer, &osc_rect);  
 
 };

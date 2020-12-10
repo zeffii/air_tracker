@@ -26,6 +26,15 @@ Window::~Window(){
     SDL_Quit();
 }
 
+void Window::set_active_area(int shift_area){
+    active_area += shift_area;
+    active_area %= number_of_areas;
+    cerr << "active area: " << active_area << endl;
+};
+
+
+int Window::get_active_area(){ return active_area; };
+
 bool Window::init(){
     if (SDL_Init(SDL_INIT_VIDEO) != 0){
         cerr << "Failed to init SDL.\n";
