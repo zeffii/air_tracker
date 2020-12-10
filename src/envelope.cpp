@@ -113,9 +113,9 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect os
     Line line = {osc_rect.x + 90, osc_rect.y, osc_rect.x + 90, osc_rect.y + osc_rect.h};
     SDLX_draw_dotted_line(renderer, line, col_elem);
 
-    SDL_Color col_elem2 = {155, 150, 255, 255};
-    Line line2 = {osc_rect.x + 190, osc_rect.y, osc_rect.x + 290, osc_rect.y + osc_rect.h};
-    DrawDottedLine(renderer, line2, col_elem2);
+    // SDL_Color col_elem2 = {155, 150, 255, 255};
+    // Line line2 = {osc_rect.x + 190, osc_rect.y, osc_rect.x + 290, osc_rect.y + osc_rect.h};
+    // DrawDottedLine(renderer, line2, col_elem2);
 
     if (window.get_active_area() == 0)
         SDL_SetRenderDrawColor(renderer, 155, 20, 20, 255);
@@ -124,21 +124,21 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect os
     
     SDL_RenderDrawRect(renderer, &osc_rect);
 
+    if (handles.empty())
+        return;
+
     // draw handles!
+    vector<SDL_Point> points;
     for (auto handle: handles){
         draw_handle(renderer, handle);
+        points.push_back({handle.x, handle.y});
     }
 
-    // i'd like to know why this is so picky ..
-    int point_count = handles.size();
-    SDL_Point points[point_count];
+    int pcount = handles.size();
+    SDL_Point parray[pcount];
+    std::copy(points.begin(), points.end(), parray);
     SDL_SetRenderDrawColor(renderer, 225, 60, 20, 255);
-    for (int j=0; j < handles.size(); j++){
-        points[j] = {handles[j].x, handles[j].y};
-    }
-    SDL_RenderDrawLines(renderer, points, point_count);
-    
-    
+    SDL_RenderDrawLines(renderer, parray, pcount);
 
 };
 
