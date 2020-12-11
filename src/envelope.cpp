@@ -7,6 +7,7 @@
 
 Envelope::Envelope(std::string name){
 
+    // initialize default RT_Handles.
     int x = 400;
     int y = 100;
     int yoffset = 50;
@@ -14,8 +15,8 @@ Envelope::Envelope(std::string name){
         handles.push_back({
             x + (i * yoffset),
             y,
-            5,        // size
-            i,        // index
+            handle_size_default,
+            i,             // index
             (int)(i == 0)  // active?
         });
     }
@@ -200,15 +201,23 @@ void Envelope::modify_handle_count(int num){
         - set new handle as active
         */
         if (active_index == (num_handles - 1)){
-            // if the last handle is active, insert to the left of last handle
+            // if the last handle is active, insert to the left of last handle, make the new handle active
             a = num_handles - 2;
             b = num_handles - 1;
-            cout << "between idx " << a << " and idx " << b << endl;
-
             find_midpoint(handles[a].x, handles[a].y, handles[b].x, handles[b].y, rx, ry);
-            cout << "location: " << rx << ", " << ry;
 
+            RT_Handle new_handle = {rx, ry, handle_size_default, 0, 0};
+            handles.insert(handles.begin() + active_index, new_handle);
+            ensure_proper_indexing_of_handles(active_index);
         }
     }
 
+};
+
+void Envelope::ensure_proper_indexing_of_handles(int active_index){
+    for (int unsigned i=0; i < handles.size(); i++){
+        handles[i].index = i;
+        handles[i].size = handle_size_default;
+        handles[i].active = int(active_index == (int)i);
+    }
 };

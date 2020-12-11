@@ -18,11 +18,13 @@ public:
     void move_handle(int x, int y);
     void modify_handle_count(int num);
     int get_index_of_active_handle();
+    void ensure_proper_indexing_of_handles(int active_index);
 
 private:
     //SDL_Window *_window = nullptr;
 
     std::vector<RT_Handle> handles;
     int num_handles_default = 6;
+    int handle_size_default = 5;
     int index_of_sustain = 3;
 };
