@@ -170,12 +170,21 @@ void Envelope::move_handle(int x, int y){
     }
 };
 
-void Envelope::modify_handle_count(int active_index, int num){
+int Envelope::get_index_of_active_handle(){
+    int active_index = 1;
+    for (int unsigned i=0; i < handles.size(); i++){
+        if (handles[i].active){ active_index = i; break; }
+    }
+    return active_index;
+};
+
+void Envelope::modify_handle_count(int num){
     int rx = 50;
     int ry = 50;
     int a = 0;
     int b = 1;
     int num_handles = handles.size();
+    int active_index = get_index_of_active_handle();
 
     if (num < 0){        // remove a handle
         /*
@@ -190,7 +199,7 @@ void Envelope::modify_handle_count(int active_index, int num){
         - insert handle into handles
         - set new handle as active
         */
-        if (active_index == num_handles-1){
+        if (active_index == (num_handles - 1)){
             // if the last handle is active, insert to the left of last handle
             a = num_handles - 2;
             b = num_handles - 1;
