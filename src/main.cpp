@@ -29,11 +29,13 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selectio
     }
 }
 
-// void pollModifierKeys(Window &window, volatile const Uint8** keyState){
-//     SDL_PumpEvents();
-//     window.set_pressing_ctrl(keyState[SDL_SCANCODE_LCTRL]);
-//     window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
-// }
+void pollModifierKeys(Window &window){
+    SDL_PumpEvents();
+    window.set_pressing_lctrl(window.keyState[SDL_SCANCODE_LCTRL]);
+    window.set_pressing_rctrl(window.keyState[SDL_SCANCODE_RCTRL]);
+    window.set_pressing_lshift(window.keyState[SDL_SCANCODE_LSHIFT]);
+    window.set_pressing_rshift(window.keyState[SDL_SCANCODE_RSHIFT]);
+}
 
 
 int main(int argc, char* args[])
@@ -48,17 +50,10 @@ int main(int argc, char* args[])
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
     SDL_Rect osc_rect = {400, 20, 270, 100};
-    const Uint8 *keyState = SDL_GetKeyboardState(NULL);
     
     while (!window.isClosed()){
 
-        //pollModifierKeys(window, (const Uint8**)keyState);
-        SDL_PumpEvents();
-        window.set_pressing_lctrl(keyState[SDL_SCANCODE_LCTRL]);
-        window.set_pressing_rctrl(keyState[SDL_SCANCODE_RCTRL]);
-        window.set_pressing_lshift(keyState[SDL_SCANCODE_LSHIFT]);
-        window.set_pressing_rshift(keyState[SDL_SCANCODE_RSHIFT]);
- 
+        pollModifierKeys(window);
         pollEvents(window, cursor, mypat, selection, env);
 
         env.draw_envelope(window, Window::renderer, osc_rect);

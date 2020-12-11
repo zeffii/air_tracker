@@ -47,5 +47,6 @@ class Window {
         SDL_Window *_window = nullptr;
     public:
         static SDL_Renderer *renderer;
+        const Uint8 *keyState = SDL_GetKeyboardState(NULL);
 
 };
