@@ -209,7 +209,19 @@ void Envelope::modify_handle_count(int num){
             RT_Handle new_handle = {rx, ry, handle_size_default, 0, 0};
             handles.insert(handles.begin() + active_index, new_handle);
             ensure_proper_indexing_of_handles(active_index);
+        } else {
+            a = active_index;
+            b = active_index + 1;
+            find_midpoint(handles[a].x, handles[a].y, handles[b].x, handles[b].y, rx, ry);
+
+            RT_Handle new_handle = {rx, ry, handle_size_default, 0, 0};
+            handles.insert(handles.begin() + active_index+1, new_handle);
+            if (active_index < index_of_sustain) { index_of_sustain += 1; }
+            ensure_proper_indexing_of_handles(active_index + 1);
         }
+
+
+
     }
 
 };
