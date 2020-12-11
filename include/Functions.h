@@ -5,6 +5,11 @@
 
 using namespace std;
 
+// geometric
+void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry);
+
+
+// numeric
 bool is_string_numeric(string str);
 int average_int_vector(vector<int> invec);
 
@@ -30,3 +35,4 @@ string kb_key_to_noterepr(string kb_key, int octave);
 void print_string_vector(vector<string> cp);
 void print_int_array(vector<int> inarray);
 void pattern_descriptor_to_handler(string descriptor, Pattern& pattern);
+

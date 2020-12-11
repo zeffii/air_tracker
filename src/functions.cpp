@@ -8,6 +8,12 @@
 
 using namespace std;
 
+void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry){
+    rx = (x1 + x2) / 2;
+    ry = (y1 + y2) / 2;
+};
+
+
 bool is_string_numeric(string str){
     /*
     numeric strings may contain numbers, and at most one decimal point. 
