@@ -16,6 +16,7 @@ public:
     void draw_handle(SDL_Renderer *renderer, RT_Handle handle);
     void set_active_handle(int nudge_dir);
     void move_handle(int x, int y);
+    void modify_handle_count(int active, int num);
 
 private:
     //SDL_Window *_window = nullptr;

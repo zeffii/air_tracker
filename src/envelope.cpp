@@ -169,3 +169,17 @@ void Envelope::move_handle(int x, int y){
         }
     }
 };
+
+void Envelope::modify_handle_count(int active, int num){
+    if (num < 0){        // remove a handle
+        // removes active handle
+        // reshuffles handles so indices match
+        // toggles active handle on handle+=1
+    }
+    else if (num > 0){   // insert new handle
+        // find location for new handle
+        // inset handle into handles
+        // set new handle as active
+    }
+
+};
