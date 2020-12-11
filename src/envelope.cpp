@@ -188,18 +188,28 @@ void Envelope::modify_handle_count(int num){
     int active_index = get_index_of_active_handle();
 
     if (num < 0){        // remove a handle
+
         /*
         - removes active handle
         - reshuffles handles so indices match
         - toggles active handle on handle+=1
         */
-    }
-    else if (num > 0){   // insert new handle
+
+        if ((active_index == num_handles-1) || (active_index == 0)){
+            cout << "can't remove first or last handle, baby!" << endl; return;
+        }
+        handles.erase(handles.begin() + active_index);
+        if (active_index < index_of_sustain) { index_of_sustain -= 1; }
+        ensure_proper_indexing_of_handles(active_index-1);
+
+    } else if (num > 0){   // insert new handle
+
         /*
         - find location for new handle
         - insert handle into handles
         - set new handle as active
         */
+
         if (active_index == (num_handles - 1)){
             // if the last handle is active, insert to the left of last handle, make the new handle active
             a = num_handles - 2;
