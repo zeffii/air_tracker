@@ -100,8 +100,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             switch (event.key.keysym.sym) {
                 case SDLK_TAB:
-                    window.set_active_area(+1);
-                    break;
+                    window.set_active_area(+1); break;
 
                 case SDLK_INSERT:
                     env.modify_handle_count(+1); break;
@@ -110,27 +109,24 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
                 case SDLK_LEFT:
                     if (window.is_ralt_pressed()){
-                        env.set_active_handle(-1); 
-                        break;
+                        env.set_active_handle(-1); break;
                     }
-                    env.move_handle(-movement, 0); 
-                    break;
+                    env.move_handle(-movement, 0); break;
 
                 case SDLK_RIGHT:
                     if (window.is_ralt_pressed()){
-                        env.set_active_handle(+1); 
-                        break;
+                        env.set_active_handle(+1); break;
                     }
-                    env.move_handle(movement, 0); 
-                    break;
+                    env.move_handle(movement, 0); break;
 
                 case SDLK_UP:
-                    env.move_handle(0, -movement); 
-                    break;
+                    env.move_handle(0, -movement); break;
 
                 case SDLK_DOWN:                
-                    env.move_handle(0, movement); 
-                    break;
+                    env.move_handle(0, movement); break;
+
+                case SDLK_l:
+                    env.set_looppoint(); break;
 
                 default:
                     break;

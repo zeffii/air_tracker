@@ -64,11 +64,11 @@ void Envelope::DrawDottedLine(SDL_Renderer *renderer, Line line, SDL_Color color
 void Envelope::SDLX_draw_dotted_line(SDL_Renderer *renderer, Line line, SDL_Color color){
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
-    int numpoints = (line.y2 - line.y1) / 3;
+    int numpoints = (line.y2 - line.y1) / 4;
     SDL_Point pointset[numpoints];
 
     int j;
-    for (int i = line.y1; i < line.y2; i += 3){
+    for (int i = line.y1; i < line.y2; i += 4){
         pointset[j] = {line.x1, i};
         j +=1;
     }
@@ -120,8 +120,8 @@ void Envelope::draw_looppoint(SDL_Renderer *renderer){
         }
     }
     
-    Line line = { loop_point_x, env_rect.y, loop_point_x, env_rect.y + env_rect.h };
-    SDL_Color col_elem = {255, 0, 0, 255};
+    Line line = { loop_point_x, env_rect.y + 3, loop_point_x, (env_rect.y + env_rect.h) };
+    SDL_Color col_elem = {255, 0, 0, 215};
     SDLX_draw_dotted_line(renderer, line, col_elem);
 
 };
@@ -246,4 +246,8 @@ void Envelope::ensure_proper_indexing_of_handles(int active_index){
         handles[i].size = handle_size_default;
         handles[i].active = int(active_index == (int)i);
     }
+};
+
+void Envelope::set_looppoint(){
+    index_of_sustain = get_index_of_active_handle();
 };

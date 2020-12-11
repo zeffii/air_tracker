@@ -19,6 +19,7 @@ public:
     void modify_handle_count(int num);
     int get_index_of_active_handle();
     void ensure_proper_indexing_of_handles(int active_index);
+    void set_looppoint();
 
 private:
     //SDL_Window *_window = nullptr;
