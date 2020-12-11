@@ -103,13 +103,10 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                     window.set_active_area(+1);
                     break;
 
-                // case SDLK_PAGEUP:
-                //     env.set_active_handle(+1);
-                //     cerr << "move to next handle\n"; break;
-
-                // case SDLK_PAGEDOWN:
-                //     env.set_active_handle(-1);
-                //     cerr << "move to previous handle\n"; break;
+                case SDLK_INSERT:
+                    env.modify_handle_count(+1); break;
+                case SDLK_DELETE:
+                    env.modify_handle_count(-1); break;
 
                 case SDLK_LEFT:
                     if (window.is_ralt_pressed()){

@@ -170,16 +170,36 @@ void Envelope::move_handle(int x, int y){
     }
 };
 
-void Envelope::modify_handle_count(int active, int num){
+void Envelope::modify_handle_count(int active_index, int num){
+    int rx = 50;
+    int ry = 50;
+    int a = 0;
+    int b = 1;
+    int num_handles = handles.size();
+
     if (num < 0){        // remove a handle
-        // removes active handle
-        // reshuffles handles so indices match
-        // toggles active handle on handle+=1
+        /*
+        - removes active handle
+        - reshuffles handles so indices match
+        - toggles active handle on handle+=1
+        */
     }
     else if (num > 0){   // insert new handle
-        // find location for new handle
-        // inset handle into handles
-        // set new handle as active
+        /*
+        - find location for new handle
+        - insert handle into handles
+        - set new handle as active
+        */
+        if (active_index == num_handles-1){
+            // if the last handle is active, insert to the left of last handle
+            a = num_handles - 2;
+            b = num_handles - 1;
+            cout << "between idx " << a << " and idx " << b << endl;
+
+            find_midpoint(handles[a].x, handles[a].y, handles[b].x, handles[b].y, rx, ry);
+            cout << "location: " << rx << ", " << ry;
+
+        }
     }
 
 };
