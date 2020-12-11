@@ -5,7 +5,10 @@
 #include <math.h>
 #include "Functions.h"
 
-Envelope::Envelope(std::string name){
+Envelope::Envelope(std::string name, SDL_Rect &_env_rect){
+
+    // set dimensions
+    env_rect = _env_rect;
 
     // initialize default RT_Handles.
     int x = 400;
@@ -107,7 +110,7 @@ void Envelope::set_active_handle(int nudge_dir){
 
 };
 
-void Envelope::draw_looppoint(SDL_Renderer *renderer, SDL_Rect env_rect){
+void Envelope::draw_looppoint(SDL_Renderer *renderer){
 
     int loop_point_x = 90;
     for (int unsigned j = 0; j < handles.size(); j++){
@@ -125,7 +128,7 @@ void Envelope::draw_looppoint(SDL_Renderer *renderer, SDL_Rect env_rect){
 
 
 
-void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect env_rect){
+void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer){
 
 
     // SDL_Color col_elem2 = {155, 150, 255, 255};
@@ -150,7 +153,7 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect en
         points.push_back({handle.x, handle.y});
     }
 
-    draw_looppoint(renderer, env_rect); // the line dotted
+    draw_looppoint(renderer); // the line dotted
 
     int pcount = handles.size();
     SDL_Point parray[pcount];
@@ -164,6 +167,7 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect en
 void Envelope::move_handle(int x, int y){
     for (int unsigned i=0; i < handles.size(); i++){
         if (handles[i].active){
+            // implement limit checking here.
             handles[i].x += x;
             handles[i].y += y;
             break;
