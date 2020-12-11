@@ -102,37 +102,23 @@ void Window::clear() const {
 
 }
 
-bool Window::is_lctrl_pressed(){ 
-    return _pressing_lctrl; 
-};
+// CTRL L and R
+bool Window::is_lctrl_pressed(){ return _pressing_lctrl; };
+void Window::set_pressing_lctrl(bool newstate){  _pressing_lctrl = newstate; };
+bool Window::is_rctrl_pressed(){ return _pressing_rctrl; };
+void Window::set_pressing_rctrl(bool newstate){  _pressing_rctrl = newstate; };
 
-void Window::set_pressing_lctrl(bool newstate){ 
-    _pressing_lctrl = newstate; 
-};
+// ALT L and R
+bool Window::is_lalt_pressed(){ return _pressing_lalt; };
+void Window::set_pressing_lalt(bool newstate){ _pressing_lalt = newstate; };
+bool Window::is_ralt_pressed(){ return _pressing_ralt; };
+void Window::set_pressing_ralt(bool newstate){ _pressing_ralt = newstate; };
 
-bool Window::is_rctrl_pressed(){ 
-    return _pressing_rctrl; 
-};
-
-void Window::set_pressing_rctrl(bool newstate){ 
-    _pressing_rctrl = newstate; 
-};
-
-bool Window::is_lshift_pressed(){ 
-    return _pressing_lshift; 
-};
-
-void Window::set_pressing_lshift(bool newstate){ 
-    _pressing_lshift = newstate; 
-};
-
-bool Window::is_rshift_pressed(){ 
-    return _pressing_rshift; 
-};
-
-void Window::set_pressing_rshift(bool newstate){ 
-    _pressing_rshift = newstate; 
-};
+// SHIFT L and R
+bool Window::is_lshift_pressed(){ return _pressing_lshift; };
+void Window::set_pressing_lshift(bool newstate){ _pressing_lshift = newstate; };
+bool Window::is_rshift_pressed(){ return _pressing_rshift; };
+void Window::set_pressing_rshift(bool newstate){ _pressing_rshift = newstate; };
 
 
 // void Window::set_window_title(const char *newtitle){

@@ -16,10 +16,14 @@ class Window {
 
         bool is_lctrl_pressed();
         bool is_rctrl_pressed();
+        bool is_lalt_pressed();
+        bool is_ralt_pressed();
         bool is_lshift_pressed();
         bool is_rshift_pressed();
         void set_pressing_lctrl(bool newstate);
         void set_pressing_rctrl(bool newstate);
+        void set_pressing_lalt(bool newstate);
+        void set_pressing_ralt(bool newstate);
         void set_pressing_lshift(bool newstate);
         void set_pressing_rshift(bool newstate);
 
@@ -38,6 +42,8 @@ class Window {
 
         bool _pressing_lctrl = false;
         bool _pressing_rctrl = false;
+        bool _pressing_lalt = false;
+        bool _pressing_ralt = false;        
         bool _pressing_lshift = false;
         bool _pressing_rshift = false;
 

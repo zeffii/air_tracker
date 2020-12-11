@@ -33,6 +33,8 @@ void pollModifierKeys(Window &window){
     SDL_PumpEvents();
     window.set_pressing_lctrl(window.keyState[SDL_SCANCODE_LCTRL]);
     window.set_pressing_rctrl(window.keyState[SDL_SCANCODE_RCTRL]);
+    window.set_pressing_lalt(window.keyState[SDL_SCANCODE_LALT]);
+    window.set_pressing_ralt(window.keyState[SDL_SCANCODE_RALT]);
     window.set_pressing_lshift(window.keyState[SDL_SCANCODE_LSHIFT]);
     window.set_pressing_rshift(window.keyState[SDL_SCANCODE_RSHIFT]);
 }
