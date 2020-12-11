@@ -106,6 +106,23 @@ void Envelope::set_active_handle(int nudge_dir){
 
 };
 
+void Envelope::draw_looppoint(SDL_Renderer *renderer, SDL_Rect env_rect){
+
+    int loop_point_x = 90;
+    for (int unsigned j = 0; j < handles.size(); j++){
+        if (j == (unsigned) index_of_sustain){
+            loop_point_x = handles[j].x;
+            break;
+        }
+    }
+    
+    Line line = { loop_point_x, env_rect.y, loop_point_x, env_rect.y + env_rect.h };
+    SDL_Color col_elem = {255, 0, 0, 255};
+    SDLX_draw_dotted_line(renderer, line, col_elem);
+
+};
+
+
 
 void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect env_rect){
 
@@ -132,19 +149,7 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect en
         points.push_back({handle.x, handle.y});
     }
 
-    // draw loop point indicator
-    int loop_point_x = 90;
-    for (int unsigned j = 0; j < handles.size(); j++){
-        if (j == (unsigned) index_of_sustain){
-            loop_point_x = handles[j].x;
-            break;
-        }
-    }
-    
-    Line line = { loop_point_x, env_rect.y, loop_point_x, env_rect.y + env_rect.h };
-    SDL_Color col_elem = {255, 0, 0, 255};
-    SDLX_draw_dotted_line(renderer, line, col_elem);
-
+    draw_looppoint(renderer, env_rect); // the line dotted
 
     int pcount = handles.size();
     SDL_Point parray[pcount];

@@ -11,6 +11,7 @@ public:
     Envelope(std::string name);
     void DrawDottedLine(SDL_Renderer *renderer, Line line, SDL_Color color);
     void SDLX_draw_dotted_line(SDL_Renderer *renderer, Line line, SDL_Color color);
+    void draw_looppoint(SDL_Renderer *renderer, SDL_Rect env_rect);
     void draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect env_rect);
     void draw_handle(SDL_Renderer *renderer, RT_Handle handle);
     void set_active_handle(int nudge_dir);
