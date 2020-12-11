@@ -107,11 +107,8 @@ void Envelope::set_active_handle(int nudge_dir){
 };
 
 
-void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect osc_rect){
+void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect env_rect){
 
-    SDL_Color col_elem = {255, 0, 0, 255};
-    Line line = {osc_rect.x + 90, osc_rect.y, osc_rect.x + 90, osc_rect.y + osc_rect.h};
-    SDLX_draw_dotted_line(renderer, line, col_elem);
 
     // SDL_Color col_elem2 = {155, 150, 255, 255};
     // Line line2 = {osc_rect.x + 190, osc_rect.y, osc_rect.x + 290, osc_rect.y + osc_rect.h};
@@ -122,10 +119,11 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect os
     else
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     
-    SDL_RenderDrawRect(renderer, &osc_rect);
+    SDL_RenderDrawRect(renderer, &env_rect);
 
     if (handles.empty())
         return;
+
 
     // draw handles!
     vector<SDL_Point> points;
@@ -133,6 +131,20 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer, SDL_Rect os
         draw_handle(renderer, handle);
         points.push_back({handle.x, handle.y});
     }
+
+    // draw loop point indicator
+    int loop_point_x = 90;
+    for (int unsigned j = 0; j < handles.size(); j++){
+        if (j == (unsigned) index_of_sustain){
+            loop_point_x = handles[j].x;
+            break;
+        }
+    }
+    
+    Line line = { loop_point_x, env_rect.y, loop_point_x, env_rect.y + env_rect.h };
+    SDL_Color col_elem = {255, 0, 0, 255};
+    SDLX_draw_dotted_line(renderer, line, col_elem);
+
 
     int pcount = handles.size();
     SDL_Point parray[pcount];
