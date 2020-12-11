@@ -135,10 +135,13 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer){
     // Line line2 = {osc_rect.x + 190, osc_rect.y, osc_rect.x + 290, osc_rect.y + osc_rect.h};
     // DrawDottedLine(renderer, line2, col_elem2);
 
+    SDL_SetRenderDrawColor(renderer, 26, 26, 26, 255);
+    SDL_RenderFillRect(renderer, &env_rect);
+
     if (window.get_active_area() == 0)
         SDL_SetRenderDrawColor(renderer, 155, 20, 20, 255);
     else
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 215, 0, 0, 255);
     
     SDL_RenderDrawRect(renderer, &env_rect);
 
@@ -196,7 +199,7 @@ void Envelope::modify_handle_count(int num){
         /*
         - removes active handle
         - reshuffles handles so indices match
-        - toggles active handle on handle+=1
+        - decrements index of active handle
         */
 
         if ((active_index == num_handles-1) || (active_index == 0)){
