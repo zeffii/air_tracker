@@ -240,12 +240,20 @@ void Envelope::move_handle(int x, int y){
         int num_iterations_y = abs(y);
         int direction_y = copysign(1, y);
 
+        int top_y = env_rect.y;
+        int bottom_y = env_rect.y + env_rect.h;
+
         for (int ny = 0; ny < num_iterations_y; ny++){
+
+            bool at_top_border = (handles[i].y == top_y);
+            if (at_top_border && (direction_y < 0)) return;
+
+            bool at_bottom_border = (handles[i].y == bottom_y);
+            if (at_bottom_border && (direction_y > 0)) return;
+
             handles[i].y += direction_y;
         }
-
     }
-
 };
 
 
