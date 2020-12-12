@@ -36,7 +36,6 @@ void readPattern(const char* filename, std::vector<string> &lines, string &patte
 
 Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
 
-    load_font();
     readPattern(pattern_path, pattern_data, pattern_descriptor_str);
     _nchars_inrow = pattern_descriptor_str.length();
     _nrows = pattern_data.size();
@@ -48,20 +47,14 @@ Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
 };
 
 Pattern::~Pattern(){
-    close_font();
+    // close_font();
 };
 
-void Pattern::load_font(){
-    font = TTF_OpenFont("res/consola.ttf", 11);
-};
-void Pattern::close_font(){
-    TTF_CloseFont(font);
-};
 
 
 void Pattern::texture_pattern(SDL_Renderer *renderer){
     
-    if (!font) { cerr << "failed to load font\n"; }
+    if (!Window::font) { cerr << "failed to load font\n"; }
 
     SDL_Color colwhite = {255, 255, 255, 255};
     _text_rects.clear();
@@ -82,7 +75,7 @@ void Pattern::texture_pattern(SDL_Renderer *renderer){
 
     for (int unsigned i = 0; i < pattern_data.size(); i++){
     
-        auto text_surface = TTF_RenderText_Blended(font, pattern_data[i].c_str(), colwhite);
+        auto text_surface = TTF_RenderText_Blended(Window::font, pattern_data[i].c_str(), colwhite);
         if (!text_surface) { cerr << "failed to create text surface \n"; }
 
         auto text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
@@ -137,7 +130,7 @@ void Pattern::display(int x, int y, SDL_Renderer *renderer) const {
 
 
 void Pattern::texture_console(SDL_Renderer *renderer){
-    auto console_surface = TTF_RenderText_Blended(font, console_string.c_str(), _console_color);
+    auto console_surface = TTF_RenderText_Blended(Window::font, console_string.c_str(), _console_color);
     if (!console_surface) { cerr << "failed to create console surface \n"; }
 
     _console_texture = SDL_CreateTextureFromSurface(renderer, console_surface);
