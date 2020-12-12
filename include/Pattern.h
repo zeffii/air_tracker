@@ -18,8 +18,6 @@ class Pattern {
     public:
         Pattern(SDL_Renderer *renderer, const char* pattern_path);
         ~Pattern();
-        void load_font();
-        void close_font();
 
         void texture_pattern(SDL_Renderer *renderer);
         void display(int x, int y, SDL_Renderer *renderer) const;
@@ -89,7 +87,7 @@ class Pattern {
 
         // misc
         SDL_Renderer *renderer_placeholder;
-        TTF_Font *font;
+        // TTF_Font *font;
         
         int octave = 5;
         int _line_height = 13;

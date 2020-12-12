@@ -8,7 +8,7 @@
 
 using namespace std;
 
-
+TTF_Font *Window::font = nullptr;
 SDL_Renderer *Window::renderer = nullptr;
 
 
@@ -16,15 +16,20 @@ Window::Window(const string &title, int width, int height)
 :_title(title), _width(width), _height(height)
 {
     _closed = !init();
+    load_font();
 }
 
 Window::~Window(){
     SDL_DestroyRenderer(renderer);
+    close_font();
     SDL_DestroyWindow(_window);
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
+
+void Window::load_font(){ font = TTF_OpenFont("res/consola.ttf", 11); };
+void Window::close_font(){ TTF_CloseFont(font); };
 
 void Window::set_active_area(int shift_area){
     active_area += shift_area;
