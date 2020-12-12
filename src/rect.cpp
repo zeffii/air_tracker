@@ -9,6 +9,7 @@ using namespace std;
 #include "Functions.h"
 #include "Selector.h"
 
+
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
 
@@ -50,7 +51,7 @@ void update_selection_if_active(Selector &selection, int column_index, int row_i
     }
 };
 
-void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection){
+void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection, Envelope &env){
 
     int x_offset = 20;
     int y_offset = 20;
@@ -86,9 +87,62 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
         return;
     }
 
+    if (window.get_active_area() == 1){
+        /*
+        when the active area is an envelope, all subsequent key pressed should be captured
+        */
+
+        if (event.type == SDL_KEYDOWN){
+
+            int movement = 1;
+            if (window.is_rctrl_pressed())
+                movement = 4;
+
+            switch (event.key.keysym.sym) {
+                case SDLK_TAB:
+                    window.set_active_area(+1); break;
+
+                case SDLK_INSERT:
+                    env.modify_handle_count(+1); break;
+                case SDLK_DELETE:
+                    env.modify_handle_count(-1); break;
+
+                case SDLK_LEFT:
+                    if (window.is_ralt_pressed()){
+                        env.set_active_handle(-1); break;
+                    }
+                    env.move_handle(-movement, 0); break;
+
+                case SDLK_RIGHT:
+                    if (window.is_ralt_pressed()){
+                        env.set_active_handle(+1); break;
+                    }
+                    env.move_handle(movement, 0); break;
+
+                case SDLK_UP:
+                    env.move_handle(0, -movement); break;
+
+                case SDLK_DOWN:                
+                    env.move_handle(0, movement); break;
+
+                case SDLK_l:
+                    env.set_looppoint(); break;
+
+                default:
+                    break;
+            }
+        }
+
+        return;
+    }
+
 
     if (event.type == SDL_KEYDOWN){
         switch (event.key.keysym.sym) {
+
+            case SDLK_TAB:
+                window.set_active_area(+1);
+                break;
 
             case SDLK_BACKSLASH:
                 handle_selection(selection, column_index, row_index);
@@ -174,7 +228,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
 
             case SDLK_PERIOD:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.wipe_selection(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, ".");
@@ -205,7 +259,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "B");  // hex   note G
                 break;
             case SDLK_c:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.store_selection_in_clipboard(selection);
                 } else {
                     mypat.set_char_at(row_index, column_index, "C");  // hex   note D
@@ -257,7 +311,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 break;
             // case SDLK_e: //                                    //       note E +1
             case SDLK_r:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.randomize_selection(selection, 4);
                 }
                 else {
@@ -283,7 +337,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "U");  //       note B +1
                 break;
             case SDLK_i:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.perform_selection_interpolation(selection, "tween");
                 }
                 else if (window.is_lshift_pressed()){
@@ -322,7 +376,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 mypat.set_char_at(row_index, column_index, "S");  //       note C#
                 break;
             case SDLK_x:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.store_selection_in_clipboard(selection);
                     mypat.wipe_selection(selection);
                 } else {
@@ -332,7 +386,7 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
             //case SDLK_d:                                        //       note D#
             //case SDLK_c:                                        //       note E
             case SDLK_v:
-                if (window.is_ctrl_pressed()){
+                if (window.is_lctrl_pressed()){
                     mypat.paste_clipboard(row_index, column_index);
                 } else {
                     mypat.set_char_at(row_index, column_index, "V");  //   note F

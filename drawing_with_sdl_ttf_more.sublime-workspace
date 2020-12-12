@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"_en",
+				"_envelope_text_rect"
+			],
+			[
+				"dr",
+				"draw_envelope_text_details"
+			],
+			[
+				"index",
+				"index_of_sustain"
+			],
+			[
+				"acit",
+				"active_index"
+			],
+			[
+				"activ",
+				"active_index"
+			],
+			[
+				"num",
+				"num_handles"
+			],
+			[
+				"SDL",
+				"SDL_RenderDrawRect"
+			],
+			[
+				"is",
+				"is_lctrl_pressed"
+			],
+			[
 				"new",
 				"new_project_name"
 			],
@@ -14,10 +46,6 @@
 			[
 				"shif",
 				"shift_vertical_times"
-			],
-			[
-				"num",
-				"num_total_shifts_possible"
 			],
 			[
 				"shi",
@@ -357,6 +385,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Fill",
+			"SDL_RenderPresent(renderer);",
+			",\n",
+			"window",
 			"SDL_UpdateTexture",
 			"split",
 			"delay",
@@ -412,7 +444,7 @@
 		"cols":
 		[
 			0.0,
-			0.409878124388,
+			0.471655294847,
 			1.0
 		],
 		"rows":
@@ -424,7 +456,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 150.0
+		"height": 184.0
 	},
 	"output.find_results":
 	{
@@ -470,7 +502,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 276.0,
+	"side_bar_width": 320.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

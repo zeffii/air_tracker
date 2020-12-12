@@ -26,21 +26,20 @@ Window::~Window(){
     SDL_Quit();
 }
 
+void Window::set_active_area(int shift_area){
+    active_area += shift_area;
+    active_area %= number_of_areas;
+    cerr << "active area: " << active_area << endl;
+};
+
+
+int Window::get_active_area(){ return active_area; };
+
 bool Window::init(){
-    if (SDL_Init(SDL_INIT_VIDEO) != 0){
-        cerr << "Failed to init SDL.\n";
-        return false;
-    }
 
-    if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG){
-        cerr << "Failed to init SDL img\n";
-        return false;
-    }
-
-    if (TTF_Init() == -1){
-        cerr << "Failed to init TTF img\n";
-        return false;
-    }
+    if (SDL_Init(SDL_INIT_VIDEO) != 0){ cerr << "Failed to init SDL.\n"; return false; }
+    if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG){ cerr << "Failed to init SDL img\n"; return false; }
+    if (TTF_Init() == -1){ cerr << "Failed to init TTF img\n"; return false; }
 
     _window = SDL_CreateWindow(
         _title.c_str(),
@@ -50,27 +49,23 @@ bool Window::init(){
         0  // SDL_WINDOW_RESIZABLE
     );
 
-    if (_window == nullptr) {
-        cerr << "Failed to create window! :/ \n";
-        return false;
-    }
+    if (_window == nullptr) { cerr << "Failed to create window! :/ \n"; return false; }
 
     renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_PRESENTVSYNC);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
-    if (renderer == nullptr) {
-        cerr << "Failed to create renderer!\n";
-        return false;
-    }
+    if (renderer == nullptr) { cerr << "Failed to create renderer!\n"; return false; }
 
     return true;
 }
 
 void Window::pollEvents(SDL_Event &event){
+
     switch (event.type){
+
         case SDL_QUIT:
-            _closed = true;
-            break;
+            _closed = true; break;
+
         case SDL_KEYDOWN:
 
             switch (event.key.keysym.sym) {
@@ -86,36 +81,29 @@ void Window::pollEvents(SDL_Event &event){
 }
 
 void Window::clear() const {
+
     SDL_RenderPresent(renderer);
-    // SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
     SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
     SDL_RenderClear(renderer);
-
 }
 
-bool Window::is_ctrl_pressed(){ 
-    return _pressing_ctrl; 
-};
+// CTRL L and R
+bool Window::is_lctrl_pressed(){ return _pressing_lctrl; };
+void Window::set_pressing_lctrl(bool newstate){  _pressing_lctrl = newstate; };
+bool Window::is_rctrl_pressed(){ return _pressing_rctrl; };
+void Window::set_pressing_rctrl(bool newstate){  _pressing_rctrl = newstate; };
 
-void Window::set_pressing_ctrl(bool newstate){ 
-    _pressing_ctrl = newstate; 
-};
+// ALT L and R
+bool Window::is_lalt_pressed(){ return _pressing_lalt; };
+void Window::set_pressing_lalt(bool newstate){ _pressing_lalt = newstate; };
+bool Window::is_ralt_pressed(){ return _pressing_ralt; };
+void Window::set_pressing_ralt(bool newstate){ _pressing_ralt = newstate; };
 
-bool Window::is_lshift_pressed(){ 
-    return _pressing_lshift; 
-};
-
-void Window::set_pressing_lshift(bool newstate){ 
-    _pressing_lshift = newstate; 
-};
-
-bool Window::is_rshift_pressed(){ 
-    return _pressing_rshift; 
-};
-
-void Window::set_pressing_rshift(bool newstate){ 
-    _pressing_rshift = newstate; 
-};
+// SHIFT L and R
+bool Window::is_lshift_pressed(){ return _pressing_lshift; };
+void Window::set_pressing_lshift(bool newstate){ _pressing_lshift = newstate; };
+bool Window::is_rshift_pressed(){ return _pressing_rshift; };
+void Window::set_pressing_rshift(bool newstate){ _pressing_rshift = newstate; };
 
 
 // void Window::set_window_title(const char *newtitle){

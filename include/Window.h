@@ -14,14 +14,25 @@ class Window {
 
         void pollEvents(SDL_Event &event);
 
-        bool is_ctrl_pressed();
+        bool is_lctrl_pressed();
+        bool is_rctrl_pressed();
+        bool is_lalt_pressed();
+        bool is_ralt_pressed();
         bool is_lshift_pressed();
         bool is_rshift_pressed();
-        void set_pressing_ctrl(bool newstate);
+        void set_pressing_lctrl(bool newstate);
+        void set_pressing_rctrl(bool newstate);
+        void set_pressing_lalt(bool newstate);
+        void set_pressing_ralt(bool newstate);
         void set_pressing_lshift(bool newstate);
         void set_pressing_rshift(bool newstate);
+
+        void set_active_area(int shift_area);
+        int get_active_area();
+
         void clear() const;
         inline bool isClosed() const { return _closed; }
+
     private:
         bool init();
         string _title;
@@ -29,12 +40,19 @@ class Window {
         int _height = 600;
         bool _closed = false;
 
-        bool _pressing_ctrl = false;
+        bool _pressing_lctrl = false;
+        bool _pressing_rctrl = false;
+        bool _pressing_lalt = false;
+        bool _pressing_ralt = false;        
         bool _pressing_lshift = false;
         bool _pressing_rshift = false;
+
+        int active_area = 0;
+        int number_of_areas = 2;  // 0 = pattern , 1 = envelope
 
         SDL_Window *_window = nullptr;
     public:
         static SDL_Renderer *renderer;
+        const Uint8 *keyState = SDL_GetKeyboardState(NULL);
 
 };
