@@ -216,14 +216,19 @@ void Envelope::move_handle(int x, int y){
             int direction_x = copysign(1, x);
             for (int nx = 0; nx < num_iterations_x; nx++){
 
-                // todo: must prevent movement past neighbouring handles in x direction.
-                // this also prevents x movement beyond rect bounds, because handle=0 and handle=last are bolted on x axis.
+                // - prevent movement past neighbouring handles in x direction.
+                // - prevents x movement beyond rect bounds, because handle=0 and handle=last are bolted on x axis.
                 bool close_to_left_neighbour = (handles[i].x) == (handles[i-1].x + 1);
                 if (close_to_left_neighbour && (direction_x < 0)) {
-                    cout << "handle lower x" << handles[i-1].x << " active handle.x :" << handles[i].x << endl;
+                    //cout << "handle lower x" << handles[i-1].x << " active handle.x :" << handles[i].x << endl;
                     return;
                 }
-                // bool close_to_right_neighbour = (handles[i].x + 1) < (handles[i+1].x - 1);
+                
+                bool close_to_right_neighbour = (handles[i].x) == (handles[i+1].x - 1);
+                if (close_to_right_neighbour && (direction_x > 0)) {
+                    //cout << "active handle.x" << handles[i].x << " higher handle.x :" << handles[i+1].x << endl;
+                    return;
+                }
 
                 handles[i].x += direction_x;
             }
