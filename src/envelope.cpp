@@ -123,11 +123,18 @@ void Envelope::draw_looppoint(SDL_Renderer *renderer){
         }
     }
     
+    if (!show_sustain)
+        return;
+
     Line line = { loop_point_x, env_rect.y + 3, loop_point_x, (env_rect.y + env_rect.h) };
     SDL_Color col_elem = {255, 0, 0, 215};
     SDLX_draw_dotted_line(renderer, line, col_elem);
 
 };
+
+// void Envelope::set_loop_mode(bool state){
+//     int idx = get_index_of_active_handle();
+// }:
 
 void Envelope::draw_envelope_text_details(Window &window){
     auto details_surface = TTF_RenderText_Blended(window.font, envelope_str.c_str(), _envelope_text_color);
@@ -327,5 +334,12 @@ void Envelope::ensure_proper_indexing_of_handles(int active_index){
 };
 
 void Envelope::set_looppoint(){
-    index_of_sustain = get_index_of_active_handle();
+    int proposed_index_of_sustain = get_index_of_active_handle();
+
+    if (index_of_sustain == proposed_index_of_sustain)
+        show_sustain = !show_sustain;
+    else {
+        index_of_sustain = proposed_index_of_sustain;
+        show_sustain = true;
+    }
 };

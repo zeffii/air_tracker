@@ -21,6 +21,7 @@ public:
     int get_index_of_active_handle();
     void ensure_proper_indexing_of_handles(int active_index);
     void set_looppoint();
+    //void set_loop_mode(bool state):
 
 private:
 
@@ -31,6 +32,7 @@ private:
     int num_handles_default = 6;
     int handle_size_default = 5;
     int index_of_sustain = 3;
+    bool show_sustain = true;
 
     SDL_Rect _envelope_text_rect = {20, 6, 0, 0};
     SDL_Color _envelope_text_color = {215, 55, 55, 255};
