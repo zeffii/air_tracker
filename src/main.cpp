@@ -49,7 +49,7 @@ int main(int argc, char* args[])
     Pattern mypat(Window::renderer, "res/pattern_data_1.air");
     
     SDL_Rect env_rect = {400, 20, 270, 100};
-    Envelope env("ADSR (loop on)", env_rect);
+    Envelope env("ADSR", env_rect);
 
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);

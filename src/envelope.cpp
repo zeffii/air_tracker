@@ -137,6 +137,10 @@ void Envelope::draw_looppoint(SDL_Renderer *renderer){
 // }:
 
 void Envelope::draw_envelope_text_details(Window &window){
+    
+    // destroy if present!
+    SDL_DestroyTexture(_env_text_texture);
+
     auto details_surface = TTF_RenderText_Blended(window.font, envelope_str.c_str(), _envelope_text_color);
     if (!details_surface) { cerr << "failed to create env-text surface \n"; }
 
