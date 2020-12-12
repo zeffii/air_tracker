@@ -191,23 +191,6 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer){
 };
 
 
-// void Envelope::move_handle(int x, int y){
-//     for (int unsigned i=0; i < handles.size(); i++){
-//         if (handles[i].active){
-//             // implement limit checking here.
-//             int last_handle = handles.size() - 1;
-//             bool xlimits = ((handles[i].index == 0) || (handles[i].index == last_handle));
-//             if (!xlimits)
-//                 handles[i].x += x;
-            
-
-//             handles[i].y += y;
-
-//             break;
-//         }
-//     }
-// };
-
 void Envelope::move_handle(int x, int y){
     int i = get_index_of_active_handle();
     int last_handle = handles.size() - 1;
