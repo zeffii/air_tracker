@@ -202,45 +202,45 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer){
 // };
 
 void Envelope::move_handle(int x, int y){
-    for (int unsigned i=0; i < handles.size(); i++){
-        if (handles[i].active){
+    int i = get_index_of_active_handle();
+    int last_handle = handles.size() - 1;
 
-            int last_handle = handles.size() - 1;
+    if (x != 0){
+        // invoke this when moving left to right
 
-            if (x != 0){
-                // invoke this when moving left to right
+        // if active handle is hande 0 or last handle, then we certainly do not move in x direction.
+        bool xlimits = ((handles[i].index == 0) || (handles[i].index == last_handle));
+        if (!xlimits){
 
-                // if active handle is hande 0 or last handle, then we certainly do not move in x direction.
-                bool xlimits = ((handles[i].index == 0) || (handles[i].index == last_handle));
-                if (!xlimits){
+            int num_iterations_x = abs(x);
+            int direction_x = copysign(1, x);
+            for (int nx = 0; nx < num_iterations_x; nx++){
 
-                    int num_iterations_x = abs(x);
-                    int direction_x = copysign(1, x);
-                    for (int nx = 0; nx < num_iterations_x; nx++){
-
-                        // todo: must prevent movement past neighbouring handles in x direction.
-                        //       if ((handles[i].x) > (handles[i-1].x + 1)) and ((handles[i].x + 1) < (handles[i+1].x))
-                        // this also prevents x movement beyond rect bounds, because handle=0 and handle=last are bolted on x axis.
-                        //
-                        handles[i].x += direction_x;
-                    }
+                // todo: must prevent movement past neighbouring handles in x direction.
+                // this also prevents x movement beyond rect bounds, because handle=0 and handle=last are bolted on x axis.
+                bool close_to_left_neighbour = (handles[i].x) == (handles[i-1].x + 1);
+                if (close_to_left_neighbour && (direction_x < 0)) {
+                    cout << "handle lower x" << handles[i-1].x << " active handle.x :" << handles[i].x << endl;
+                    return;
                 }
-                
-            } else if (y != 0) {
+                // bool close_to_right_neighbour = (handles[i].x + 1) < (handles[i+1].x - 1);
 
-                // invoke this when moving up or down
-                int num_iterations_y = abs(y);
-                int direction_y = copysign(1, y);
-
-                for (int ny = 0; ny < num_iterations_y; ny++){
-                    handles[i].y += direction_y;
-                }
-
+                handles[i].x += direction_x;
             }
-
-            break;
         }
+        
+    } else if (y != 0) {
+
+        // invoke this when moving up or down
+        int num_iterations_y = abs(y);
+        int direction_y = copysign(1, y);
+
+        for (int ny = 0; ny < num_iterations_y; ny++){
+            handles[i].y += direction_y;
+        }
+
     }
+
 };
 
 
