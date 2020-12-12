@@ -6,9 +6,12 @@
 #include "Functions.h"
 
 Envelope::Envelope(std::string name, SDL_Rect &_env_rect){
+    envelope_str = name;
 
     // set dimensions
     env_rect = _env_rect;
+    //_envelope_text_rect.x = env_rect.x;
+    //_envelope_text_rect.y = env_rect.y + env_rect.h + 13;
 
     // initialize default RT_Handles.
     int x = 400;
@@ -126,6 +129,18 @@ void Envelope::draw_looppoint(SDL_Renderer *renderer){
 
 };
 
+// void Envelope::draw_envelope_text_details(Window &window){
+//     auto details_surface = TTF_RenderText_Blended(window.font, envelope_str.c_str(), _console_color);
+//     if (!details_surface) { cerr << "failed to create env-text surface \n"; }
+
+//     _env_text_texture = SDL_CreateTextureFromSurface(renderer, details_surface);
+//     if (!_env_text_texture) { cerr << "failed to create env-tetxt texture \n"; }
+
+//     SDL_FreeSurface(details_surface);
+//     SDL_QueryTexture(_env_text_texture, nullptr, nullptr, &_envelope_text_rect.w, &_envelope_text_rect.h);
+//     SDL_RenderCopy(renderer, _env_text_texture, nullptr, &_envelope_text_rect);
+// };
+
 
 
 void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer){
@@ -163,6 +178,8 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer){
     std::copy(points.begin(), points.end(), parray);
     SDL_SetRenderDrawColor(renderer, 225, 60, 20, 255);
     SDL_RenderDrawLines(renderer, parray, pcount);
+
+    //draw_envelope_text_details(window);
 
 };
 

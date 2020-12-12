@@ -36,20 +36,10 @@ void Window::set_active_area(int shift_area){
 int Window::get_active_area(){ return active_area; };
 
 bool Window::init(){
-    if (SDL_Init(SDL_INIT_VIDEO) != 0){
-        cerr << "Failed to init SDL.\n";
-        return false;
-    }
 
-    if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG){
-        cerr << "Failed to init SDL img\n";
-        return false;
-    }
-
-    if (TTF_Init() == -1){
-        cerr << "Failed to init TTF img\n";
-        return false;
-    }
+    if (SDL_Init(SDL_INIT_VIDEO) != 0){ cerr << "Failed to init SDL.\n"; return false; }
+    if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG){ cerr << "Failed to init SDL img\n"; return false; }
+    if (TTF_Init() == -1){ cerr << "Failed to init TTF img\n"; return false; }
 
     _window = SDL_CreateWindow(
         _title.c_str(),
@@ -59,27 +49,23 @@ bool Window::init(){
         0  // SDL_WINDOW_RESIZABLE
     );
 
-    if (_window == nullptr) {
-        cerr << "Failed to create window! :/ \n";
-        return false;
-    }
+    if (_window == nullptr) { cerr << "Failed to create window! :/ \n"; return false; }
 
     renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_PRESENTVSYNC);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
-    if (renderer == nullptr) {
-        cerr << "Failed to create renderer!\n";
-        return false;
-    }
+    if (renderer == nullptr) { cerr << "Failed to create renderer!\n"; return false; }
 
     return true;
 }
 
 void Window::pollEvents(SDL_Event &event){
+
     switch (event.type){
+
         case SDL_QUIT:
-            _closed = true;
-            break;
+            _closed = true; break;
+
         case SDL_KEYDOWN:
 
             switch (event.key.keysym.sym) {
@@ -95,11 +81,10 @@ void Window::pollEvents(SDL_Event &event){
 }
 
 void Window::clear() const {
+
     SDL_RenderPresent(renderer);
-    // SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
     SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
     SDL_RenderClear(renderer);
-
 }
 
 // CTRL L and R

@@ -12,6 +12,7 @@ public:
     void DrawDottedLine(SDL_Renderer *renderer, Line line, SDL_Color color);
     void SDLX_draw_dotted_line(SDL_Renderer *renderer, Line line, SDL_Color color);
     void draw_looppoint(SDL_Renderer *renderer);
+    // void draw_envelope_text_details(Window &window);
     void draw_envelope(Window &window, SDL_Renderer *renderer);
     void draw_handle(SDL_Renderer *renderer, RT_Handle handle);
     void set_active_handle(int nudge_dir);
@@ -22,10 +23,17 @@ public:
     void set_looppoint();
 
 private:
-    //SDL_Window *_window = nullptr;
+
+    std::string envelope_str;
+
     SDL_Rect env_rect;
     std::vector<RT_Handle> handles;
     int num_handles_default = 6;
     int handle_size_default = 5;
     int index_of_sustain = 3;
+
+    // SDL_Rect _envelope_text_rect = {20, 6, 0, 0};
+    // SDL_Color _envelope_text_color = {115, 55, 55, 255};
+    // SDL_Texture *_env_text_texture;
+    // mutable SDL_Rect _env_text_rect;
 };
