@@ -196,6 +196,7 @@ void Envelope::move_handle(int x, int y){
     int last_handle = handles.size() - 1;
 
     if (x != 0){
+
         // invoke this when moving left to right
 
         // if active handle is hande 0 or last handle, then we certainly do not move in x direction.
@@ -227,6 +228,7 @@ void Envelope::move_handle(int x, int y){
     } else if (y != 0) {
 
         // invoke this when moving up or down
+
         int num_iterations_y = abs(y);
         int direction_y = copysign(1, y);
 
