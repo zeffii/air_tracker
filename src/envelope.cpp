@@ -11,21 +11,21 @@ Envelope::Envelope(std::string name, SDL_Rect &_env_rect){
     // set dimensions
     env_rect = _env_rect;
     _envelope_text_rect.x = env_rect.x;
-    _envelope_text_rect.y = env_rect.y + env_rect.h + 13;
+    _envelope_text_rect.y = env_rect.y + env_rect.h + 6;
 
     // initialize default RT_Handles.
-    int x = 400;
-    int y = 100;
-    int yoffset = 50;
+    std::vector<float> xrange = range(env_rect.x, env_rect.x + env_rect.w, num_handles_default);
+    std::vector<float> yrange = range(env_rect.y, env_rect.y + env_rect.h, num_handles_default);
     for (int i=0; i < num_handles_default; i++){
         handles.push_back({
-            x + (i * yoffset),
-            y,
+            int (xrange[i]),
+            int (yrange[i]),
             handle_size_default,
             i,             // index
             (int)(i == 0)  // active?
         });
-    }
+    }    
+
 };
 
 
