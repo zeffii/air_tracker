@@ -21,6 +21,7 @@ public:
     int get_index_of_active_handle();
     void ensure_proper_indexing_of_handles(int active_index);
     void set_looppoint();
+    void store_envelope();
     //void set_loop_mode(bool state):
 
 private:

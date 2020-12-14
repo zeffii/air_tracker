@@ -128,6 +128,9 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
                 case SDLK_l:
                     env.set_looppoint(); break;
 
+                case SDLK_s:
+                    env.store_envelope(); break;
+
                 default:
                     break;
             }

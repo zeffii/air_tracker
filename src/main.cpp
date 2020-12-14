@@ -7,6 +7,7 @@
 #include "Functions.h"
 #include "Selector.h"
 #include "ConsoleGrammar.h"
+#include "Wavetable.h"
 //#include "Envelope.h"
 
 #include <vector>
@@ -51,6 +52,9 @@ int main(int argc, char* args[])
     SDL_Rect env_rect = {400, 20, 270, 100};
     Envelope env("ADSR", env_rect);
 
+    SDL_Rect wt_rect = {400, 200, 270, 150};
+    Wavetable wt("custom", wt_rect);
+
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
@@ -62,12 +66,12 @@ int main(int argc, char* args[])
 
         env.draw_envelope(window, Window::renderer);
         cursor.draw();
+        wt.draw_wt_window(window);
         selection.draw();
         mypat.display(20, 20, Window::renderer);
 
-        if (mypat.get_console_listening_state() == true){
+        if (mypat.get_console_listening_state())
             mypat.display_console(Window::renderer);
-        }
 
         window.clear();
     }

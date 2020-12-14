@@ -13,6 +13,18 @@ void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry){
     ry = (y1 + y2) / 2;
 };
 
+void find_interpolation_between(int x1, int x2, float ratio, int& estimated){
+    float flip_ratio = 1.0 - ratio;
+    estimated = int((flip_ratio * x1) + (ratio * x2));
+};
+
+/*
+void qubic_interpolation_4vals(int x0, int x1, int x2, int x3, float ratio, int& est){
+    B(t) = (1-t)^3 * p0 + 3*(1-t)^2 * t * p1 + 3*(1-t)* t^2 * p2 + t^3 * p3
+};
+*/
+
+
 
 bool is_string_numeric(string str){
     /*

@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"drw",
+				"draw_samples"
+			],
+			[
+				"direction",
+				"direction_x"
+			],
+			[
+				"di",
+				"direction_x"
+			],
+			[
+				"close",
+				"close_to_left_neighbour"
+			],
+			[
+				"las",
+				"last_handles"
+			],
+			[
 				"_en",
 				"_envelope_text_rect"
 			],
@@ -385,6 +405,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"sign",
+			"copy_sign",
+			"font",
+			"Window",
 			"Fill",
 			"SDL_RenderPresent(renderer);",
 			",\n",
@@ -439,17 +463,30 @@
 				0,
 				2,
 				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.471655294847,
+			0.5,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.75468164794,
 			1.0
 		]
 	},
@@ -502,7 +539,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 320.0,
+	"side_bar_width": 269.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

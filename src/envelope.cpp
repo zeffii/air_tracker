@@ -28,6 +28,14 @@ Envelope::Envelope(std::string name, SDL_Rect &_env_rect){
 
 };
 
+void Envelope::store_envelope(){
+    cout << "x, y, size, index, active\n";
+    for (auto h: handles){
+        cout << h.x - env_rect.x << ", " << h.y - env_rect.y << ", " << h.size << ", "; 
+        cout << h.index << ", " << h.active << endl;
+    }
+};
+
 
 void Envelope::DrawDottedLine(SDL_Renderer *renderer, Line line, SDL_Color color){
     // modified from
@@ -70,7 +78,7 @@ void Envelope::SDLX_draw_dotted_line(SDL_Renderer *renderer, Line line, SDL_Colo
     int numpoints = (line.y2 - line.y1) / 4;
     SDL_Point pointset[numpoints];
 
-    int j;
+    int j = 0;
     for (int i = line.y1; i < line.y2; i += 4){
         pointset[j] = {line.x1, i};
         j +=1;
@@ -90,18 +98,13 @@ void Envelope::draw_handle(SDL_Renderer *renderer, RT_Handle handle){
 };
 
 void Envelope::set_active_handle(int nudge_dir){
-    // find active index, and generate new index
-    unsigned num_handles = handles.size();
 
     // get the active and turn it off.
-    int current_index = 0;
-    for (int unsigned i=0; i < num_handles; i++){
-        if (handles[i].active){
-            current_index = handles[i].index;
-            handles[i].active = 0;
-            break;
-        }
-    }
+    unsigned num_handles = handles.size();
+    int current_index = get_index_of_active_handle();
+    handles[current_index].active = 0;
+
+    // change the active handle according to nudge dir
     current_index += nudge_dir;
     if (current_index < 0)
         current_index = 0;
