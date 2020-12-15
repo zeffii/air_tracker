@@ -18,12 +18,20 @@ void find_interpolation_between(int x1, int x2, float ratio, int& estimated){
     estimated = int((flip_ratio * x1) + (ratio * x2));
 };
 
-/*
-void qubic_interpolation_4vals(int x0, int x1, int x2, int x3, float ratio, int& est){
-    B(t) = (1-t)^3 * p0 + 3*(1-t)^2 * t * p1 + 3*(1-t)* t^2 * p2 + t^3 * p3
-};
-*/
 
+void qubic_interpolation_ints4(int p0, int p1, int p2, int p3, float mu, int& est){
+    /*
+    Paul Breeuwsma / http://paulbourke.net/miscellaneous/interpolation/ / cubic interpolation
+    mu:  is the interval between p1 and p2, it's a float. so exactly in the middle p1p2, then mu = 0.5
+    */
+
+    float mu2 = mu * mu;
+    float a0 = -0.5*p0 + 1.5*p1 - 1.5*p2 + 0.5*p3;
+    float a1 = p0 - 2.5*p1 + 2*p2 - 0.5*p3;
+    float a2 = -0.5*p0 + 0.5*p2;
+    float a3 = p1;
+    est = a0*mu*mu2 + a1*mu2 + a2*mu + a3;
+};
 
 
 bool is_string_numeric(string str){

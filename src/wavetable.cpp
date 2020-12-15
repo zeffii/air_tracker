@@ -48,12 +48,12 @@ void Wavetable::draw_samples(){
     this rescales nfsamples into a format that will display in the wt_rect
     */
 
-    int pcount = nfsamples.size();
-    SDL_Point parray[pcount];
-
     int y_multiplier = wt_rect.h / 2;
     int y_offset = wt_rect.h / 2 + wt_rect.y;
     int x_offset = wt_rect.x;
+
+    int pcount = nfsamples.size();
+    SDL_Point parray[pcount];
     for (int i=0; i < pcount; i++){
         SDL_Point p2 = {int(nfsamples[i].x + x_offset), int((nfsamples[i].y * y_multiplier) + y_offset)};
         parray[i] = p2;
@@ -82,7 +82,7 @@ void Wavetable::draw_wt_window(Window &window){
     SDL_SetRenderDrawColor(Window::renderer, 50, 50, 250, 255);
     SDL_RenderDrawRect(Window::renderer, &wt_rect);
 
-    draw_samples();
+    // draw_samples();
     draw_wt_window_text(window);
 };
 
