@@ -62,6 +62,12 @@ void Wavetable::draw_samples(){
     SDL_SetRenderDrawColor(Window::renderer, 150, 150, 250, 255);
     SDL_RenderDrawPoints(Window::renderer, parray, pcount);
 
+    // int pcount = handles.size();
+    // SDL_Point parray[pcount];
+    // std::copy(points.begin(), points.end(), parray);
+    // SDL_SetRenderDrawColor(renderer, 60, 60, 250, 255);
+    // SDL_RenderDrawLines(renderer, parray, pcount);
+
 };
 
 void Wavetable::draw_wt_window(Window &window){
@@ -72,19 +78,12 @@ void Wavetable::draw_wt_window(Window &window){
     // if (window.get_active_area() == 0)
     //     SDL_SetRenderDrawColor(renderer, 155, 20, 20, 255);
     // else
+
     SDL_SetRenderDrawColor(Window::renderer, 50, 50, 250, 255);
     SDL_RenderDrawRect(Window::renderer, &wt_rect);
 
     draw_samples();
-
-    // int pcount = handles.size();
-    // SDL_Point parray[pcount];
-    // std::copy(points.begin(), points.end(), parray);
-    // SDL_SetRenderDrawColor(renderer, 60, 60, 250, 255);
-    // SDL_RenderDrawLines(renderer, parray, pcount);
-
     draw_wt_window_text(window);
-
 };
 
 
