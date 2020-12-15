@@ -26,19 +26,19 @@ void Wavetable::generate_wavetable(){
     }
 };
 
-void Wavetable::draw_wt_window_text(Window &window){
+void Wavetable::draw_wt_window_text(){
     // destroy if present!
     SDL_DestroyTexture(wt_text_texture);
 
-    auto details_surface = TTF_RenderText_Blended(window.font, wt_name.c_str(), wt_text_color);
+    auto details_surface = TTF_RenderText_Blended(Window::font, wt_name.c_str(), wt_text_color);
     if (!details_surface) { cerr << "failed to create env-text surface \n"; }
 
-    wt_text_texture = SDL_CreateTextureFromSurface(window.renderer, details_surface);
+    wt_text_texture = SDL_CreateTextureFromSurface(Window::renderer, details_surface);
     if (!wt_text_texture) { cerr << "failed to create env-tetxt texture \n"; }
 
     SDL_FreeSurface(details_surface);
     SDL_QueryTexture(wt_text_texture, nullptr, nullptr, &wt_text_rect.w, &wt_text_rect.h);
-    SDL_RenderCopy(window.renderer, wt_text_texture, nullptr, &wt_text_rect);
+    SDL_RenderCopy(Window::renderer, wt_text_texture, nullptr, &wt_text_rect);
 
 };
 
@@ -70,7 +70,7 @@ void Wavetable::draw_samples(){
 
 };
 
-void Wavetable::draw_wt_window(Window &window){
+void Wavetable::draw_wt_window(){
 
     SDL_SetRenderDrawColor(Window::renderer, 26, 26, 26, 255);
     SDL_RenderFillRect(Window::renderer, &wt_rect);
@@ -82,8 +82,8 @@ void Wavetable::draw_wt_window(Window &window){
     SDL_SetRenderDrawColor(Window::renderer, 50, 50, 250, 255);
     SDL_RenderDrawRect(Window::renderer, &wt_rect);
 
-    // draw_samples();
-    draw_wt_window_text(window);
+    draw_samples();
+    draw_wt_window_text();
 };
 
 

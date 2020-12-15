@@ -10,8 +10,8 @@ class Wavetable
 public:
     Wavetable(std::string name, SDL_Rect &_wt_rect);
     //~Wavetable();
-    void draw_wt_window_text(Window &window);
-    void draw_wt_window(Window &window);
+    void draw_wt_window_text();
+    void draw_wt_window();
     void generate_wavetable();
     void draw_samples();
 
