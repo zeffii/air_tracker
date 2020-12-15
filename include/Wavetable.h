@@ -1,9 +1,10 @@
 // Watetable.h
 #include <SDL2/SDL.h>
 #include "Window.h"
+// #include "Augmentations.h"
 #include <math.h> 
 #include <vector>
-#include <algorithm> 
+// #include <algorithm>
 
 class Wavetable
 {
@@ -23,5 +24,5 @@ private:
     SDL_Texture *wt_text_texture;
     mutable SDL_Rect wt_text_rect;
 
-    // std::vector<std::vector<float>> samples;
+    // std::vector<SDLX_Point> samples;
 };
