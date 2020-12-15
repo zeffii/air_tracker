@@ -1,4 +1,4 @@
-struct SDLX_Point
+struct RT_Point
 {
     float x, y;
 };

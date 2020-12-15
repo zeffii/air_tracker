@@ -1,7 +1,7 @@
 // Watetable.h
 #include <SDL2/SDL.h>
 #include "Window.h"
-// #include "Augmentations.h"
+#include "Augmentations.h"
 #include <math.h> 
 #include <vector>
 // #include <algorithm>
@@ -24,5 +24,5 @@ private:
     SDL_Texture *wt_text_texture;
     mutable SDL_Rect wt_text_rect;
 
-    // std::vector<SDLX_Point> samples;
+    // std::vector<RT_Point> nsamples;
 };
