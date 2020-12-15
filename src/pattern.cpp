@@ -774,7 +774,7 @@ void Pattern::repeat_selection(Selector &selection, string behaviour){
     /*
         this does not use the clipboad.
     */
-    int num_times;
+    int num_times = 0;
 
     if (behaviour == "^"){
         // cout << "here...\n";

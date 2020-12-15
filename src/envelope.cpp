@@ -11,20 +11,28 @@ Envelope::Envelope(std::string name, SDL_Rect &_env_rect){
     // set dimensions
     env_rect = _env_rect;
     _envelope_text_rect.x = env_rect.x;
-    _envelope_text_rect.y = env_rect.y + env_rect.h + 13;
+    _envelope_text_rect.y = env_rect.y + env_rect.h + 6;
 
     // initialize default RT_Handles.
-    int x = 400;
-    int y = 100;
-    int yoffset = 50;
+    std::vector<float> xrange = range(env_rect.x, env_rect.x + env_rect.w, num_handles_default);
+    std::vector<float> yrange = range(env_rect.y, env_rect.y + env_rect.h, num_handles_default);
     for (int i=0; i < num_handles_default; i++){
         handles.push_back({
-            x + (i * yoffset),
-            y,
+            int (xrange[i]),
+            int (yrange[i]),
             handle_size_default,
             i,             // index
             (int)(i == 0)  // active?
         });
+    }    
+
+};
+
+void Envelope::store_envelope(){
+    cout << "x, y, size, index, active\n";
+    for (auto h: handles){
+        cout << h.x - env_rect.x << ", " << h.y - env_rect.y << ", " << h.size << ", "; 
+        cout << h.index << ", " << h.active << endl;
     }
 };
 
@@ -70,7 +78,7 @@ void Envelope::SDLX_draw_dotted_line(SDL_Renderer *renderer, Line line, SDL_Colo
     int numpoints = (line.y2 - line.y1) / 4;
     SDL_Point pointset[numpoints];
 
-    int j;
+    int j = 0;
     for (int i = line.y1; i < line.y2; i += 4){
         pointset[j] = {line.x1, i};
         j +=1;
@@ -90,18 +98,13 @@ void Envelope::draw_handle(SDL_Renderer *renderer, RT_Handle handle){
 };
 
 void Envelope::set_active_handle(int nudge_dir){
-    // find active index, and generate new index
-    unsigned num_handles = handles.size();
 
     // get the active and turn it off.
-    int current_index = 0;
-    for (int unsigned i=0; i < num_handles; i++){
-        if (handles[i].active){
-            current_index = handles[i].index;
-            handles[i].active = 0;
-            break;
-        }
-    }
+    unsigned num_handles = handles.size();
+    int current_index = get_index_of_active_handle();
+    handles[current_index].active = 0;
+
+    // change the active handle according to nudge dir
     current_index += nudge_dir;
     if (current_index < 0)
         current_index = 0;
@@ -123,13 +126,24 @@ void Envelope::draw_looppoint(SDL_Renderer *renderer){
         }
     }
     
+    if (!show_sustain)
+        return;
+
     Line line = { loop_point_x, env_rect.y + 3, loop_point_x, (env_rect.y + env_rect.h) };
     SDL_Color col_elem = {255, 0, 0, 215};
     SDLX_draw_dotted_line(renderer, line, col_elem);
 
 };
 
+// void Envelope::set_loop_mode(bool state){
+//     int idx = get_index_of_active_handle();
+// }:
+
 void Envelope::draw_envelope_text_details(Window &window){
+    
+    // destroy if present!
+    SDL_DestroyTexture(_env_text_texture);
+
     auto details_surface = TTF_RenderText_Blended(window.font, envelope_str.c_str(), _envelope_text_color);
     if (!details_surface) { cerr << "failed to create env-text surface \n"; }
 
@@ -185,15 +199,62 @@ void Envelope::draw_envelope(Window &window, SDL_Renderer *renderer){
 
 
 void Envelope::move_handle(int x, int y){
-    for (int unsigned i=0; i < handles.size(); i++){
-        if (handles[i].active){
-            // implement limit checking here.
-            handles[i].x += x;
-            handles[i].y += y;
-            break;
+    int i = get_index_of_active_handle();
+    int last_handle = handles.size() - 1;
+
+    if (x != 0){
+
+        // invoke this when moving left to right
+
+        // if active handle is hande 0 or last handle, then we certainly do not move in x direction.
+        bool xlimits = ((handles[i].index == 0) || (handles[i].index == last_handle));
+        if (!xlimits){
+
+            int num_iterations_x = abs(x);
+            int direction_x = copysign(1, x);
+            for (int nx = 0; nx < num_iterations_x; nx++){
+
+                // - prevent movement past neighbouring handles in x direction.
+                // - prevents x movement beyond rect bounds, because handle=0 and handle=last are bolted on x axis.
+                bool close_to_left_neighbour = (handles[i].x) == (handles[i-1].x + 1);
+                if (close_to_left_neighbour && (direction_x < 0)) {
+                    //cout << "handle lower x" << handles[i-1].x << " active handle.x :" << handles[i].x << endl;
+                    return;
+                }
+                
+                bool close_to_right_neighbour = (handles[i].x) == (handles[i+1].x - 1);
+                if (close_to_right_neighbour && (direction_x > 0)) {
+                    //cout << "active handle.x" << handles[i].x << " higher handle.x :" << handles[i+1].x << endl;
+                    return;
+                }
+
+                handles[i].x += direction_x;
+            }
+        }
+        
+    } else if (y != 0) {
+
+        // invoke this when moving up or down
+
+        int num_iterations_y = abs(y);
+        int direction_y = copysign(1, y);
+
+        int top_y = env_rect.y;
+        int bottom_y = env_rect.y + env_rect.h;
+
+        for (int ny = 0; ny < num_iterations_y; ny++){
+
+            bool at_top_border = (handles[i].y == top_y);
+            if (at_top_border && (direction_y < 0)) return;
+
+            bool at_bottom_border = (handles[i].y == bottom_y);
+            if (at_bottom_border && (direction_y > 0)) return;
+
+            handles[i].y += direction_y;
         }
     }
 };
+
 
 int Envelope::get_index_of_active_handle(){
     int active_index = 1;
@@ -253,11 +314,7 @@ void Envelope::modify_handle_count(int num){
             if (active_index < index_of_sustain) { index_of_sustain += 1; }
             ensure_proper_indexing_of_handles(active_index + 1);
         }
-
-
-
     }
-
 };
 
 void Envelope::ensure_proper_indexing_of_handles(int active_index){
@@ -269,5 +326,12 @@ void Envelope::ensure_proper_indexing_of_handles(int active_index){
 };
 
 void Envelope::set_looppoint(){
-    index_of_sustain = get_index_of_active_handle();
+    int proposed_index_of_sustain = get_index_of_active_handle();
+
+    if (index_of_sustain == proposed_index_of_sustain)
+        show_sustain = !show_sustain;
+    else {
+        index_of_sustain = proposed_index_of_sustain;
+        show_sustain = true;
+    }
 };
