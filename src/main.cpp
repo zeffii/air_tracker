@@ -53,7 +53,7 @@ int main(int argc, char* args[])
     Envelope env("ADSR", env_rect);
 
     SDL_Rect wt_rect = {400, 200, 270, 150};
-    Wavetable wt("custom", wt_rect);
+    Wavetable wt("custom wavetable", wt_rect);
 
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);

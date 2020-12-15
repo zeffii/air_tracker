@@ -11,17 +11,19 @@ Wavetable::Wavetable(std::string name, SDL_Rect &_wt_rect){
     wt_text_rect.x = wt_rect.x;
     wt_text_rect.y = wt_rect.y + wt_rect.h + 6;
 
-    generate_wavetable(int(wt_rect.w));
+    generate_wavetable();
 
 };
 
-void Wavetable::generate_wavetable(int numsamples){
-    // float fi = 5.0 / numsamples;
-    // for (int i = 0; i < numsamples; i++){
-    //     RT_Point p = {float(sin(fi * i)), float(i)};
-    //     nsamples.push_back(p);
-    // }
-    // cout << nsamples.size() << endl;
+void Wavetable::generate_wavetable(){
+    
+    int numsamples = int(wt_rect.w);
+    float fi = M_PI * 2.0 / numsamples;
+    
+    for (int i = 0; i < numsamples; i++){
+        SDL_Point p = {i + wt_rect.x, int((sin(fi * i) * (wt_rect.h)/2) + wt_rect.h / 2) + wt_rect.y};
+        nsamples.push_back(p);
+    }
 };
 
 void Wavetable::draw_wt_window_text(Window &window){
@@ -48,13 +50,9 @@ void Wavetable::draw_samples(){
     //     p[0] = int(p[0] * (wt_rect.h / 2.0) + wt_rect.y);
     // }
 
-    int pcount = 50;
+    int pcount = nsamples.size();
     SDL_Point parray[pcount];
-    // std::copy(samples.begin(), samples.end(), parray);
-    for (int i = 0; i < pcount; i++){
-        SDL_Point p = {i*2, i};
-        parray[i] = p;
-    }
+    std::copy(nsamples.begin(), nsamples.end(), parray);
 
     SDL_SetRenderDrawColor(Window::renderer, 150, 150, 250, 255);
     SDL_RenderDrawPoints(Window::renderer, parray, pcount);
