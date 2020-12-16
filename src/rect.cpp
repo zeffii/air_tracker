@@ -16,12 +16,15 @@ Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 
 
 void Rect::draw() const {
-    // draw the full cell
+    
+    // maybe outlineRect should be calculated less frequently, only when cursor/caret moves.
     int outline_start_x = charwidth * draw_cell.cell_start + 20 - 2;
     int outline_start_y = _y-2;
     int outline_width = draw_cell.cell_length * charwidth + 4;
     int outline_height = _h+2;
     SDL_Rect outlineRect = {outline_start_x, outline_start_y, outline_width, outline_height};
+
+    // draw the full cell
     SDL_SetRenderDrawColor(Window::renderer, 0x80, 0x80, 0x90, 0x55 );
     SDL_RenderDrawRect(Window::renderer, &outlineRect );
 
@@ -67,9 +70,6 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     Cell_Range cr = {};
     mypat.get_range_of_cell(row_index, column_index, cr);
     draw_cell = cr;
-
-    // cout << "ci: " << column_index << endl;
-    // cout << "cell start: " << cr.cell_start << " / cell width: " << cr.cell_length << endl;
 
     if (mypat.get_console_listening_state() == true){
 
