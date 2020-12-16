@@ -37,7 +37,7 @@ void Wavetable::insert_values_into_wavetable(std::vector<float> points){
     }
 };
 
-void set_dimensions(int x, int y, int w, int h){
+void Wavetable::set_dimensions(int x, int y, int w, int h){
     wt_rect.x = x;
     wt_rect.y = y;
     wt_rect.w = w;
