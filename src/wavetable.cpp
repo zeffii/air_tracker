@@ -12,11 +12,11 @@ Wavetable::Wavetable(std::string name, SDL_Rect &_wt_rect){
     wt_text_rect.x = wt_rect.x;
     wt_text_rect.y = wt_rect.y + wt_rect.h + 6;
 
-    generate_wavetable();
+    generate_default_wavetable();
 
 };
 
-void Wavetable::generate_wavetable(){
+void Wavetable::generate_default_wavetable(){
     
     int numsamples = int(wt_rect.w);
     float fi = M_PI * 2.0 / numsamples;
@@ -27,6 +27,23 @@ void Wavetable::generate_wavetable(){
         nfsamples.push_back(p2);
     }
 };
+
+void Wavetable::insert_values_into_wavetable(std::vector<float> points){
+    nfsamples.clear();
+    int numsamples = int(wt_rect.w);
+    for (int i = 0; i < numsamples; i++){
+        RT_Point p2 = {float(i), points[i]}; 
+        nfsamples.push_back(p2);
+    }
+};
+
+void set_dimensions(int x, int y, int w, int h){
+    wt_rect.x = x;
+    wt_rect.y = y;
+    wt_rect.w = w;
+    wt_rect.h = h;
+};
+
 
 void Wavetable::draw_wt_window_text(){
     // destroy if present!
