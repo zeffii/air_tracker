@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "Functions.h"
 #include "Wavetable.h"
+// #include "SDL2_gfxPrimitives.h"
 
 Wavetable::Wavetable(std::string name, SDL_Rect &_wt_rect){
     wt_name = name;
@@ -21,7 +22,8 @@ void Wavetable::generate_wavetable(){
     float fi = M_PI * 2.0 / numsamples;
     
     for (int i = 0; i < numsamples; i++){
-        RT_Point p2 = {float(i), sin(fi * i)};
+        RT_Point p2 = {float(i), sin(fi * i)}; // sine
+        //RT_Point p2 = {float(i), 0.5*sin(fi*i) + 0.25*sin(2*fi*i) + 0.125*sin(3*fi*i) + 0.0625*sin(4*fi*i)};
         nfsamples.push_back(p2);
     }
 };
@@ -84,6 +86,8 @@ void Wavetable::draw_wt_window(){
 
     draw_samples();
     draw_wt_window_text();
+
+
 };
 
 

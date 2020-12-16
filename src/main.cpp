@@ -46,13 +46,12 @@ int main(int argc, char* args[])
     int tick_offsetx = 4 * 6;
 
     Window window("Air Tracker", 700, 1000);
-
-    Pattern mypat(Window::renderer, "res/pattern_data_1.air");
+    Pattern mypat("res/pattern_data_1.air");
     
     SDL_Rect env_rect = {400, 20, 270, 100};
     Envelope env("ADSR", env_rect);
 
-    SDL_Rect wt_rect = {400, 200, 270, 150};
+    SDL_Rect wt_rect = {400, 150, 270, 150};
     Wavetable wt("custom wavetable", wt_rect);
 
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);

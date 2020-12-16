@@ -20,7 +20,7 @@ private:
     SDL_Rect wt_rect;
 
     std::vector<RT_Point> nfsamples;
-    SDL_Color wt_text_color = {90, 90, 250, 255};
+    SDL_Color wt_text_color = {120, 120, 250, 255};
     SDL_Texture *wt_text_texture;
     mutable SDL_Rect wt_text_rect;
 
