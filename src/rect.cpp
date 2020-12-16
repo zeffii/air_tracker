@@ -16,14 +16,20 @@ Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 
 
 void Rect::draw() const {
+    // draw the full cell
+    int outline_start_x = charwidth * draw_cell.cell_start + 20 - 2;
+    int outline_start_y = _y-2;
+    int outline_width = draw_cell.cell_length * charwidth + 4;
+    int outline_height = _h+2;
+    SDL_Rect outlineRect = {outline_start_x, outline_start_y, outline_width, outline_height};
+    SDL_SetRenderDrawColor(Window::renderer, 0x80, 0x80, 0x90, 0x55 );
+    SDL_RenderDrawRect(Window::renderer, &outlineRect );
+
+    // draw the active index (row, column) darker.
     SDL_Rect rect = {_x-1, _y-1, _w+2, _h};
     SDL_SetRenderDrawColor(Window::renderer, _r, _g, _b, _a);
     SDL_RenderFillRect(Window::renderer, &rect);
 
-    // SDL_Rect outlineRect = {_x-1, _y-1, _w+2, _h};
-    // // SDL_SetRenderDrawColor(Window::renderer, 0xE9, 0x6E, 0x6D, 0xFF );
-    // SDL_SetRenderDrawColor(Window::renderer, 0x89, 0x3E, 0x3D, 0xFF );
-    // SDL_RenderDrawRect(Window::renderer, &outlineRect );    
 };
 
 void handle_selection(Selector &selection, int column_index, int row_index){
@@ -58,6 +64,12 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     int nchars_inrow = mypat.get_nchars_in_row();
     int nrows = mypat.get_nrows_in_column();
 
+    Cell_Range cr = {};
+    mypat.get_range_of_cell(row_index, column_index, cr);
+    draw_cell = cr;
+
+    // cout << "ci: " << column_index << endl;
+    // cout << "cell start: " << cr.cell_start << " / cell width: " << cr.cell_length << endl;
 
     if (mypat.get_console_listening_state() == true){
 

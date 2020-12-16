@@ -362,6 +362,10 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SDL_gfxPrimitives.h",
+		"/C/2020/SDL_gfx-2.0.26.tar/SDL_gfx-2.0.26/SDL_gfxPrimitives.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/selector.o",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/functions.o",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/temp_file_test.cpp",
 		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/cpp14.sublime-build",
@@ -405,6 +409,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"SDLX",
 			"sign",
 			"copy_sign",
 			"font",
@@ -480,20 +485,20 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.613161554106,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.75468164794,
+			0.66169418577,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 184.0
+		"height": 112.0
 	},
 	"output.find_results":
 	{
@@ -539,7 +544,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 269.0,
+	"side_bar_width": 205.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

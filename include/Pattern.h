@@ -16,7 +16,7 @@ using namespace std;
 class Pattern {
 
     public:
-        Pattern(SDL_Renderer *renderer, const char* pattern_path);
+        Pattern(const char* pattern_path);
         ~Pattern();
 
         void texture_pattern(SDL_Renderer *renderer);

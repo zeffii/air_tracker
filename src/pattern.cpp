@@ -34,14 +34,14 @@ void readPattern(const char* filename, std::vector<string> &lines, string &patte
     file.close();
 }
 
-Pattern::Pattern(SDL_Renderer *renderer, const char* pattern_path){
+Pattern::Pattern(const char* pattern_path){
 
     readPattern(pattern_path, pattern_data, pattern_descriptor_str);
     _nchars_inrow = pattern_descriptor_str.length();
     _nrows = pattern_data.size();
 
-    renderer_placeholder = renderer;
-    texture_pattern(renderer);
+    renderer_placeholder = Window::renderer;
+    texture_pattern(renderer_placeholder);
     pattern_descriptor_to_handler(pattern_descriptor_str, *this);
 
 };
@@ -351,6 +351,7 @@ void Pattern::wipe_selection(Selector &selection){
 
 void Pattern::get_range_of_cell(int row_index, int column_index, Cell_Range &cr){
     string temp_row_repr = pattern_data[row_index];
+    temp_row_repr += " "; // else we fall off the end.
 
     int char_offset = 4;
     int cell_end = temp_row_repr.find(" ", column_index + char_offset);

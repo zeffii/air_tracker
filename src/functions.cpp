@@ -18,13 +18,45 @@ void find_interpolation_between(int x1, int x2, float ratio, int& estimated){
     estimated = int((flip_ratio * x1) + (ratio * x2));
 };
 
+
+void qubic_interpolation_ints4(int p0, int p1, int p2, int p3, float mu, int& est){
+    /*
+    Paul Breeuwsma / http://paulbourke.net/miscellaneous/interpolation/ / cubic interpolation
+    mu:  is the interval between p1 and p2, it's a float. so exactly in the middle p1p2, then mu = 0.5
+    */
+
+    float mu2 = mu * mu;
+    float a0 = -0.5*p0 + 1.5*p1 - 1.5*p2 + 0.5*p3;
+    float a1 = p0 - 2.5*p1 + 2*p2 - 0.5*p3;
+    float a2 = -0.5*p0 + 0.5*p2;
+    float a3 = p1;
+    est = a0*mu*mu2 + a1*mu2 + a2*mu + a3;
+};
+
 /*
-void qubic_interpolation_4vals(int x0, int x1, int x2, int x3, float ratio, int& est){
-    B(t) = (1-t)^3 * p0 + 3*(1-t)^2 * t * p1 + 3*(1-t)* t^2 * p2 + t^3 * p3
+vector<float> quadratic_interval(float start, float end, float thru){
+    float P0x = 0.0;
+    float P0y = startval;
+    float P2x = 1.0;
+    float P2y = endval;
+    vector<RT_Point> outputs;
+
+    for (int i=0; i < ntimes; i++){
+        float t = (1 / ntimes) * i;
+        float P1x = midval;
+        float P1y = (startval - endval) * midval;
+        float px = (1-t)**2 *P0x + 2*(1-t)*t*P1x + t*t*P2x;
+        float py = (1-t)**2 *P0y + 2*(1-t)*t*P1y + t*t*P2y;
+        RT_Point p = {px, py};
+        outputs.push_back(p);
+    }
 };
 */
 
-
+float map(float x, float in_min, float in_max, float out_min, float out_max){
+    // linear rescaling
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+};
 
 bool is_string_numeric(string str){
     /*
@@ -68,26 +100,6 @@ vector<int> range(int start, int end){
 };
 
 
-
-/*
-vector<float> quadratic_interval(float start, float end, float thru){
-    float P0x = 0.0;
-    float P0y = startval;
-    float P2x = 1.0;
-    float P2y = endval;
-    vector<float> outputs;
-
-    for i in range(ntimes):
-        t = (1 / ntimes) * i
-        P1x = midval
-        P1y = (startval - endval) * midval
-        px = (1-t)**2 *P0x + 2*(1-t)*t*P1x + t*t*P2x
-        py = (1-t)**2 *P0y + 2*(1-t)*t*P1y + t*t*P2y
-        outputs[0].append((px, py, 0.0))
-
-};
-
-*/
 
 vector<int> join_two_vectors(vector<int> A, vector<int> B){
     vector<int> new_indices;
