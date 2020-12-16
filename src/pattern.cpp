@@ -351,6 +351,7 @@ void Pattern::wipe_selection(Selector &selection){
 
 void Pattern::get_range_of_cell(int row_index, int column_index, Cell_Range &cr){
     string temp_row_repr = pattern_data[row_index];
+    temp_row_repr += " "; // else we fall off the end.
 
     int char_offset = 4;
     int cell_end = temp_row_repr.find(" ", column_index + char_offset);
