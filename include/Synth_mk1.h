@@ -18,6 +18,8 @@ public:
     void set_dimensions(int x, int y, int w, int h);
     bool is_active();
     void set_active(bool state);
+    // int get_active_param();
+    // void set_active_param(int dir);
 
 private:
     std::string syn_name = "";
@@ -28,4 +30,6 @@ private:
     SDL_Texture *syn_text_texture;
     mutable SDL_Rect syn_text_rect;
     bool active = false;
+    // int num_params = 8;
+    // int active_param = 3;
 };

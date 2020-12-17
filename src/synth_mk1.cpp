@@ -18,6 +18,15 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect){
 
 bool Synth_mk1::is_active(){ return active; };
 void Synth_mk1::set_active(bool state){ active = state; };
+// int Synth_mk1::get_active_param(){ return active_param; };
+// void Synth_mk1::set_active_param(int dir){ 
+//     // active_param += dir;
+
+//     // if (active_param < 0)
+//     //     active_param = 0;
+//     // else if (active_param >= (num_params -1))
+//     //     active_param = num_params - 1;
+// };
 
 void Synth_mk1::generate_default_wavetable(){
     
@@ -117,9 +126,7 @@ void Synth_mk1::draw_ui(Window &window){
     // SDL_SetRenderDrawColor(Window::renderer, 50, 150, 50, 255);
     //SDL_SetRenderDrawColor(Window::renderer, 0, 20, 0, 255);
     //SDL_RenderDrawRect(Window::renderer, &syn_rect);
-
-    int num_params = 8;
-    int active_param = 3;
+    
     int start_y = syn_rect.y + syn_rect.h + 24;
     int start_x = syn_rect.x;
     int slider_height = 10;
@@ -128,6 +135,9 @@ void Synth_mk1::draw_ui(Window &window){
     int spacer_locations[] = {4};
     int bg_green = 60;
     int slider_green = 90;
+
+    int num_params = 8;
+    int active_param = 3;
 
     int current_y = start_y;
     for (int i = 0; i < num_params; i++){
