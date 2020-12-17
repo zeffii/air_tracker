@@ -8,6 +8,7 @@
 #include "Selector.h"
 #include "ConsoleGrammar.h"
 #include "Wavetable.h"
+// #include "Synth_mk1.h"
 
 #include <vector>
 #include <iostream>
@@ -56,6 +57,8 @@ int main(int argc, char* args[])
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
+    //SDL_Rect rui_rect = {400, 650, 270, 150};
+    //Synth_mk1 synth("ravetable", rui_rect);
     
     while (!window.isClosed()){
 
@@ -65,6 +68,7 @@ int main(int argc, char* args[])
         env.draw_envelope(window, Window::renderer);
         cursor.draw();
         wt.draw_wt_window();
+        //synth.draw_ui();
         selection.draw();
         mypat.display(20, 20, Window::renderer);
 

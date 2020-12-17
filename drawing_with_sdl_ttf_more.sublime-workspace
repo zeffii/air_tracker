@@ -409,6 +409,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"what",
+			"get_range_of_cell",
+			"renderer_placeholder",
 			"SDLX",
 			"sign",
 			"copy_sign",
@@ -485,13 +488,13 @@
 		"cols":
 		[
 			0.0,
-			0.613161554106,
+			0.507291926318,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.66169418577,
+			0.7,
 			1.0
 		]
 	},
@@ -540,11 +543,11 @@
 	"settings":
 	{
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 205.0,
+	"side_bar_width": 213.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
