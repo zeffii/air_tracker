@@ -68,7 +68,7 @@ int main(int argc, char* args[])
         env.draw_envelope(window, Window::renderer);
         cursor.draw();
         wt.draw_wt_window();
-        synth.draw_ui();
+        synth.draw_ui(window);
         selection.draw();
         mypat.display(20, 20, Window::renderer);
 

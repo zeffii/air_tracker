@@ -68,12 +68,12 @@ void Synth_mk1::draw_window_text(){
 
 };
 
-void Synth_mk1::draw_samples(){
+void Synth_mk1::draw_samples(Window &window){
 
     /*
     this rescales nfsamples into a format that will display in the wt_rect
     */
-    // active = (Window::active_area == 2);
+    active = (bool)(window.get_active_area() == 2);
 
     int y_multiplier = syn_rect.h / 2;
     int y_offset = syn_rect.h / 2 + syn_rect.y;
@@ -101,17 +101,17 @@ void Synth_mk1::draw_samples(){
 
 };
 
-void Synth_mk1::draw_ui(){
+void Synth_mk1::draw_ui(Window &window){
 
-    SDL_SetRenderDrawColor(Window::renderer, 6, 36, 6, 255);
-    SDL_RenderFillRect(Window::renderer, &syn_rect);
+    SDL_SetRenderDrawColor(window.renderer, 6, 36, 6, 255);
+    SDL_RenderFillRect(window.renderer, &syn_rect);
 
     // if (window.get_active_area() == 0)
     //     SDL_SetRenderDrawColor(renderer, 155, 20, 20, 255);
     // else
 
 
-    draw_samples();
+    draw_samples(window);
     draw_window_text();
 
     // SDL_SetRenderDrawColor(Window::renderer, 50, 150, 50, 255);
@@ -136,15 +136,15 @@ void Synth_mk1::draw_ui(){
 
         SDL_Rect slider_bg = {start_x, current_y, slider_bg_width, slider_height};
         bg_green = (i == active_param) ? 80 : 50;
-        SDL_SetRenderDrawColor(Window::renderer, 20, bg_green, 20, 255);
+        SDL_SetRenderDrawColor(window.renderer, 20, bg_green, 20, 255);
         
-        SDL_RenderFillRect(Window::renderer, &slider_bg);
+        SDL_RenderFillRect(window.renderer, &slider_bg);
 
         int slider_x = start_x + (i * 30);
         SDL_Rect slider = {slider_x, current_y, slider_height, slider_height};
         slider_green = (i == active_param) ? 120 : 90;
-        SDL_SetRenderDrawColor(Window::renderer, 50, slider_green, 50, 255);
-        SDL_RenderFillRect(Window::renderer, &slider);
+        SDL_SetRenderDrawColor(window.renderer, 50, slider_green, 50, 255);
+        SDL_RenderFillRect(window.renderer, &slider);
 
         current_y += slider_height + 2;
     }
