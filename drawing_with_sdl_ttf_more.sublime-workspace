@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"han",
+				"hande_synth_keymap"
+			],
+			[
+				"S",
+				"Synth_mk1"
+			],
+			[
+				"sli",
+				"slider_x"
+			],
+			[
+				"space",
+				"spacer_height"
+			],
+			[
 				"drw",
 				"draw_samples"
 			],
@@ -362,6 +378,16 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/window.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Window.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/synth_mk1.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Rect.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Augmentations.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Wavetable.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/rect.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/wavetable.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/main.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Synth_mk1.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SDL_gfxPrimitives.h",
 		"/C/2020/SDL_gfx-2.0.26.tar/SDL_gfx-2.0.26/SDL_gfxPrimitives.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/selector.o",
@@ -465,43 +491,23 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
-			],
-			[
-				0,
-				1,
-				1,
-				2
-			],
-			[
-				1,
-				1,
-				2,
-				2
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.507291926318,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.7,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 112.0
+		"height": 170.0
 	},
 	"output.find_results":
 	{

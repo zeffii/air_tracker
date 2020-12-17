@@ -54,22 +54,21 @@ void handle_selection(Selector &selection, int column_index, int row_index){
 };
 
 void handle_synth_keymap(SDL_Event &event, Synth_mk1 &synth){
-    if (event.type == SDL_KEYDOWN){
 
-        switch (event.key.keysym.sym) {
+    switch (event.key.keysym.sym) {
 
-            // case SDLK_UP:
-            //     synth.set_active_param(-1); break;
-            // case SDLK_DOWN:
-            //     synth.set_active_param(+1); break;
-            case SDLK_LEFT:
-                cout << "LEFT!!!\n"; break; 
-            case SDLK_RIGHT:
-                cout << "RIGHT!!!\n"; break;
-            default:
-                break;
-        }
+        // case SDLK_UP:
+        //     synth.set_active_param(-1); break;
+        // case SDLK_DOWN:
+        //     synth.set_active_param(+1); break;
+        case SDLK_LEFT:
+            cout << "LEFT!!!\n"; break; 
+        case SDLK_RIGHT:
+            cout << "RIGHT!!!\n"; break;
+        default:
+            break;
     }
+
 };
 
 void update_selection_if_active(Selector &selection, int column_index, int row_index){
@@ -127,10 +126,9 @@ void Rect::pollEvents(SDL_Event &event,
                 window.set_active_area(+1);
                 return;
             }
+            handle_synth_keymap(event, synth);
+            return;
         }
-
-        handle_synth_keymap(event, synth);
-        return;
     }
 
 
