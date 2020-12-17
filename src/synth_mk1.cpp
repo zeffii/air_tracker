@@ -73,6 +73,7 @@ void Synth_mk1::draw_samples(){
     /*
     this rescales nfsamples into a format that will display in the wt_rect
     */
+    // active = (Window::active_area == 2);
 
     int y_multiplier = syn_rect.h / 2;
     int y_offset = syn_rect.h / 2 + syn_rect.y;
