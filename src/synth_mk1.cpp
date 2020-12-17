@@ -113,6 +113,26 @@ void Synth_mk1::draw_ui(){
     //SDL_SetRenderDrawColor(Window::renderer, 0, 20, 0, 255);
     //SDL_RenderDrawRect(Window::renderer, &syn_rect);
 
+    int num_params = 8;
+    int start_y = syn_rect.y + syn_rect.h + 20;
+    int start_x = syn_rect.x;
+    int slider_height = 10;
+    int slider_width = syn_rect.w;
+    int spacer_height = 4;
+    int spacer_locations[] = {4};
+
+    int current_y = start_y;
+    for (int i = 0; i < num_params; i++){
+        
+        if (find_int_in_array(i, spacer_locations, 1)){ current_y += spacer_height; }
+
+        SDL_Rect slider = {start_x, current_y, slider_width, slider_height};
+        SDL_SetRenderDrawColor(Window::renderer, 20, 50, 20, 255);
+        SDL_RenderFillRect(Window::renderer, &slider);
+
+        current_y += slider_height + 2;
+    }
+
 };
 
 
