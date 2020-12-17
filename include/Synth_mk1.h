@@ -30,6 +30,6 @@ private:
     SDL_Texture *syn_text_texture;
     mutable SDL_Rect syn_text_rect;
     bool active = false;
-    // int num_params = 8;
-    // int active_param = 3;
+    int num_params = 8;
+    //int active_param = 3;
 };

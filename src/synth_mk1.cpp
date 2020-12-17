@@ -20,12 +20,12 @@ bool Synth_mk1::is_active(){ return active; };
 void Synth_mk1::set_active(bool state){ active = state; };
 // int Synth_mk1::get_active_param(){ return active_param; };
 // void Synth_mk1::set_active_param(int dir){ 
-//     // active_param += dir;
+//     active_param += dir;
 
-//     // if (active_param < 0)
-//     //     active_param = 0;
-//     // else if (active_param >= (num_params -1))
-//     //     active_param = num_params - 1;
+//     if (active_param < 0)
+//         active_param = 0;
+//     else if (active_param >= (num_params -1))
+//         active_param = num_params - 1;
 // };
 
 void Synth_mk1::generate_default_wavetable(){
@@ -95,19 +95,12 @@ void Synth_mk1::draw_samples(Window &window){
         parray[i] = p2;
     }
 
-    SDL_SetRenderDrawColor(Window::renderer, 20, 50, 20, 255);
-    for (auto p: parray) SDL_RenderDrawLine(Window::renderer, p.x, p.y, p.x, syn_rect.h + syn_rect.y);
+    SDL_SetRenderDrawColor(window.renderer, 20, 50, 20, 255);
+    for (auto p: parray) SDL_RenderDrawLine(window.renderer, p.x, p.y, p.x, syn_rect.h + syn_rect.y);
 
     dot_green_alpha = active ? 255 : 140;
-    SDL_SetRenderDrawColor(Window::renderer, 150, 250, 150, dot_green_alpha);
-    SDL_RenderDrawPoints(Window::renderer, parray, pcount);
-
-    // int pcount = handles.size();
-    // SDL_Point parray[pcount];
-    // std::copy(points.begin(), points.end(), parray);
-    // SDL_SetRenderDrawColor(renderer, 60, 60, 250, 255);
-    // SDL_RenderDrawLines(renderer, parray, pcount);
-
+    SDL_SetRenderDrawColor(window.renderer, 150, 250, 150, dot_green_alpha);
+    SDL_RenderDrawPoints(window.renderer, parray, pcount);
 };
 
 void Synth_mk1::draw_ui(Window &window){
@@ -136,8 +129,7 @@ void Synth_mk1::draw_ui(Window &window){
     int bg_green = 60;
     int slider_green = 90;
 
-    int num_params = 8;
-    int active_param = 3;
+    int active_param = 3; // get_active_param();
 
     int current_y = start_y;
     for (int i = 0; i < num_params; i++){
