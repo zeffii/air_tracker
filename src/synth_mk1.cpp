@@ -16,6 +16,9 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect){
 
 };
 
+bool Synth_mk1::is_active(){ return active; };
+void Synth_mk1::set_active(bool state){ active = state; };
+
 void Synth_mk1::generate_default_wavetable(){
     
     int numsamples = int(syn_rect.w);
@@ -74,7 +77,7 @@ void Synth_mk1::draw_samples(){
     int y_multiplier = syn_rect.h / 2;
     int y_offset = syn_rect.h / 2 + syn_rect.y;
     int x_offset = syn_rect.x;
-
+    int dot_green_alpha = 255;
     int pcount = nfsamples.size();
     SDL_Point parray[pcount];
     for (int i=0; i < pcount; i++){
@@ -85,7 +88,8 @@ void Synth_mk1::draw_samples(){
     SDL_SetRenderDrawColor(Window::renderer, 20, 50, 20, 255);
     for (auto p: parray) SDL_RenderDrawLine(Window::renderer, p.x, p.y, p.x, syn_rect.h + syn_rect.y);
 
-    SDL_SetRenderDrawColor(Window::renderer, 150, 250, 150, 255);
+    dot_green_alpha = active ? 255 : 140;
+    SDL_SetRenderDrawColor(Window::renderer, 150, 250, 150, dot_green_alpha);
     SDL_RenderDrawPoints(Window::renderer, parray, pcount);
 
     // int pcount = handles.size();
@@ -115,7 +119,7 @@ void Synth_mk1::draw_ui(){
 
     int num_params = 8;
     int active_param = 3;
-    int start_y = syn_rect.y + syn_rect.h + 20;
+    int start_y = syn_rect.y + syn_rect.h + 24;
     int start_x = syn_rect.x;
     int slider_height = 10;
     int slider_bg_width = syn_rect.w;

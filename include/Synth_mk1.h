@@ -16,6 +16,8 @@ public:
     void insert_values_into_wavetable(std::vector<float> points);
     void draw_samples();
     void set_dimensions(int x, int y, int w, int h);
+    bool is_active();
+    void set_active(bool state);
 
 private:
     std::string syn_name = "";
@@ -25,5 +27,5 @@ private:
     SDL_Color syn_text_color = {120, 220, 150, 255};
     SDL_Texture *syn_text_texture;
     mutable SDL_Rect syn_text_rect;
-
+    bool active = false;
 };
