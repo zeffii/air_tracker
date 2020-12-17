@@ -20,12 +20,12 @@ using namespace std;
 #define HEIGHT 720
 
 
-void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selection, Envelope &env){
+void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selection, Envelope &env, Synth_mk1 &synth){
     SDL_Event event;
 
     if (SDL_PollEvent(&event)){
         // case SDL_MOUSEMOTION  : even.mouse.x  
-        cursor.pollEvents(event, mypat, window, selection, env);
+        cursor.pollEvents(event, mypat, window, selection, env, synth);
         window.pollEvents(event);
     }
 }
@@ -63,7 +63,7 @@ int main(int argc, char* args[])
     while (!window.isClosed()){
 
         pollModifierKeys(window);
-        pollEvents(window, cursor, mypat, selection, env);
+        pollEvents(window, cursor, mypat, selection, env, synth);
 
         env.draw_envelope(window, Window::renderer);
         cursor.draw();

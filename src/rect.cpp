@@ -8,7 +8,7 @@ using namespace std;
 #include "Window.h"
 #include "Functions.h"
 #include "Selector.h"
-
+#include "Synth_mk1.h"
 
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
@@ -60,7 +60,8 @@ void update_selection_if_active(Selector &selection, int column_index, int row_i
     }
 };
 
-void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection, Envelope &env){
+void Rect::pollEvents(SDL_Event &event,
+    Pattern &mypat, Window &window, Selector &selection, Envelope &env, Synth_mk1 &synth){
 
     int x_offset = 20;
     int y_offset = 20;
