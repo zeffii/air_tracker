@@ -24,6 +24,7 @@ void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selectio
     SDL_Event event;
 
     if (SDL_PollEvent(&event)){
+        // case SDL_MOUSEMOTION  : even.mouse.x  
         cursor.pollEvents(event, mypat, window, selection, env);
         window.pollEvents(event);
     }

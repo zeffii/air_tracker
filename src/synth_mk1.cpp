@@ -114,20 +114,31 @@ void Synth_mk1::draw_ui(){
     //SDL_RenderDrawRect(Window::renderer, &syn_rect);
 
     int num_params = 8;
+    int active_param = 3;
     int start_y = syn_rect.y + syn_rect.h + 20;
     int start_x = syn_rect.x;
     int slider_height = 10;
-    int slider_width = syn_rect.w;
+    int slider_bg_width = syn_rect.w;
     int spacer_height = 4;
     int spacer_locations[] = {4};
+    int bg_green = 60;
+    int slider_green = 90;
 
     int current_y = start_y;
     for (int i = 0; i < num_params; i++){
         
         if (find_int_in_array(i, spacer_locations, 1)){ current_y += spacer_height; }
 
-        SDL_Rect slider = {start_x, current_y, slider_width, slider_height};
-        SDL_SetRenderDrawColor(Window::renderer, 20, 50, 20, 255);
+        SDL_Rect slider_bg = {start_x, current_y, slider_bg_width, slider_height};
+        bg_green = (i == active_param) ? 80 : 50;
+        SDL_SetRenderDrawColor(Window::renderer, 20, bg_green, 20, 255);
+        
+        SDL_RenderFillRect(Window::renderer, &slider_bg);
+
+        int slider_x = start_x + (i * 30);
+        SDL_Rect slider = {slider_x, current_y, slider_height, slider_height};
+        slider_green = (i == active_param) ? 120 : 90;
+        SDL_SetRenderDrawColor(Window::renderer, 50, slider_green, 50, 255);
         SDL_RenderFillRect(Window::renderer, &slider);
 
         current_y += slider_height + 2;
