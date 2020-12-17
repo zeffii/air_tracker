@@ -1,17 +1,29 @@
-/*
-// Synth_mk1.h
+#pragma once
+// Watetable.h
 #include <SDL2/SDL.h>
 #include "Window.h"
-//#include "Wavetable.h"
 #include <vector>
+#include "Augmentations.h"
 
 class Synth_mk1
 {
 public:
-    Synth_mk1(std::string synthname, SDL_Rect &_rui_rect);
+    Synth_mk1(std::string name, SDL_Rect &_syn_rect);
+
+    void draw_window_text();
     void draw_ui();
+    void generate_default_wavetable();
+    void insert_values_into_wavetable(std::vector<float> points);
+    void draw_samples();
+    void set_dimensions(int x, int y, int w, int h);
+
 private:
-    SDL_Rect &rui_rect;
-    Wavetable &scope;
+    std::string syn_name = "";
+    SDL_Rect syn_rect;
+
+    std::vector<RT_Point> nfsamples;
+    SDL_Color syn_text_color = {120, 220, 150, 255};
+    SDL_Texture *syn_text_texture;
+    mutable SDL_Rect syn_text_rect;
+
 };
-*/
