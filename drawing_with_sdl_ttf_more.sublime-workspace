@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"get_a",
+				"get_active_param"
+			],
+			[
 				"han",
 				"hande_synth_keymap"
 			],
@@ -435,6 +439,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"active_param",
 			"what",
 			"get_range_of_cell",
 			"renderer_placeholder",
@@ -491,16 +496,36 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.780981595092,
 			1.0
 		]
 	},

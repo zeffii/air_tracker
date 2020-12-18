@@ -6,28 +6,34 @@
 #include "Synth_mk1.h"
 #include "Augmentations.h"
 
-Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect){
+Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
+{
     syn_name = name;
     syn_rect = _syn_rect;
     syn_text_rect.x = syn_rect.x;
     syn_text_rect.y = syn_rect.y + syn_rect.h + 6;
-    // _active_param = 0;
-
     generate_default_wavetable();
-
+    generate_sliders();
 };
 
 bool Synth_mk1::is_active(){ return active; };
 void Synth_mk1::set_active(bool state){ active = state; };
-// int Synth_mk1::get_active_param(){ return _active_param; };
-void Synth_mk1::set_active_param(int direction){ 
-    // _active_param += direction;
+int Synth_mk1::get_active_slider(){ return 2; };
 
-    // if (_active_param < 0)
-    //     _active_param = 0;
-    // else if (_active_param >= (num_params -1))
-    //     _active_param = num_params - 1;
-    cout << direction << endl;
+void Synth_mk1::change_active_slider(int direction){ 
+
+    int currently_active = 0;
+    int last_slider_index = (unsigned)sliders.size() - 1;
+    for (auto& p: sliders) {
+        if (p.active) {currently_active = p.index; };
+        p.active = false;
+    };
+
+    currently_active += direction;
+    
+    if (currently_active <= 0){ currently_active = 0; }
+    else if (currently_active >= last_slider_index) { currently_active = last_slider_index;}
+    sliders[currently_active].active = true;
 };
 
 void Synth_mk1::generate_default_wavetable(){
@@ -43,6 +49,16 @@ void Synth_mk1::generate_default_wavetable(){
 
         RT_Point p2 = {float(i), fy};
         nfsamples.push_back(p2);
+    }
+};
+
+void Synth_mk1::generate_sliders(){
+    for (int i=0; i < num_params; i++){
+        RT_Slider sl;
+        sl.value = i * 20;
+        sl.active = (i == 3) ? true : false;
+        sl.index = i;
+        sliders.push_back(sl);
     }
 };
 
@@ -113,31 +129,31 @@ void Synth_mk1::draw_ui(Window &window){
     draw_samples(window);
     draw_window_text();
 
-    int start_y = syn_rect.y + syn_rect.h + 24;
-    int start_x = syn_rect.x;
-    int slider_height = 10;
-    int slider_bg_width = syn_rect.w;
-    int spacer_height = 4;
     int spacer_locations[] = {4};
     int bg_green = 60;
     int slider_green = 90;
+    int slider_height = 10;
+    int spacer_height = 4;
 
-    int active_param = 3; // get_active_param();
+    int start_y = syn_rect.y + syn_rect.h + 24;
+    int start_x = syn_rect.x;
+    int slider_bg_width = syn_rect.w;
 
     int current_y = start_y;
-    for (int i = 0; i < num_params; i++){
+
+    for (auto p: sliders){
+
+        bg_green = (p.active) ? 80 : 50;
+        slider_green = (p.active) ? 120 : 90;
         
-        if (find_int_in_array(i, spacer_locations, 1)){ current_y += spacer_height; }
+        if (find_int_in_array(p.index, spacer_locations, 1)){ current_y += spacer_height; }
 
         SDL_Rect slider_bg = {start_x, current_y, slider_bg_width, slider_height};
-        bg_green = (i == active_param) ? 80 : 50;
         SDL_SetRenderDrawColor(window.renderer, 20, bg_green, 20, 255);
-        
         SDL_RenderFillRect(window.renderer, &slider_bg);
 
-        int slider_x = start_x + (i * 30);
+        int slider_x = start_x + p.value;
         SDL_Rect slider = {slider_x, current_y, slider_height, slider_height};
-        slider_green = (i == active_param) ? 120 : 90;
         SDL_SetRenderDrawColor(window.renderer, 50, slider_green, 50, 255);
         SDL_RenderFillRect(window.renderer, &slider);
 
