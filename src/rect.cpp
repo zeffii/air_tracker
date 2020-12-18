@@ -202,6 +202,16 @@ void Rect::pollEvents(SDL_Event &event,
                 handle_selection(selection, column_index, row_index);
                 break;
 
+            case SDLK_SPACE:
+                if (window.is_lalt_pressed()){
+                    cout << "copy all parameters from synth to pattern\n";
+                }
+                else {
+                    cout << "copy only current cell from corresponding synth param\n";
+                }
+
+                break;
+
             case SDLK_LEFT:
                 column_index -= 1;
                 mypat.carrot_hop_backward(column_index);
