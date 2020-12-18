@@ -356,6 +356,8 @@
 		"height": 131.0,
 		"history":
 		[
+			"1 / (17000000 / 650000)",
+			"17000000 / 650000",
 			"5*19",
 			"3/114 vs 114",
 			"114/6",
@@ -382,6 +384,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Envelope.h",
+		"/C/Users/zeffi/Desktop/bluf.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/window.cpp",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Window.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/synth_mk1.cpp",
@@ -439,6 +443,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"else if",
 			"active_param",
 			"what",
 			"get_range_of_cell",
@@ -519,20 +524,20 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.524018746339,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.780981595092,
+			0.432468375708,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 170.0
+		"height": 223.0
 	},
 	"output.find_results":
 	{

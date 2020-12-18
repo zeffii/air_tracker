@@ -161,8 +161,8 @@ void Synth_mk1::draw_ui(Window &window){
     int spacer_height = 4;
 
     int start_y = syn_rect.y + syn_rect.h + 24;
-    int start_x = syn_rect.x;
-    int slider_bg_width = syn_rect.w;
+    int start_x = syn_rect.x + 2;
+    int slider_bg_width = syn_rect.w - 1;
 
     int current_y = start_y;
 
@@ -173,7 +173,7 @@ void Synth_mk1::draw_ui(Window &window){
         
         if (find_int_in_array(p.index, spacer_locations, 1)){ current_y += spacer_height; }
 
-        SDL_Rect slider_bg = {start_x, current_y, slider_bg_width, slider_height};
+        SDL_Rect slider_bg = {start_x-2, current_y, slider_bg_width, slider_height};
         SDL_SetRenderDrawColor(window.renderer, 20, bg_green, 20, 255);
         SDL_RenderFillRect(window.renderer, &slider_bg);
 
