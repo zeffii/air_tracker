@@ -11,7 +11,7 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect){
     syn_rect = _syn_rect;
     syn_text_rect.x = syn_rect.x;
     syn_text_rect.y = syn_rect.y + syn_rect.h + 6;
-    // active_param = 0;
+    // _active_param = 0;
 
     generate_default_wavetable();
 
@@ -19,15 +19,15 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect){
 
 bool Synth_mk1::is_active(){ return active; };
 void Synth_mk1::set_active(bool state){ active = state; };
-// int Synth_mk1::get_active_param(){ return active_param; };
-void Synth_mk1::set_active_param(int dir){ 
-    cout << dir << endl;
-    // active_param += dir;
+// int Synth_mk1::get_active_param(){ return _active_param; };
+void Synth_mk1::set_active_param(int direction){ 
+    // _active_param += direction;
 
-    // if (active_param < 0)
-    //     active_param = 0;
-    // else if (active_param >= (num_params -1))
-    //     active_param = num_params - 1;
+    // if (_active_param < 0)
+    //     _active_param = 0;
+    // else if (_active_param >= (num_params -1))
+    //     _active_param = num_params - 1;
+    cout << direction << endl;
 };
 
 void Synth_mk1::generate_default_wavetable(){

@@ -19,7 +19,7 @@ public:
     bool is_active();
     void set_active(bool state);
     // int get_active_param();
-    void set_active_param(int dir);
+    void set_active_param(int direction);
 
 private:
     std::string syn_name = "";
@@ -31,5 +31,5 @@ private:
     mutable SDL_Rect syn_text_rect;
     bool active = false;
     int num_params = 8;
-    // int active_param = 0;
+    // int _active_param = 0;
 };
