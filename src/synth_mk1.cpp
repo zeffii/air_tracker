@@ -48,6 +48,16 @@ void Synth_mk1::change_active_slider(int direction){
 void Synth_mk1::modify_slider_value(int direction){
     int idx = get_active_slider();
     auto& p = sliders[idx];
+
+    // enters this logic gate always, but only ends early if the slider movement would reach
+    // outside of minimum or maximum.
+    if (direction > 0){
+        if (p.value + direction >= p.maximum){ p.value = p.maximum; return; }
+    }
+    else{
+        if (p.value + direction <= p.minimum){ p.value = p.minimum; return; }
+    }
+
     p.value += direction;
 };
 

@@ -64,9 +64,9 @@ void handle_synth_keymap(SDL_Event &event, Synth_mk1 &synth, Window &window){
     switch (event.key.keysym.sym) {
 
         case SDLK_UP:
-            synth.change_active_slider(-delta); break;
+            synth.change_active_slider(-1); break;
         case SDLK_DOWN:
-            synth.change_active_slider(+delta); break;
+            synth.change_active_slider(+1); break;
         case SDLK_LEFT:
             synth.modify_slider_value(-delta); break; 
         case SDLK_RIGHT:
