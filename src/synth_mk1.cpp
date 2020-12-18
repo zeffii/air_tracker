@@ -18,7 +18,16 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
 
 bool Synth_mk1::is_active(){ return active; };
 void Synth_mk1::set_active(bool state){ active = state; };
-int Synth_mk1::get_active_slider(){ return 2; };
+int Synth_mk1::get_active_slider(){ 
+    int val = 0;
+    for (auto p: sliders) {
+        if (p.active) { 
+            val = p.index;
+            break;
+        }
+    }
+    return val;
+};
 
 void Synth_mk1::change_active_slider(int direction){ 
 
@@ -30,10 +39,16 @@ void Synth_mk1::change_active_slider(int direction){
     };
 
     currently_active += direction;
-    
+
     if (currently_active <= 0){ currently_active = 0; }
     else if (currently_active >= last_slider_index) { currently_active = last_slider_index;}
     sliders[currently_active].active = true;
+};
+
+void Synth_mk1::modify_slider_value(int direction){
+    int idx = get_active_slider();
+    auto& p = sliders[idx];
+    p.value += direction;
 };
 
 void Synth_mk1::generate_default_wavetable(){
@@ -56,7 +71,7 @@ void Synth_mk1::generate_sliders(){
     for (int i=0; i < num_params; i++){
         RT_Slider sl;
         sl.value = i * 20;
-        sl.active = (i == 3) ? true : false;
+        sl.active = (i == 0) ? true : false;
         sl.index = i;
         sliders.push_back(sl);
     }

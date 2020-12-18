@@ -53,18 +53,24 @@ void handle_selection(Selector &selection, int column_index, int row_index){
     }
 };
 
-void handle_synth_keymap(SDL_Event &event, Synth_mk1 &synth){
+void handle_synth_keymap(SDL_Event &event, Synth_mk1 &synth, Window &window){
+
+    int delta = 1;
+    if (window.is_rctrl_pressed() || window.is_lctrl_pressed())
+        delta = 5;
+    else if (window.is_ralt_pressed() || window.is_lalt_pressed())
+        delta = 10;
 
     switch (event.key.keysym.sym) {
 
         case SDLK_UP:
-            synth.change_active_slider(-1); break;
+            synth.change_active_slider(-delta); break;
         case SDLK_DOWN:
-            synth.change_active_slider(+1); break;
+            synth.change_active_slider(+delta); break;
         case SDLK_LEFT:
-            cout << "LEFT!!!\n"; break; 
+            synth.modify_slider_value(-delta); break; 
         case SDLK_RIGHT:
-            cout << "RIGHT!!!\n"; break;
+            synth.modify_slider_value(+delta); break;
         default:
             break;
     }
@@ -126,7 +132,7 @@ void Rect::pollEvents(SDL_Event &event,
                 window.set_active_area(+1);
                 return;
             }
-            handle_synth_keymap(event, synth);
+            handle_synth_keymap(event, synth, window);
         }
         return;
     }

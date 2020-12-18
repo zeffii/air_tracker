@@ -21,6 +21,7 @@ public:
     void set_active(bool state);
     int get_active_slider();
     void change_active_slider(int direction);
+    void modify_slider_value(int direction);
 
 private:
     std::string syn_name = "";
