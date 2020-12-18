@@ -208,6 +208,7 @@ void Rect::pollEvents(SDL_Event &event,
                 }
                 else {
                     cout << "copy only current cell from corresponding synth param\n";
+                    cout << "col " << column_index << ", " << "row" << row_index << endl;
                 }
 
                 break;
