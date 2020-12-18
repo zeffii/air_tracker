@@ -12,7 +12,7 @@ public:
 
     void draw_window_text();
     void draw_ui(Window &window);
-    void generate_default_wavetable();
+    void generate_default_wavetable(float amp1, float amp2, float amp3, float amp4);
     void generate_sliders();
     void insert_values_into_wavetable(std::vector<float> points);
     void draw_samples(Window &window);
@@ -34,5 +34,5 @@ private:
     SDL_Texture *syn_text_texture;
     mutable SDL_Rect syn_text_rect;
     bool active = false;
-    
+
 };
