@@ -11,6 +11,7 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect){
     syn_rect = _syn_rect;
     syn_text_rect.x = syn_rect.x;
     syn_text_rect.y = syn_rect.y + syn_rect.h + 6;
+    // active_param = 0;
 
     generate_default_wavetable();
 
@@ -19,14 +20,15 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect){
 bool Synth_mk1::is_active(){ return active; };
 void Synth_mk1::set_active(bool state){ active = state; };
 // int Synth_mk1::get_active_param(){ return active_param; };
-// void Synth_mk1::set_active_param(int dir){ 
-//     active_param += dir;
+void Synth_mk1::set_active_param(int dir){ 
+    cout << dir << endl;
+    // active_param += dir;
 
-//     if (active_param < 0)
-//         active_param = 0;
-//     else if (active_param >= (num_params -1))
-//         active_param = num_params - 1;
-// };
+    // if (active_param < 0)
+    //     active_param = 0;
+    // else if (active_param >= (num_params -1))
+    //     active_param = num_params - 1;
+};
 
 void Synth_mk1::generate_default_wavetable(){
     
@@ -108,18 +110,9 @@ void Synth_mk1::draw_ui(Window &window){
     SDL_SetRenderDrawColor(window.renderer, 6, 36, 6, 255);
     SDL_RenderFillRect(window.renderer, &syn_rect);
 
-    // if (window.get_active_area() == 0)
-    //     SDL_SetRenderDrawColor(renderer, 155, 20, 20, 255);
-    // else
-
-
     draw_samples(window);
     draw_window_text();
 
-    // SDL_SetRenderDrawColor(Window::renderer, 50, 150, 50, 255);
-    //SDL_SetRenderDrawColor(Window::renderer, 0, 20, 0, 255);
-    //SDL_RenderDrawRect(Window::renderer, &syn_rect);
-    
     int start_y = syn_rect.y + syn_rect.h + 24;
     int start_x = syn_rect.x;
     int slider_height = 10;
