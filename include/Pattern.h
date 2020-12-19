@@ -119,4 +119,5 @@ class Pattern {
         };
 
         int start_of_global_params;
+        int num_global_params;
 };

@@ -45,6 +45,27 @@ void Synth_mk1::change_active_slider(int direction){
     sliders[currently_active].active = true;
 };
 
+void Synth_mk1::update_parameter(int idx, int value){
+    float new_proposed_value;
+    switch (idx) {
+        case 8:
+            new_proposed_value = map(float(sliders[idx].value), 0.0, 255.0, 0.0, 2.0);
+            cout << sliders[idx].value << "--->" << new_proposed_value << endl;
+            break;
+        // case 9:
+        //     break;
+        // case 10:
+        //     break;
+        // case 12:
+        //     break;
+        // case 13:
+        //     break;
+        default:
+            break;
+    }
+    return;
+};
+
 void Synth_mk1::modify_slider_value(int direction){
     int idx = get_active_slider();
     auto& p = sliders[idx];
@@ -52,13 +73,20 @@ void Synth_mk1::modify_slider_value(int direction){
     // enters this logic gate always, but only ends early if the slider movement would reach
     // outside of minimum or maximum.
     if (direction > 0){
-        if (p.value + direction >= p.maximum){ p.value = p.maximum; return; }
+        if (p.value + direction >= p.maximum){ 
+            p.value = p.maximum; 
+            update_parameter(idx, p.value);
+            return; }
     }
     else{
-        if (p.value + direction <= p.minimum){ p.value = p.minimum; return; }
+        if (p.value + direction <= p.minimum){ 
+            p.value = p.minimum; 
+            update_parameter(idx, p.value);
+            return; }
     }
 
     p.value += direction;
+    update_parameter(idx, p.value);
 };
 
 void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, float amp3, float amp4){
@@ -67,10 +95,10 @@ void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, 
     float fi = M_PI * 2.0 / numsamples;
 
     float_constrain(scale, 0.0, 2.0);
-    float_constrain(amp1, 0.0, 2.0);
-    float_constrain(amp2, 0.0, 2.0);
-    float_constrain(amp3, 0.0, 2.0);
-    float_constrain(amp4, 0.0, 2.0);
+    float_constrain(amp1, 0.0, 1.0);
+    float_constrain(amp2, 0.0, 1.0);
+    float_constrain(amp3, 0.0, 1.0);
+    float_constrain(amp4, 0.0, 1.0);
     
     for (int i = 0; i < numsamples; i++){
         float fy = (float)amp1 * sin(fi*i) + 
@@ -83,6 +111,13 @@ void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, 
         RT_Point p2 = {float(i), fy};
         nfsamples.push_back(p2);
     }
+
+    // _scale = scale;
+    // _amp1 = amp1;
+    // _amp2 = amp2;
+    // _amp3 = amp3;
+    // _amp4 = amp4;
+
 };
 
 void Synth_mk1::generate_sliders(){
@@ -162,7 +197,8 @@ void Synth_mk1::draw_ui(Window &window){
     draw_samples(window);
     draw_window_text();
 
-    int spacer_locations[] = {4};
+    int spacer_locations[] = {4, 8};
+    int num_spacers = sizeof(spacer_locations)/sizeof(spacer_locations[0]);
     int bg_green = 60;
     int slider_green = 90;
     int slider_height = 10;
@@ -179,7 +215,7 @@ void Synth_mk1::draw_ui(Window &window){
         bg_green = (p.active) ? 80 : 50;
         slider_green = (p.active) ? 120 : 90;
         
-        if (find_int_in_array(p.index, spacer_locations, 1)){ current_y += spacer_height; }
+        if (find_int_in_array(p.index, spacer_locations, num_spacers)){ current_y += spacer_height; }
 
         SDL_Rect slider_bg = {start_x-2, current_y, slider_bg_width, slider_height};
         SDL_SetRenderDrawColor(window.renderer, 20, bg_green, 20, 255);

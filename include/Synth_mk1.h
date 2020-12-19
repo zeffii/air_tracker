@@ -22,17 +22,26 @@ public:
     int get_active_slider();
     void change_active_slider(int direction);
     void modify_slider_value(int direction);
+    void update_parameter(int idx, int value);
+
+    // float _scale;
+    // float _amp1;
+    // float _amp2;
+    // float _amp3;
+    // float _amp4;
 
 private:
+
     std::string syn_name = "";
     SDL_Rect syn_rect;
 
-    int num_params = 8;
+    int num_params = 13;
     std::vector<RT_Point> nfsamples;
     std::vector<RT_Slider> sliders;
     SDL_Color syn_text_color = {120, 220, 150, 255};
     SDL_Texture *syn_text_texture;
     mutable SDL_Rect syn_text_rect;
     bool active = false;
+
 
 };
