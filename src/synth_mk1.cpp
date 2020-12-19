@@ -50,7 +50,8 @@ void Synth_mk1::update_parameter(int idx, int value){
     switch (idx) {
         case 8:
             new_proposed_value = map(float(sliders[idx].value), 0.0, 255.0, 0.0, 2.0);
-            cout << sliders[idx].value << "--->" << new_proposed_value << endl;
+            //cout << sliders[idx].value << "--->" << new_proposed_value << endl;
+            generate_default_wavetable(new_proposed_value, 0.5, 0.25, 0.125, 0.0625);
             break;
         // case 9:
         //     break;
@@ -186,6 +187,7 @@ void Synth_mk1::draw_samples(Window &window){
 
     dot_green_alpha = active ? 255 : 140;
     SDL_SetRenderDrawColor(window.renderer, 150, 250, 150, dot_green_alpha);
+    // SDL_RenderClear(window.renderer);
     SDL_RenderDrawPoints(window.renderer, parray, pcount);
 };
 
