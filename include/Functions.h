@@ -11,6 +11,7 @@ void find_interpolation_between(int x1, int x2, float ratio, int& estimated);
 void qubic_interpolation_ints4(int x0, int x1, int x2, int x3, float mu, int& est);
 
 // numeric
+void float_constrain(float& x, float x_min, float x_max);
 float map(float x, float in_min, float in_max, float out_min, float out_max);
 bool is_string_numeric(string str);
 int average_int_vector(vector<int> invec);

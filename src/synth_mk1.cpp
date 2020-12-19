@@ -12,7 +12,7 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
     syn_rect = _syn_rect;
     syn_text_rect.x = syn_rect.x;
     syn_text_rect.y = syn_rect.y + syn_rect.h + 6;
-    generate_default_wavetable(0.5, 0.25, 0.125, 0.0625);
+    generate_default_wavetable(1.0, 0.5, 0.25, 0.125, 0.0625);
     generate_sliders();
 };
 
@@ -61,16 +61,24 @@ void Synth_mk1::modify_slider_value(int direction){
     p.value += direction;
 };
 
-void Synth_mk1::generate_default_wavetable(float amp1, float amp2, float amp3, float amp4){
+void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, float amp3, float amp4){
     
     int numsamples = int(syn_rect.w);
     float fi = M_PI * 2.0 / numsamples;
+
+    float_constrain(scale, 0.0, 2.0);
+    float_constrain(amp1, 0.0, 2.0);
+    float_constrain(amp2, 0.0, 2.0);
+    float_constrain(amp3, 0.0, 2.0);
+    float_constrain(amp4, 0.0, 2.0);
     
     for (int i = 0; i < numsamples; i++){
         float fy = (float)amp1 * sin(fi*i) + 
                    (float)amp2 * sin(2*fi*i) + 
                    (float)amp3 * sin(3*fi*i) + 
                    (float)amp4 * sin(4*fi*i);
+        fy *= scale;
+        float_constrain(fy, -1.0, 1.0);
 
         RT_Point p2 = {float(i), fy};
         nfsamples.push_back(p2);

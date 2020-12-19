@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"start",
+				"start_of_global_params"
+			],
+			[
 				"get_a",
 				"get_active_param"
 			],
@@ -356,6 +360,7 @@
 		"height": 131.0,
 		"history":
 		[
+			"255 * 0.0625",
 			"1 / (17000000 / 650000)",
 			"17000000 / 650000",
 			"5*19",
@@ -443,6 +448,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"get",
+			"find",
 			"else if",
 			"active_param",
 			"what",
@@ -524,20 +531,20 @@
 		"cols":
 		[
 			0.0,
-			0.524018746339,
+			0.425014645577,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.432468375708,
+			0.384514435696,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 223.0
+		"height": 179.0
 	},
 	"output.find_results":
 	{

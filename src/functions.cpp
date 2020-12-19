@@ -53,6 +53,11 @@ vector<float> quadratic_interval(float start, float end, float thru){
 };
 */
 
+void float_constrain(float& x, float x_min, float x_max){
+    if (x <= x_min) x = x_min;
+    else if (x >= x_max) x = x_max;
+};
+
 float map(float x, float in_min, float in_max, float out_min, float out_max){
     // linear rescaling
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
