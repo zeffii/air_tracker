@@ -50,7 +50,6 @@ void Synth_mk1::update_parameter(int idx, int value){
     switch (idx) {
         case 8:
             new_proposed_value = map(float(sliders[idx].value), 0.0, 255.0, 0.0, 2.0);
-            //cout << sliders[idx].value << "--->" << new_proposed_value << endl;
             generate_default_wavetable(new_proposed_value, 0.5, 0.25, 0.125, 0.0625);
             break;
         // case 9:
@@ -92,6 +91,7 @@ void Synth_mk1::modify_slider_value(int direction){
 
 void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, float amp3, float amp4){
     
+    nfsamples.clear();
     int numsamples = int(syn_rect.w);
     float fi = M_PI * 2.0 / numsamples;
 
@@ -107,7 +107,9 @@ void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, 
                    (float)amp3 * sin(3*fi*i) + 
                    (float)amp4 * sin(4*fi*i);
         fy *= scale;
-        float_constrain(fy, -1.0, 1.0);
+        
+        // float_constrain(fy, -1.0, 1.0);
+        float_fold_constrain(fy, -1.0, 1.0);
 
         RT_Point p2 = {float(i), fy};
         nfsamples.push_back(p2);

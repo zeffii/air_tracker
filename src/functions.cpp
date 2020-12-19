@@ -58,6 +58,18 @@ void float_constrain(float& x, float x_min, float x_max){
     else if (x >= x_max) x = x_max;
 };
 
+void float_fold_constrain(float& x, float x_min, float x_max){
+    if (x < x_min) {
+        float diff = abs(x - x_min);
+        x = x_min + diff;
+    }
+    else if (x > x_max) {
+        float diff = abs(x - x_max);
+        x = x_max -          diff;
+    }
+    float_constrain(x, x_min, x_max);
+};
+
 float map(float x, float in_min, float in_max, float out_min, float out_max){
     // linear rescaling
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
