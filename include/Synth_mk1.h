@@ -13,6 +13,7 @@ public:
     void draw_window_text();
     void draw_ui(Window &window);
     void generate_default_wavetable(float scale, float amp1, float amp2, float amp3, float amp4);
+    // void generate_parameters();
     void generate_sliders();
     void insert_values_into_wavetable(std::vector<float> points);
     void draw_samples(Window &window);
@@ -24,18 +25,13 @@ public:
     void modify_slider_value(int direction);
     void update_parameter(int idx, int value);
 
-    // float _scale;
-    // float _amp1;
-    // float _amp2;
-    // float _amp3;
-    // float _amp4;
-
 private:
 
     std::string syn_name = "";
     SDL_Rect syn_rect;
 
     int num_params = 13;
+    // std::vector<RT_Parameter> global_params;
     std::vector<RT_Point> nfsamples;
     std::vector<RT_Slider> sliders;
     SDL_Color syn_text_color = {120, 220, 150, 255};

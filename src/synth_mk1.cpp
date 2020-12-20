@@ -4,7 +4,12 @@
 #include "Window.h"
 #include "Functions.h"
 #include "Synth_mk1.h"
-#include "Augmentations.h"
+// #include "Augmentations.h"
+
+
+int math_value_to_slider(float x, RT_Slider sl){
+    return int(float(sl.maximum) * (x / sl.max_val));
+};
 
 Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
 {
@@ -12,8 +17,52 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
     syn_rect = _syn_rect;
     syn_text_rect.x = syn_rect.x;
     syn_text_rect.y = syn_rect.y + syn_rect.h + 6;
-    generate_default_wavetable(1.0, 0.5, 0.25, 0.125, 0.0625);
+
+    // generate_parameters();
     generate_sliders();
+    generate_default_wavetable(
+        sliders[8].real_val,  // 1.0
+        0.5,  //  sliders[9].real_val,
+        0.25, //  sliders[10].real_val,
+        0.125, // sliders[11].real_val,
+        0.0625 // sliders[12].real_val
+    );
+
+};
+
+/*
+void Synth_mk1::generate_parameters(){
+    // RT_Parameter prm;
+    // prm.index = 0;    
+    // prm.real_val = 0.2;     
+    // prm.min_val = 0.0;     
+    // prm.max_val = 6.0;    
+    // prm.name = "Attack";    
+    // prm.shortname = "A";
+    //RT_Parameter prm{0, 0.2, 0.0, 6.0, "Attack", "A"};
+    //global_params.push_back(prm);
+
+    //cout << "num params loaded: " << global_params.size() << endl;
+};
+*/
+
+void Synth_mk1::generate_sliders(){
+    /*
+    fill with default values.
+    */
+    for (int i=0; i < num_params; i++){
+        RT_Slider sl;
+        sl.value = i * 20;
+        sl.active = (i == 0) ? true : false;
+        sl.index = i;
+        if (i == 8) {
+            sl.real_val = 1.0;
+            sl.min_val = 0.0;
+            sl.max_val = 4.0;
+            sl.value = math_value_to_slider(sl.real_val, sl);
+        }
+        sliders.push_back(sl);
+    }
 };
 
 bool Synth_mk1::is_active(){ return active; };
@@ -46,19 +95,22 @@ void Synth_mk1::change_active_slider(int direction){
 };
 
 void Synth_mk1::update_parameter(int idx, int value){
+
     float new_proposed_value;
+    auto slider = sliders[idx];
+    new_proposed_value = map(float(slider.value), float(slider.minimum), float(slider.maximum), float(slider.min_val), float(slider.max_val));
+
     switch (idx) {
-        case 8:
-            new_proposed_value = map(float(sliders[idx].value), 0.0, 255.0, 0.0, 2.0);
+        case 8: 
             generate_default_wavetable(new_proposed_value, 0.5, 0.25, 0.125, 0.0625);
             break;
         // case 9:
         //     break;
         // case 10:
         //     break;
-        // case 12:
+        // case 11:
         //     break;
-        // case 13:
+        // case 12:
         //     break;
         default:
             break;
@@ -95,7 +147,7 @@ void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, 
     int numsamples = int(syn_rect.w);
     float fi = M_PI * 2.0 / numsamples;
 
-    float_constrain(scale, 0.0, 2.0);
+    float_constrain(scale, sliders[8].min_val, sliders[8].max_val);
     float_constrain(amp1, 0.0, 1.0);
     float_constrain(amp2, 0.0, 1.0);
     float_constrain(amp3, 0.0, 1.0);
@@ -121,16 +173,6 @@ void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, 
     // _amp3 = amp3;
     // _amp4 = amp4;
 
-};
-
-void Synth_mk1::generate_sliders(){
-    for (int i=0; i < num_params; i++){
-        RT_Slider sl;
-        sl.value = i * 20;
-        sl.active = (i == 0) ? true : false;
-        sl.index = i;
-        sliders.push_back(sl);
-    }
 };
 
 void Synth_mk1::insert_values_into_wavetable(std::vector<float> points){
