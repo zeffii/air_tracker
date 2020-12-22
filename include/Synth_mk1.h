@@ -18,7 +18,7 @@ public:
 
     void draw_window_text();
     void draw_ui(Window &window);
-    void generate_default_wavetable(float scale, float amp1, float amp2, float amp3, float amp4);
+    void generate_default_wavetable(); // float scale, float amp1, float amp2, float amp3, float amp4);
     void insert_values_into_wavetable(std::vector<float> points);
     void draw_samples(Window &window);
     void set_dimensions(int x, int y, int w, int h);

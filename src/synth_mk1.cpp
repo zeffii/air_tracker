@@ -37,13 +37,7 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
 
     generate_parameters();
     generate_sliders();
-    generate_default_wavetable(
-        gparams[8].real_val,
-        gparams[9].real_val,
-        gparams[10].real_val, 
-        gparams[11].real_val,
-        gparams[12].real_val
-    );
+    generate_default_wavetable();
 
 };
 
@@ -119,11 +113,7 @@ void Synth_mk1::update_parameter(int idx, int value){
     gparams[idx].real_val = new_proposed_value;
 
     // then update the wavetable based on all current gparams associated with wavtable ( idx 8 onwards.. )
-    if (idx >= 8) {
-        generate_default_wavetable(
-            gparams[8].real_val, 
-            gparams[9].real_val, gparams[10].real_val, gparams[11].real_val, gparams[12].real_val );
-    }
+    if (idx >= 8) { generate_default_wavetable(); }
     return;
 };
 
@@ -150,37 +140,31 @@ void Synth_mk1::modify_slider_value(int direction){
     update_parameter(idx, p.value);
 };
 
-void Synth_mk1::generate_default_wavetable(float scale, float amp1, float amp2, float amp3, float amp4){
+void Synth_mk1::generate_default_wavetable(){ //float scale, float amp1, float amp2, float amp3, float amp4){
     
     nfsamples.clear();
     int numsamples = int(syn_rect.w);
     float fi = M_PI * 2.0 / numsamples;
 
-    float_constrain(scale, sliders[8].min_val, sliders[8].max_val);
-    float_constrain(amp1, 0.0, 1.0);
-    float_constrain(amp2, 0.0, 1.0);
-    float_constrain(amp3, 0.0, 1.0);
-    float_constrain(amp4, 0.0, 1.0);
+    // make sure the  values are constrained with min max val!
+    for (int i = 8; i < 13; ++i){
+        float_constrain(gparams[i].real_val, sliders[i].min_val, sliders[i].max_val);
+    }
     
+    // apply values to formula for wavetable
     for (int i = 0; i < numsamples; i++){
-        float fy = (float)amp1 * sin(fi*i) + 
-                   (float)amp2 * sin(2*fi*i) + 
-                   (float)amp3 * sin(3*fi*i) + 
-                   (float)amp4 * sin(4*fi*i);
-        fy *= scale;
+        float fy = (float)gparams[9].real_val * sin(fi*i) +
+                   (float)gparams[10].real_val * sin(2*fi*i) +
+                   (float)gparams[11].real_val * sin(3*fi*i) +
+                   (float)gparams[12].real_val * sin(4*fi*i);
+        fy *= gparams[8].real_val;
         
-        // float_constrain(fy, -1.0, 1.0);
+        // float_constrain(fy, -1.0, 1.0);  <-- this would be a double foldover
         float_fold_constrain(fy, -1.0, 1.0);
 
         RT_Point p2 = {float(i), fy};
         nfsamples.push_back(p2);
     }
-
-    // _scale = scale;
-    // _amp1 = amp1;
-    // _amp2 = amp2;
-    // _amp3 = amp3;
-    // _amp4 = amp4;
 
 };
 
