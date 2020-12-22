@@ -2,8 +2,11 @@
 #pragma once 
 #include <string>
 #include "Pattern.h"
-
+#include "Augmentations.h"
 using namespace std;
+
+// signal
+void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width);
 
 // geometric
 void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry);

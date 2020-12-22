@@ -5,8 +5,24 @@
 #include <string>
 #include "Functions.h"
 #include "Pattern.h"
+#include "Augmentations.h"
 
 using namespace std;
+
+/*
+weighted smoothing
+
+s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
+
+*/
+
+void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width){
+    /*
+    if n==3
+    s = (Yj-1 + Y + Yj+1) / 3
+    */
+};
+
 
 void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry){
     rx = (x1 + x2) / 2;
