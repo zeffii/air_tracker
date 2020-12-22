@@ -38,7 +38,6 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
     generate_parameters();
     generate_sliders();
     generate_default_wavetable();
-
 };
 
 
@@ -165,7 +164,6 @@ void Synth_mk1::generate_default_wavetable(){ //float scale, float amp1, float a
         RT_Point p2 = {float(i), fy};
         nfsamples.push_back(p2);
     }
-
 };
 
 void Synth_mk1::insert_values_into_wavetable(std::vector<float> points){
@@ -198,7 +196,6 @@ void Synth_mk1::draw_window_text(){
     SDL_FreeSurface(details_surface);
     SDL_QueryTexture(syn_text_texture, nullptr, nullptr, &syn_text_rect.w, &syn_text_rect.h);
     SDL_RenderCopy(Window::renderer, syn_text_texture, nullptr, &syn_text_rect);
-
 };
 
 void Synth_mk1::draw_samples(Window &window){
@@ -267,7 +264,6 @@ void Synth_mk1::draw_ui(Window &window){
 
         current_y += slider_height + 2;
     }
-
 };
 
 
