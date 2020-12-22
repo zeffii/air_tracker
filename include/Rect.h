@@ -4,6 +4,7 @@
 #include "Pattern.h"
 #include "Selector.h"
 #include "Envelope.h"
+#include "Synth_mk1.h"
 
 #include <string>
 #include <iostream>
@@ -18,7 +19,8 @@ public:
         Pattern &mypat,
         Window &window,
         Selector &selection,
-        Envelope &env
+        Envelope &env,
+        Synth_mk1 &synth
     );
 
 private:

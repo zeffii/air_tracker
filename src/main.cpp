@@ -8,8 +8,7 @@
 #include "Selector.h"
 #include "ConsoleGrammar.h"
 #include "Wavetable.h"
-//#include "Envelope.h"
-
+#include "Synth_mk1.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -21,11 +20,12 @@ using namespace std;
 #define HEIGHT 720
 
 
-void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selection, Envelope &env){
+void pollEvents(Window &window, Rect &cursor, Pattern &mypat, Selector &selection, Envelope &env, Synth_mk1 &synth){
     SDL_Event event;
 
     if (SDL_PollEvent(&event)){
-        cursor.pollEvents(event, mypat, window, selection, env);
+        // case SDL_MOUSEMOTION  : even.mouse.x  
+        cursor.pollEvents(event, mypat, window, selection, env, synth);
         window.pollEvents(event);
     }
 }
@@ -45,27 +45,32 @@ int main(int argc, char* args[])
 {
     int tick_offsetx = 4 * 6;
 
-    Window window("Air Tracker", 700, 1000);
+    Window window("Air Tracker", 900, 1000);
     Pattern mypat("res/pattern_data_1.air");
+
+    int wsx = 500;  // widget start x
     
-    SDL_Rect env_rect = {400, 20, 270, 100};
+    SDL_Rect env_rect = {wsx, 20, 270, 100};
     Envelope env("ADSR", env_rect);
 
-    SDL_Rect wt_rect = {400, 150, 270, 150};
+    SDL_Rect wt_rect = {wsx, 150, 270, 150};
     Wavetable wt("custom wavetable", wt_rect);
 
     Rect cursor(6, 13, 20 + tick_offsetx, 20, 2, 2, 2, 255);
     Selector selection(6, 13, 20 + tick_offsetx, 20, 220, 42, 42, 255);
 
+    SDL_Rect rui_rect = {wsx, 350, 270, 150};
+    Synth_mk1 synth("ravetable", rui_rect);
     
     while (!window.isClosed()){
 
         pollModifierKeys(window);
-        pollEvents(window, cursor, mypat, selection, env);
+        pollEvents(window, cursor, mypat, selection, env, synth);
 
         env.draw_envelope(window, Window::renderer);
         cursor.draw();
         wt.draw_wt_window();
+        synth.draw_ui(window);
         selection.draw();
         mypat.display(20, 20, Window::renderer);
 

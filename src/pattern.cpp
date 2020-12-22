@@ -43,6 +43,7 @@ Pattern::Pattern(const char* pattern_path){
     renderer_placeholder = Window::renderer;
     texture_pattern(renderer_placeholder);
     pattern_descriptor_to_handler(pattern_descriptor_str, *this);
+    get_first_global_parameter_index();
 
 };
 
@@ -453,6 +454,12 @@ void Pattern::paste_clipboard(int row_index, int column_index){
     texture_pattern(renderer_placeholder);
 };
 
+void Pattern::paste_from_synth(int row_index, int column_index){
+    // fint first global pattern param location (is 29... but can be found automatically.. is the index
+    // directly to the right of the first "  " (double space).
+
+};
+
 
 void Pattern::perform_selection_interpolation(Selector &selection, string mode){
 
@@ -579,7 +586,14 @@ void Pattern::randomize_selection(Selector &selection, int factor){
 
 int Pattern::get_nchars_in_row(){ return _nchars_inrow; };
 int Pattern::get_nrows_in_column(){ return _nrows; };
-
+int Pattern::get_first_global_parameter_index(){
+    /*
+    this is delicate and will come back to bite you :) no defensive coding -- hhwatsoever.
+    */
+    start_of_global_params = find_token_in_string(pattern_descriptor_str, "SS")[0] - 2;
+    cout << "start of global params: " << start_of_global_params << endl;
+    return start_of_global_params;
+};
 
 void Pattern::set_note_indices(std::vector<int> note_indices){
     _note_indices = note_indices; };

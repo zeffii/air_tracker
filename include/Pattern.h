@@ -25,6 +25,8 @@ class Pattern {
 
         int get_nchars_in_row();
         int get_nrows_in_column();
+        int get_first_global_parameter_index();
+        
         void set_char_at(int row_number, int col_number, string character);
         void get_corrected_selection_range(Selector &selection, Selection_Range &sr);
         void get_range_of_cell(int row_index, int column_index, Cell_Range &cr);
@@ -35,6 +37,7 @@ class Pattern {
 
         void store_selection_in_clipboard(Selector &selection);
         void paste_clipboard(int row_index, int column_index);
+        void paste_from_synth(int row_index, int column_index);
         void wipe_selection(Selector &selection);
         void wipe_cell(Selector &selection, int column_index, int row_index);
 
@@ -114,4 +117,7 @@ class Pattern {
             {182, 202, 212, 255},
             {222, 222, 222, 255}
         };
+
+        int start_of_global_params;
+        int num_global_params;
 };

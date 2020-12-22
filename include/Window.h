@@ -53,7 +53,7 @@ class Window {
         bool _pressing_rshift = false;
 
         int active_area = 0;
-        int number_of_areas = 2;  // 0 = pattern , 1 = envelope
+        int number_of_areas = 3;  // 0 = pattern , 1 = envelope  . 2 = synth
 
         SDL_Window *_window = nullptr;
     public:

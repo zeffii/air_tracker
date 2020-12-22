@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"spac",
+				"spacer_locations"
+			],
+			[
+				"start",
+				"start_of_global_params"
+			],
+			[
+				"get_a",
+				"get_active_param"
+			],
+			[
+				"han",
+				"hande_synth_keymap"
+			],
+			[
+				"S",
+				"Synth_mk1"
+			],
+			[
+				"sli",
+				"slider_x"
+			],
+			[
+				"space",
+				"spacer_height"
+			],
+			[
 				"drw",
 				"draw_samples"
 			],
@@ -336,6 +364,12 @@
 		"height": 131.0,
 		"history":
 		[
+			"int(  255.0 * ( 1 / 4 ) )",
+			"(  255.0 * ( 1 / 4 ) )",
+			"255/4",
+			"255 * 0.0625",
+			"1 / (17000000 / 650000)",
+			"17000000 / 650000",
 			"5*19",
 			"3/114 vs 114",
 			"114/6",
@@ -362,11 +396,23 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Envelope.h",
+		"/C/Users/zeffi/Desktop/bluf.py",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/window.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Window.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/synth_mk1.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Rect.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Augmentations.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Wavetable.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/rect.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/wavetable.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/main.cpp",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Synth_mk1.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SDL_gfxPrimitives.h",
 		"/C/2020/SDL_gfx-2.0.26.tar/SDL_gfx-2.0.26/SDL_gfxPrimitives.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/selector.o",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/functions.o",
-		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/temp_file_test.cpp",
 		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/cpp14.sublime-build",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/drawing_with_sdl_ttf_more.sublime-project",
@@ -409,6 +455,13 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"get",
+			"find",
+			"else if",
+			"active_param",
+			"what",
+			"get_range_of_cell",
+			"renderer_placeholder",
 			"SDLX",
 			"sign",
 			"copy_sign",
@@ -485,20 +538,20 @@
 		"cols":
 		[
 			0.0,
-			0.613161554106,
+			0.298327893918,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.66169418577,
+			0.336898990559,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 112.0
+		"height": 149.0
 	},
 	"output.find_results":
 	{
@@ -540,11 +593,11 @@
 	"settings":
 	{
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 205.0,
+	"side_bar_width": 351.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

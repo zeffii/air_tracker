@@ -8,7 +8,7 @@ using namespace std;
 #include "Window.h"
 #include "Functions.h"
 #include "Selector.h"
-
+#include "Synth_mk1.h"
 
 Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 :_w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a){}
@@ -16,12 +16,15 @@ Rect::Rect(int w, int h, int x, int y, int r, int g, int b, int a)
 
 
 void Rect::draw() const {
-    // draw the full cell
+    
+    // maybe outlineRect should be calculated less frequently, only when cursor/caret moves.
     int outline_start_x = charwidth * draw_cell.cell_start + 20 - 2;
     int outline_start_y = _y-2;
     int outline_width = draw_cell.cell_length * charwidth + 4;
     int outline_height = _h+2;
     SDL_Rect outlineRect = {outline_start_x, outline_start_y, outline_width, outline_height};
+
+    // draw the full cell
     SDL_SetRenderDrawColor(Window::renderer, 0x80, 0x80, 0x90, 0x55 );
     SDL_RenderDrawRect(Window::renderer, &outlineRect );
 
@@ -50,6 +53,30 @@ void handle_selection(Selector &selection, int column_index, int row_index){
     }
 };
 
+void handle_synth_keymap(SDL_Event &event, Synth_mk1 &synth, Window &window){
+
+    int delta = 1;
+    if (window.is_rctrl_pressed() || window.is_lctrl_pressed())
+        delta = 5;
+    else if (window.is_ralt_pressed() || window.is_lalt_pressed())
+        delta = 10;
+
+    switch (event.key.keysym.sym) {
+
+        case SDLK_UP:
+            synth.change_active_slider(-1); break;
+        case SDLK_DOWN:
+            synth.change_active_slider(+1); break;
+        case SDLK_LEFT:
+            synth.modify_slider_value(-delta); break; 
+        case SDLK_RIGHT:
+            synth.modify_slider_value(+delta); break;
+        default:
+            break;
+    }
+
+};
+
 void update_selection_if_active(Selector &selection, int column_index, int row_index){
     if (selection.get_selector_state() == 1){
         selection.set_end(column_index, row_index);
@@ -57,7 +84,8 @@ void update_selection_if_active(Selector &selection, int column_index, int row_i
     }
 };
 
-void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector &selection, Envelope &env){
+void Rect::pollEvents(SDL_Event &event,
+    Pattern &mypat, Window &window, Selector &selection, Envelope &env, Synth_mk1 &synth){
 
     int x_offset = 20;
     int y_offset = 20;
@@ -67,9 +95,6 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
     Cell_Range cr = {};
     mypat.get_range_of_cell(row_index, column_index, cr);
     draw_cell = cr;
-
-    // cout << "ci: " << column_index << endl;
-    // cout << "cell start: " << cr.cell_start << " / cell width: " << cr.cell_length << endl;
 
     if (mypat.get_console_listening_state() == true){
 
@@ -98,6 +123,20 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
         }
         return;
     }
+
+    if (window.get_active_area() == 2){
+
+        // end handling early, moving to next area
+        if (event.type == SDL_KEYDOWN){
+            if (event.key.keysym.sym == SDLK_TAB){
+                window.set_active_area(+1);
+                return;
+            }
+            handle_synth_keymap(event, synth, window);
+        }
+        return;
+    }
+
 
     if (window.get_active_area() == 1){
         /*
@@ -161,6 +200,17 @@ void Rect::pollEvents(SDL_Event &event, Pattern &mypat, Window &window, Selector
 
             case SDLK_BACKSLASH:
                 handle_selection(selection, column_index, row_index);
+                break;
+
+            case SDLK_SPACE:
+                if (window.is_lalt_pressed()){
+                    cout << "copy all parameters from synth to pattern\n";
+                }
+                else {
+                    cout << "copy only current cell from corresponding synth param\n";
+                    cout << "col " << column_index << ", " << "row" << row_index << endl;
+                }
+
                 break;
 
             case SDLK_LEFT:
