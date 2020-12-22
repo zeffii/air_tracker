@@ -16,7 +16,7 @@ s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
 
 */
 
-void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width){
+void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
     /*
     if n==3
     s = (Yj-1 + Y + Yj+1) / 3

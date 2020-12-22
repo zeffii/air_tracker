@@ -11,6 +11,7 @@ public:
     Synth_mk1(std::string name, SDL_Rect &_syn_rect);
     void generate_parameters();
     void generate_sliders();
+    void generate_wavetable(); // float scale, float amp1, float amp2, float amp3, float amp4);
 
     bool is_active();
     void set_active(bool state);
@@ -18,7 +19,6 @@ public:
 
     void draw_window_text();
     void draw_ui(Window &window);
-    void generate_default_wavetable(); // float scale, float amp1, float amp2, float amp3, float amp4);
     void insert_values_into_wavetable(std::vector<float> points);
     void draw_samples(Window &window);
     void set_dimensions(int x, int y, int w, int h);

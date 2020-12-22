@@ -37,7 +37,7 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
 
     generate_parameters();
     generate_sliders();
-    generate_default_wavetable();
+    generate_wavetable();
 };
 
 
@@ -112,7 +112,7 @@ void Synth_mk1::update_parameter(int idx, int value){
     gparams[idx].real_val = new_proposed_value;
 
     // then update the wavetable based on all current gparams associated with wavtable ( idx 8 onwards.. )
-    if (idx >= 8) { generate_default_wavetable(); }
+    if (idx >= 8) { generate_wavetable(); }
     return;
 };
 
@@ -139,7 +139,7 @@ void Synth_mk1::modify_slider_value(int direction){
     update_parameter(idx, p.value);
 };
 
-void Synth_mk1::generate_default_wavetable(){ //float scale, float amp1, float amp2, float amp3, float amp4){
+void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, float amp3, float amp4){
     
     nfsamples.clear();
     int numsamples = int(syn_rect.w);
