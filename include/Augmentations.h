@@ -18,9 +18,11 @@ struct RT_Slider
 
 struct RT_Parameter
 {
-    int index;
-    float real_val, min_val, max_val;
-    std::string name;
-    std::string shortname;
+    int index = 0;
+    float real_val = 1.0;
+    float min_val = 0.0;
+    float max_val = 2.0;
+    std::string name = "Long Name";
+    std::string shortname = "Short Name";
 };
 

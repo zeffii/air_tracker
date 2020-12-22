@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"spac",
+				"spacer_locations"
+			],
+			[
 				"start",
 				"start_of_global_params"
 			],
@@ -360,6 +364,9 @@
 		"height": 131.0,
 		"history":
 		[
+			"int(  255.0 * ( 1 / 4 ) )",
+			"(  255.0 * ( 1 / 4 ) )",
+			"255/4",
 			"255 * 0.0625",
 			"1 / (17000000 / 650000)",
 			"17000000 / 650000",
@@ -389,6 +396,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Envelope.h",
 		"/C/Users/zeffi/Desktop/bluf.py",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/window.cpp",
@@ -405,7 +413,6 @@
 		"/C/2020/SDL_gfx-2.0.26.tar/SDL_gfx-2.0.26/SDL_gfxPrimitives.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/selector.o",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/functions.o",
-		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/temp_file_test.cpp",
 		"/C/Users/zeffi/AppData/Roaming/Sublime Text 3/Packages/User/cpp14.sublime-build",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/drawing_with_sdl_ttf_more.sublime-project",
@@ -531,20 +538,20 @@
 		"cols":
 		[
 			0.0,
-			0.425014645577,
+			0.298327893918,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.384514435696,
+			0.336898990559,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 179.0
+		"height": 149.0
 	},
 	"output.find_results":
 	{
@@ -590,7 +597,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 213.0,
+	"side_bar_width": 351.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

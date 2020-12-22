@@ -4,12 +4,29 @@
 #include "Window.h"
 #include "Functions.h"
 #include "Synth_mk1.h"
-// #include "Augmentations.h"
+#include "Augmentations.h"
 
+RT_Parameter make_param(int idx, float real_val, float min_val, float max_val, std::string name, std::string shortname){
+    RT_Parameter p;
+    p.index = idx;    
+    p.real_val = real_val;
+    p.min_val = min_val;     
+    p.max_val = max_val;    
+    p.name = name;    
+    p.shortname = shortname;
+    return p;
+}
 
 int math_value_to_slider(float x, RT_Slider sl){
     return int(float(sl.maximum) * (x / sl.max_val));
 };
+
+void init_slider_from_parameter(RT_Parameter param, RT_Slider &sl){
+    sl.real_val = param.real_val;
+    sl.min_val = param.min_val;
+    sl.max_val = param.max_val;
+    sl.value = math_value_to_slider(sl.real_val, sl);    
+}
 
 Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
 {
@@ -18,33 +35,37 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
     syn_text_rect.x = syn_rect.x;
     syn_text_rect.y = syn_rect.y + syn_rect.h + 6;
 
-    // generate_parameters();
+    generate_parameters();
     generate_sliders();
     generate_default_wavetable(
-        sliders[8].real_val,  // 1.0
-        0.5,  //  sliders[9].real_val,
-        0.25, //  sliders[10].real_val,
-        0.125, // sliders[11].real_val,
-        0.0625 // sliders[12].real_val
+        gparams[8].real_val,
+        gparams[9].real_val,
+        gparams[10].real_val, 
+        gparams[11].real_val,
+        gparams[12].real_val
     );
 
 };
 
-/*
-void Synth_mk1::generate_parameters(){
-    // RT_Parameter prm;
-    // prm.index = 0;    
-    // prm.real_val = 0.2;     
-    // prm.min_val = 0.0;     
-    // prm.max_val = 6.0;    
-    // prm.name = "Attack";    
-    // prm.shortname = "A";
-    //RT_Parameter prm{0, 0.2, 0.0, 6.0, "Attack", "A"};
-    //global_params.push_back(prm);
 
-    //cout << "num params loaded: " << global_params.size() << endl;
+void Synth_mk1::generate_parameters(){
+    gparams[0] = make_param(0,  0.2,     0.0, 6.0, "Attack",         "A");
+    gparams[1] = make_param(1,  0.6,     0.0, 6.0, "Decay",          "D");
+    gparams[2] = make_param(2,  0.5,     0.0, 1.0, "Sustain",        "S");
+    gparams[3] = make_param(3,  0.2,     0.0, 6.0, "Release",        "R");
+
+    gparams[4] = make_param(4,  0.2,     0.0, 6.0, "Filter Attack",  "FA");
+    gparams[5] = make_param(5,  0.6,     0.0, 6.0, "Filter Decay",   "FD");
+    gparams[6] = make_param(6,  0.5,     0.0, 1.0, "Filter Sustain", "FS");
+    gparams[7] = make_param(7,  0.2,     0.0, 6.0, "Filter Release", "FR");
+
+    gparams[8] = make_param(8,  1.0,     0.0, 4.0, "Amplifier",      "Amp");
+    gparams[9] = make_param(9,  0.5,     0.0, 4.0, "Osc 1 Amp",      "A01");
+    gparams[10] = make_param(10, 0.25,   0.0, 4.0, "Osc 2 Amp",      "A02");
+    gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
+    gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
 };
-*/
+
 
 void Synth_mk1::generate_sliders(){
     /*
@@ -55,12 +76,7 @@ void Synth_mk1::generate_sliders(){
         sl.value = i * 20;
         sl.active = (i == 0) ? true : false;
         sl.index = i;
-        if (i == 8) {
-            sl.real_val = 1.0;
-            sl.min_val = 0.0;
-            sl.max_val = 4.0;
-            sl.value = math_value_to_slider(sl.real_val, sl);
-        }
+        if (i >= 8) { init_slider_from_parameter(gparams[i], sl); }
         sliders.push_back(sl);
     }
 };
@@ -96,24 +112,17 @@ void Synth_mk1::change_active_slider(int direction){
 
 void Synth_mk1::update_parameter(int idx, int value){
 
+    // first update the gparam associated with this slider,
     float new_proposed_value;
     auto slider = sliders[idx];
     new_proposed_value = map(float(slider.value), float(slider.minimum), float(slider.maximum), float(slider.min_val), float(slider.max_val));
+    gparams[idx].real_val = new_proposed_value;
 
-    switch (idx) {
-        case 8: 
-            generate_default_wavetable(new_proposed_value, 0.5, 0.25, 0.125, 0.0625);
-            break;
-        // case 9:
-        //     break;
-        // case 10:
-        //     break;
-        // case 11:
-        //     break;
-        // case 12:
-        //     break;
-        default:
-            break;
+    // then update the wavetable based on all current gparams associated with wavtable ( idx 8 onwards.. )
+    if (idx >= 8) {
+        generate_default_wavetable(
+            gparams[8].real_val, 
+            gparams[9].real_val, gparams[10].real_val, gparams[11].real_val, gparams[12].real_val );
     }
     return;
 };
