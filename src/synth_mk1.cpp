@@ -66,10 +66,9 @@ void Synth_mk1::generate_sliders(){
     */
     for (int i=0; i < num_params; i++){
         RT_Slider sl;
-        sl.value = i * 20;
         sl.active = (i == 0) ? true : false;
         sl.index = i;
-        if (i >= 8) { init_slider_from_parameter(gparams[i], sl); }
+        init_slider_from_parameter(gparams[i], sl);
         sliders.push_back(sl);
     }
 };
