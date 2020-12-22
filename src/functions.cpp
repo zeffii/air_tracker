@@ -15,13 +15,37 @@ weighted smoothing
 s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
 
 */
+float float_lerp(float a, float b, float mix){
+    float_constrain(mix, 0.0, 1.0);
+    if (mix == 0.0) return a;
+    if (mix == 1.0) return b;
 
-void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
-    /*
-    if n==3
-    s = (Yj-1 + Y + Yj+1) / 3
-    */
-};
+    float result = a + mix * (b - a);
+    return result;
+}
+
+// std::vector<RT_Point> unweighted_sliding_average(std::vector<RT_Point> nfsamples, int width, float mix){
+
+//     std::vector<RT_Point> smoothed;
+//     int numfsamples = nfsamples.size();
+//     if (width == 3){
+//         for (int i = 0; i < numfsamples; i++) {
+//             // s = (Yj-1 + Y + Yj+1) / 3
+//             int idx = ((i-1) < 0) ? numfsamples-1 : i-1;
+//             float A = nfsamples[idx].y;
+//             float B = nfsamples[i].y;
+//             float C = nfsamples[(i+1) % numfsamples].y;
+//             float fy = (A + B + C) / 3.0;
+//             RT_Point p = {float(i), fy};
+//             smoothed.push_back(p);
+//         }
+//         for (int i = 0; i < numfsamples; i++) {
+//             float mixed = float_lerp(nfsamples[i].y, smoothed[i].y, mix);
+//             nfsamples[i].y = mixed;
+//         }
+//     }
+//     return nfsamples;
+// };
 
 
 void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry){
@@ -40,7 +64,6 @@ void qubic_interpolation_ints4(int p0, int p1, int p2, int p3, float mu, int& es
     Paul Breeuwsma / http://paulbourke.net/miscellaneous/interpolation/ / cubic interpolation
     mu:  is the interval between p1 and p2, it's a float. so exactly in the middle p1p2, then mu = 0.5
     */
-
     float mu2 = mu * mu;
     float a0 = -0.5*p0 + 1.5*p1 - 1.5*p2 + 0.5*p3;
     float a1 = p0 - 2.5*p1 + 2*p2 - 0.5*p3;

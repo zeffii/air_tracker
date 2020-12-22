@@ -6,12 +6,13 @@
 using namespace std;
 
 // signal
-void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix);
+// std::vector<RT_Point> unweighted_sliding_average(std::vector<RT_Point> nfsamples, int width, float mix);
 
 // geometric
 void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry);
 void find_interpolation_between(int x1, int x2, float ratio, int& estimated);
 void qubic_interpolation_ints4(int x0, int x1, int x2, int x3, float mu, int& est);
+float float_lerp(float a, float b, float mix);
 
 // numeric
 void float_constrain(float& x, float x_min, float x_max);

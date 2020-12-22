@@ -57,6 +57,8 @@ void Synth_mk1::generate_parameters(){
     gparams[10] = make_param(10, 0.25,   0.0, 4.0, "Osc 2 Amp",      "A02");
     gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
     gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
+
+    gparams[13] = make_param(13, 0.0, 0.0, 1.0,    "smoothing",      "Sm");
 };
 
 
@@ -145,7 +147,7 @@ void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, flo
     float fi = M_PI * 2.0 / numsamples;
 
     // make sure the  values are constrained with min max val!
-    for (int i = 8; i < 13; ++i){
+    for (int i = 8; i < 14; ++i){
         float_constrain(gparams[i].real_val, sliders[i].min_val, sliders[i].max_val);
     }
     
@@ -163,6 +165,14 @@ void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, flo
         RT_Point p2 = {float(i), fy};
         nfsamples.push_back(p2);
     }
+
+    // // smoothing
+    // if (gparams[13].real_val > 0.0){
+    //     nfsamples = unweighted_sliding_average(nfsamples, 3, gparams[13].real_val);
+    // }
+
+
+
 };
 
 void Synth_mk1::insert_values_into_wavetable(std::vector<float> points){
