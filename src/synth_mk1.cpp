@@ -58,7 +58,7 @@ void Synth_mk1::generate_parameters(){
     gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
     gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
 
-    gparams[13] = make_param(13, 0.0, 0.0, 1.0,    "smoothing",      "Sm");
+    gparams[13] = make_param(13, 0.0,    0.0, 1.0, "smoothing",      "Sm");
 };
 
 
@@ -118,6 +118,12 @@ void Synth_mk1::update_parameter(int idx, int value){
 };
 
 void Synth_mk1::modify_slider_value(int direction){
+    
+    /*
+    there's a bug here i don't feel like fixing yet
+    the lowest values should reach 0, but it only ever reaches 1
+    */
+
     int idx = get_active_slider();
     auto& p = sliders[idx];
 
@@ -166,12 +172,16 @@ void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, flo
         nfsamples.push_back(p2);
     }
 
+    /*
+    insert noise here, noise seed and noise amplitude :)
+
+    */
+
     // // smoothing
-    // if (gparams[13].real_val > 0.0){
-    //     nfsamples = unweighted_sliding_average(nfsamples, 3, gparams[13].real_val);
-    // }
-
-
+    if (gparams[13].real_val > 0.0){
+        std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;
+        unweighted_sliding_average(nfsamples, 3, gparams[13].real_val);
+    }
 
 };
 
