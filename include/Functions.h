@@ -1,12 +1,16 @@
 // Functions.h
 #pragma once 
 #include <string>
+#include <cstdlib>
 #include "Pattern.h"
 #include "Augmentations.h"
 using namespace std;
 
 // signal
-// std::vector<RT_Point> unweighted_sliding_average(std::vector<RT_Point> nfsamples, int width, float mix);
+void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_samples, float mix);
+void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix);
+void generate_noise(float *noise_samples, int numsamples, unsigned int seed);
+void shift_float_array(float *noise_samples, int numsamples, int numspaces);
 
 // geometric
 void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry);

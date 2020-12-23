@@ -48,7 +48,7 @@ int main(int argc, char* args[])
     Window window("Air Tracker", 900, 1000);
     Pattern mypat("res/pattern_data_1.air");
 
-    int wsx = 500;  // widget start x
+    int wsx = 580;  // widget start x
     
     SDL_Rect env_rect = {wsx, 20, 270, 100};
     Envelope env("ADSR", env_rect);

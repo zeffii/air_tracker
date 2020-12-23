@@ -31,8 +31,8 @@ private:
     std::string syn_name = "";
     SDL_Rect syn_rect;
 
-    int num_params = 14;
-    RT_Parameter gparams[14];
+    int num_params = 17;
+    RT_Parameter gparams[17];
     // std::vector<RT_Parameter> gparams;  <--- why the fuck not?
 
     std::vector<RT_Point> nfsamples;

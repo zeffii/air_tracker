@@ -57,8 +57,10 @@ void Synth_mk1::generate_parameters(){
     gparams[10] = make_param(10, 0.25,   0.0, 4.0, "Osc 2 Amp",      "A02");
     gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
     gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
-
-    gparams[13] = make_param(13, 0.0, 0.0, 1.0,    "smoothing",      "Sm");
+    gparams[13] = make_param(13, 0.0,    0.0, 1.0, "Noise Mix",      "NMix");
+    gparams[14] = make_param(14, 1.0,    0.0, 255.0, "Noise Seed",    "S");
+    gparams[15] = make_param(15, 0.0,    0.0, 1.0, "Noise Rot",      "A04");
+    gparams[16] = make_param(16, 0.0,    0.0, 1.0, "smoothing",      "Sm");
 };
 
 
@@ -111,43 +113,49 @@ void Synth_mk1::update_parameter(int idx, int value){
     auto slider = sliders[idx];
     new_proposed_value = map(float(slider.value), float(slider.minimum), float(slider.maximum), float(slider.min_val), float(slider.max_val));
     gparams[idx].real_val = new_proposed_value;
-
+    sliders[idx].real_val = new_proposed_value; // for bookkeeping!
     // then update the wavetable based on all current gparams associated with wavtable ( idx 8 onwards.. )
     if (idx >= 8) { generate_wavetable(); }
+    // cout << "after p.value " << sliders[idx].value << ", "  << "slider real_val now:" << sliders[idx].real_val << endl;    
     return;
 };
 
 void Synth_mk1::modify_slider_value(int direction){
+    
     int idx = get_active_slider();
     auto& p = sliders[idx];
+
+    // cout << "before p.value " << p.value << ", " << direction << endl;
 
     // enters this logic gate always, but only ends early if the slider movement would reach
     // outside of minimum or maximum.
     if (direction > 0){
-        if (p.value + direction >= p.maximum){ 
+        if (p.value + direction > p.maximum){ 
             p.value = p.maximum; 
             update_parameter(idx, p.value);
-            return; }
+            return; 
+        }
     }
     else{
-        if (p.value + direction <= p.minimum){ 
+        if (p.value + direction < p.minimum){ 
             p.value = p.minimum; 
             update_parameter(idx, p.value);
-            return; }
+            return; 
+        }
     }
 
     p.value += direction;
     update_parameter(idx, p.value);
 };
 
-void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, float amp3, float amp4){
+void Synth_mk1::generate_wavetable(){
     
     nfsamples.clear();
     int numsamples = int(syn_rect.w);
     float fi = M_PI * 2.0 / numsamples;
 
     // make sure the  values are constrained with min max val!
-    for (int i = 8; i < 14; ++i){
+    for (int i = 8; i < num_params; ++i){
         float_constrain(gparams[i].real_val, sliders[i].min_val, sliders[i].max_val);
     }
     
@@ -166,12 +174,25 @@ void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, flo
         nfsamples.push_back(p2);
     }
 
+    // insert noise here, noise seed and noise amplitude :)
+    if (gparams[13].real_val > 0.0){
+
+        float mix = gparams[13].real_val;
+        int seed = int(gparams[14].real_val);
+        float shift = gparams[15].real_val;
+        int numspaces = int(map(shift, 0.0, 1.0, float(0), float(numsamples)));
+        // std::cout << "numspaces:" << numspaces << std::endl;
+        float noise_samples[numsamples];
+        generate_noise(noise_samples, numsamples, seed);
+        shift_float_array(noise_samples, numsamples, numspaces);
+        mix_signal_into_nfsamples(nfsamples, noise_samples, mix);  // not implemented yet!
+    }
+    
     // // smoothing
-    // if (gparams[13].real_val > 0.0){
-    //     nfsamples = unweighted_sliding_average(nfsamples, 3, gparams[13].real_val);
-    // }
-
-
+    if (gparams[16].real_val > 0.0){
+        // std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;
+        unweighted_sliding_average(nfsamples, 3, gparams[16].real_val);
+    }
 
 };
 
@@ -230,7 +251,6 @@ void Synth_mk1::draw_samples(Window &window){
 
     dot_green_alpha = active ? 255 : 140;
     SDL_SetRenderDrawColor(window.renderer, 150, 250, 150, dot_green_alpha);
-    // SDL_RenderClear(window.renderer);
     SDL_RenderDrawPoints(window.renderer, parray, pcount);
 };
 

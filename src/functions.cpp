@@ -15,6 +15,55 @@ weighted smoothing
 s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
 
 */
+
+void generate_noise(float *noise_samples, int numsamples, unsigned int seed){
+    /*
+    usage:
+
+    unsigned int seed = 20;
+    int numsamples = 12;
+    float noise_samples[numsamples];
+    generate_noise(noise_samples, numsamples, seed);    
+
+    */
+
+    srand(seed);
+    for (int i = 0; i < numsamples; ++i) {
+        float random = ((float) rand()) / (float) RAND_MAX;
+        float x = -1.0f + random * 2.0f;
+        noise_samples[i] = x;
+    }
+};
+
+void shift_float_array(float *noise_samples, int numsamples, int numspaces){
+    /*
+    not fully error checked, but you should only pass this numspaces == ( -numsamples / +numsamples )
+    and of that pair i'm only testing against +numsamples.
+    */
+    if ((numspaces == 0) || (numspaces == numsamples))
+        return;
+    if (numspaces > numsamples)
+        numspaces %= numsamples;
+
+    float remapped_samples[numsamples];
+
+    if (numspaces > 0){
+
+        for (int i = 0; i < numsamples; ++i){
+            int offset_i = ((i - numspaces) >= 0) ? (i - numspaces) : numsamples - numspaces + i;
+            remapped_samples[i] = noise_samples[offset_i];
+        }
+    
+    } else {
+
+        for (int i = 0; i < numsamples; ++i)
+            remapped_samples[i] = noise_samples[((i + numspaces) % numsamples)];
+    }
+
+    for (int i = 0; i < numsamples; ++i)
+        noise_samples[i] = remapped_samples[i];
+};
+
 float float_lerp(float a, float b, float mix){
     float_constrain(mix, 0.0, 1.0);
     if (mix == 0.0) return a;
@@ -22,30 +71,38 @@ float float_lerp(float a, float b, float mix){
 
     float result = a + mix * (b - a);
     return result;
-}
+};
 
-// std::vector<RT_Point> unweighted_sliding_average(std::vector<RT_Point> nfsamples, int width, float mix){
+void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_samples, float mix){
+    int numsamples = nfsamples.size();
+    for (int i = 0; i < numsamples; ++i) {
+        nfsamples[i].y = float_lerp(nfsamples[i].y, noise_samples[i], mix);
+    }
+};
 
-//     std::vector<RT_Point> smoothed;
-//     int numfsamples = nfsamples.size();
-//     if (width == 3){
-//         for (int i = 0; i < numfsamples; i++) {
-//             // s = (Yj-1 + Y + Yj+1) / 3
-//             int idx = ((i-1) < 0) ? numfsamples-1 : i-1;
-//             float A = nfsamples[idx].y;
-//             float B = nfsamples[i].y;
-//             float C = nfsamples[(i+1) % numfsamples].y;
-//             float fy = (A + B + C) / 3.0;
-//             RT_Point p = {float(i), fy};
-//             smoothed.push_back(p);
-//         }
-//         for (int i = 0; i < numfsamples; i++) {
-//             float mixed = float_lerp(nfsamples[i].y, smoothed[i].y, mix);
-//             nfsamples[i].y = mixed;
-//         }
-//     }
-//     return nfsamples;
-// };
+void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
+    // cout << mix << endl;
+    
+    std::vector<RT_Point> smoothed;
+    int numfsamples = nfsamples.size();
+    if (width == 3){
+        for (int i = 0; i < numfsamples; i++) {
+
+            int idx = ((i-1) < 0) ? numfsamples-1 : i-1;
+            float A = nfsamples[idx].y;
+            float B = nfsamples[i].y;
+            float C = nfsamples[(i+1) % numfsamples].y;
+            float fy = (A + B + C) / 3.0;
+
+            RT_Point p = {float(i), fy};
+            smoothed.push_back(p);
+        }
+        for (int i = 0; i < numfsamples; i++) {
+            float mixed = float_lerp(nfsamples[i].y, smoothed[i].y, mix);
+            nfsamples[i].y = mixed;
+        }
+    }
+};
 
 
 void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry){
