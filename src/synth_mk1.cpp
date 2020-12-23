@@ -111,42 +111,42 @@ void Synth_mk1::update_parameter(int idx, int value){
     auto slider = sliders[idx];
     new_proposed_value = map(float(slider.value), float(slider.minimum), float(slider.maximum), float(slider.min_val), float(slider.max_val));
     gparams[idx].real_val = new_proposed_value;
-
+    sliders[idx].real_val = new_proposed_value; // for bookkeeping!
     // then update the wavetable based on all current gparams associated with wavtable ( idx 8 onwards.. )
     if (idx >= 8) { generate_wavetable(); }
+    cout << "after p.value " << sliders[idx].value << ", "  << "slider real_val now:" << sliders[idx].real_val << endl;    
     return;
 };
 
 void Synth_mk1::modify_slider_value(int direction){
     
-    /*
-    there's a bug here i don't feel like fixing yet
-    the lowest values should reach 0, but it only ever reaches 1
-    */
-
     int idx = get_active_slider();
     auto& p = sliders[idx];
+
+    cout << "before p.value " << p.value << ", " << direction << endl;
 
     // enters this logic gate always, but only ends early if the slider movement would reach
     // outside of minimum or maximum.
     if (direction > 0){
-        if (p.value + direction >= p.maximum){ 
+        if (p.value + direction > p.maximum){ 
             p.value = p.maximum; 
             update_parameter(idx, p.value);
-            return; }
+            return; 
+        }
     }
     else{
-        if (p.value + direction <= p.minimum){ 
+        if (p.value + direction < p.minimum){ 
             p.value = p.minimum; 
             update_parameter(idx, p.value);
-            return; }
+            return; 
+        }
     }
 
     p.value += direction;
     update_parameter(idx, p.value);
 };
 
-void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, float amp3, float amp4){
+void Synth_mk1::generate_wavetable(){
     
     nfsamples.clear();
     int numsamples = int(syn_rect.w);
@@ -179,7 +179,7 @@ void Synth_mk1::generate_wavetable(){ //float scale, float amp1, float amp2, flo
 
     // // smoothing
     if (gparams[13].real_val > 0.0){
-        std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;
+        // std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;
         unweighted_sliding_average(nfsamples, 3, gparams[13].real_val);
     }
 
@@ -240,7 +240,6 @@ void Synth_mk1::draw_samples(Window &window){
 
     dot_green_alpha = active ? 255 : 140;
     SDL_SetRenderDrawColor(window.renderer, 150, 250, 150, dot_green_alpha);
-    // SDL_RenderClear(window.renderer);
     SDL_RenderDrawPoints(window.renderer, parray, pcount);
 };
 

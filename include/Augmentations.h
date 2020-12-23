@@ -11,7 +11,7 @@ struct RT_Slider
     int value, index;
     bool active = false;
     int minimum = 0;
-    int maximum = 255;
+    int maximum = 254;
     float min_val, max_val;
     float real_val;
 };
