@@ -58,7 +58,7 @@ void Synth_mk1::generate_parameters(){
     gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
     gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
     gparams[13] = make_param(13, 0.0,    0.0, 1.0, "Noise Mix",      "NMix");
-    gparams[14] = make_param(14, 1.0,    0.0, 254.0, "Noise Seed",    "S");
+    gparams[14] = make_param(14, 1.0,    0.0, 255.0, "Noise Seed",    "S");
     gparams[15] = make_param(15, 0.0,    0.0, 1.0, "Noise Rot",      "A04");
     gparams[16] = make_param(16, 0.0,    0.0, 1.0, "smoothing",      "Sm");
 };
