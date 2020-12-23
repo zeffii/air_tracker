@@ -50,11 +50,11 @@ void shift_float_array(float *noise_samples, int numsamples, int numspaces){
     if (numspaces > 0){
 
         for (int i = 0; i < numsamples; ++i){
-            int offset_i = ((i - numspaces) >= 0) ? (i - numspaces) : numsamples - 1 - i;
+            int offset_i = ((i - numspaces) >= 0) ? (i - numspaces) : numsamples - numspaces + i;
             remapped_samples[i] = noise_samples[offset_i];
         }
-
-    } else  {
+    
+    } else {
 
         for (int i = 0; i < numsamples; ++i)
             remapped_samples[i] = noise_samples[((i + numspaces) % numsamples)];
@@ -71,6 +71,13 @@ float float_lerp(float a, float b, float mix){
 
     float result = a + mix * (b - a);
     return result;
+};
+
+void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_samples, float mix){
+    int numsamples = nfsamples.size();
+    for (int i = 0; i < numsamples; ++i) {
+        nfsamples[i].y = float_lerp(nfsamples[i].y, noise_samples[i], mix);
+    }
 };
 
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){

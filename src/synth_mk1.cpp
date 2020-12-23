@@ -57,10 +57,10 @@ void Synth_mk1::generate_parameters(){
     gparams[10] = make_param(10, 0.25,   0.0, 4.0, "Osc 2 Amp",      "A02");
     gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
     gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
-    gparams[13] = make_param(12, 0.0,    0.0, 1.0, "Noise Amp",      "Nz");
-    gparams[14] = make_param(12, 1.0,    0.0, 254.0, "Noise Seed",    "S");
-    gparams[15] = make_param(12, 0.0,    0.0, 1.0, "Noise Rot",      "A04");
-    gparams[16] = make_param(13, 0.0,    0.0, 1.0, "smoothing",      "Sm");
+    gparams[13] = make_param(13, 0.0,    0.0, 1.0, "Noise Mix",      "NMix");
+    gparams[14] = make_param(14, 1.0,    0.0, 254.0, "Noise Seed",    "S");
+    gparams[15] = make_param(15, 0.0,    0.0, 1.0, "Noise Rot",      "A04");
+    gparams[16] = make_param(16, 0.0,    0.0, 1.0, "smoothing",      "Sm");
 };
 
 
@@ -116,7 +116,7 @@ void Synth_mk1::update_parameter(int idx, int value){
     sliders[idx].real_val = new_proposed_value; // for bookkeeping!
     // then update the wavetable based on all current gparams associated with wavtable ( idx 8 onwards.. )
     if (idx >= 8) { generate_wavetable(); }
-    cout << "after p.value " << sliders[idx].value << ", "  << "slider real_val now:" << sliders[idx].real_val << endl;    
+    // cout << "after p.value " << sliders[idx].value << ", "  << "slider real_val now:" << sliders[idx].real_val << endl;    
     return;
 };
 
@@ -125,7 +125,7 @@ void Synth_mk1::modify_slider_value(int direction){
     int idx = get_active_slider();
     auto& p = sliders[idx];
 
-    cout << "before p.value " << p.value << ", " << direction << endl;
+    // cout << "before p.value " << p.value << ", " << direction << endl;
 
     // enters this logic gate always, but only ends early if the slider movement would reach
     // outside of minimum or maximum.
@@ -174,11 +174,20 @@ void Synth_mk1::generate_wavetable(){
         nfsamples.push_back(p2);
     }
 
-    /*
-    insert noise here, noise seed and noise amplitude :)
+    // insert noise here, noise seed and noise amplitude :)
+    if (gparams[13].real_val > 0.0){
 
-    */
-
+        float mix = gparams[13].real_val;
+        int seed = int(gparams[14].real_val);
+        float shift = gparams[15].real_val;
+        int numspaces = int(map(shift, 0.0, 1.0, float(0), float(numsamples)));
+        // std::cout << "numspaces:" << numspaces << std::endl;
+        float noise_samples[numsamples];
+        generate_noise(noise_samples, numsamples, seed);
+        shift_float_array(noise_samples, numsamples, numspaces);
+        mix_signal_into_nfsamples(nfsamples, noise_samples, mix);  // not implemented yet!
+    }
+    
     // // smoothing
     if (gparams[16].real_val > 0.0){
         // std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;

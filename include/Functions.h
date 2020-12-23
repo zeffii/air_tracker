@@ -7,6 +7,7 @@
 using namespace std;
 
 // signal
+void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_samples, float mix);
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix);
 void generate_noise(float *noise_samples, int numsamples, unsigned int seed);
 void shift_float_array(float *noise_samples, int numsamples, int numspaces);
