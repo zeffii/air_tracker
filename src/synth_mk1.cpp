@@ -57,8 +57,10 @@ void Synth_mk1::generate_parameters(){
     gparams[10] = make_param(10, 0.25,   0.0, 4.0, "Osc 2 Amp",      "A02");
     gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
     gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
-
-    gparams[13] = make_param(13, 0.0,    0.0, 1.0, "smoothing",      "Sm");
+    gparams[13] = make_param(12, 0.0,    0.0, 1.0, "Noise Amp",      "Nz");
+    gparams[14] = make_param(12, 1.0,    0.0, 254.0, "Noise Seed",    "S");
+    gparams[15] = make_param(12, 0.0,    0.0, 1.0, "Noise Rot",      "A04");
+    gparams[16] = make_param(13, 0.0,    0.0, 1.0, "smoothing",      "Sm");
 };
 
 
@@ -153,7 +155,7 @@ void Synth_mk1::generate_wavetable(){
     float fi = M_PI * 2.0 / numsamples;
 
     // make sure the  values are constrained with min max val!
-    for (int i = 8; i < 14; ++i){
+    for (int i = 8; i < num_params; ++i){
         float_constrain(gparams[i].real_val, sliders[i].min_val, sliders[i].max_val);
     }
     
@@ -178,9 +180,9 @@ void Synth_mk1::generate_wavetable(){
     */
 
     // // smoothing
-    if (gparams[13].real_val > 0.0){
+    if (gparams[16].real_val > 0.0){
         // std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;
-        unweighted_sliding_average(nfsamples, 3, gparams[13].real_val);
+        unweighted_sliding_average(nfsamples, 3, gparams[16].real_val);
     }
 
 };
