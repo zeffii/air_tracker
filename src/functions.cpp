@@ -81,7 +81,7 @@ void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_sa
 };
 
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
-    cout << mix << endl;
+    // cout << mix << endl;
     
     std::vector<RT_Point> smoothed;
     int numfsamples = nfsamples.size();
