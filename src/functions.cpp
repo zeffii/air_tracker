@@ -35,6 +35,35 @@ void generate_noise(float *noise_samples, int numsamples, unsigned int seed){
     }
 };
 
+void shift_float_array(float *noise_samples, int numsamples, int numspaces){
+    /*
+    not fully error checked, but you should only pass this numspaces == ( -numsamples / +numsamples )
+    and of that pair i'm only testing against +numsamples.
+    */
+    if ((numspaces == 0) || (numspaces == numsamples))
+        return;
+    if (numspaces > numsamples)
+        numspaces %= numsamples;
+
+    float remapped_samples[numsamples];
+
+    if (numspaces > 0){
+
+        for (int i = 0; i < numsamples; ++i){
+            int offset_i = ((i - numspaces) >= 0) ? (i - numspaces) : numsamples - 1 - i;
+            remapped_samples[i] = noise_samples[offset_i];
+        }
+
+    } else  {
+
+        for (int i = 0; i < numsamples; ++i)
+            remapped_samples[i] = noise_samples[((i + numspaces) % numsamples)];
+    }
+
+    for (int i = 0; i < numsamples; ++i)
+        noise_samples[i] = remapped_samples[i];
+};
+
 float float_lerp(float a, float b, float mix){
     float_constrain(mix, 0.0, 1.0);
     if (mix == 0.0) return a;

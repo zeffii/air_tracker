@@ -9,6 +9,7 @@ using namespace std;
 // signal
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix);
 void generate_noise(float *noise_samples, int numsamples, unsigned int seed);
+void shift_float_array(float *noise_samples, int numsamples, int numspaces);
 
 // geometric
 void find_midpoint(int x1, int y1, int x2, int y2, int& rx, int& ry);
