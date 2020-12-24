@@ -230,7 +230,9 @@ void Synth_mk1::draw_window_text(){
 
 void Synth_mk1::draw_slider_text(int x, int y, int idx){
     auto p = gparams[idx];
-    SDL_Color slider_text_color = {200, 200, 200, 255};
+    auto s = sliders[idx];
+    Uint8 comp = (s.active) ? 200 : 120;
+    SDL_Color slider_text_color = {comp, comp, comp, 255};
   
     auto text_surface = TTF_RenderText_Blended(Window::font, p.shortname.c_str(), slider_text_color);
     if (!text_surface) { cerr << "failed to create text surface \n"; }
