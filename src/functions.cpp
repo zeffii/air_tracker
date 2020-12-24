@@ -9,13 +9,6 @@
 
 using namespace std;
 
-/*
-weighted smoothing
-
-s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
-
-*/
-
 void generate_noise(float *noise_samples, int numsamples, unsigned int seed){
     /*
     usage:
@@ -81,10 +74,10 @@ void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_sa
 };
 
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
-    // cout << mix << endl;
     
     std::vector<RT_Point> smoothed;
     int numfsamples = nfsamples.size();
+
     if (width == 3){
         for (int i = 0; i < numfsamples; i++) {
 
@@ -93,15 +86,40 @@ void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, flo
             float B = nfsamples[i].y;
             float C = nfsamples[(i+1) % numfsamples].y;
             float fy = (A + B + C) / 3.0;
-
             RT_Point p = {float(i), fy};
             smoothed.push_back(p);
         }
+
+    } else if (width == 5){
+        /*
+        weighted smoothing
+        s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
+        */
+        for (int i = 0; i < numfsamples; i++) {
+
+            int L2 = ((i-2) < 0) ? numfsamples-2 : i-2;
+            int L1 = ((i-1) < 0) ? numfsamples-1 : i-1;
+            int R1 = (i+1) % numfsamples;
+            int R2 = (i+2) % numfsamples;
+
+            float A = nfsamples[L2].y;
+            float B = nfsamples[L1].y * 2.0;
+            float C = nfsamples[i].y  * 3.0;
+            float D = nfsamples[R1].y * 2.0;
+            float E = nfsamples[R2].y;
+            float fy = (A + B + C + D + E) / 9.0;
+            RT_Point p = {float(i), fy};
+            smoothed.push_back(p);
+        }
+    }
+
+    if ((width == 3) || (width == 5)){
         for (int i = 0; i < numfsamples; i++) {
             float mixed = float_lerp(nfsamples[i].y, smoothed[i].y, mix);
             nfsamples[i].y = mixed;
         }
     }
+
 };
 
 

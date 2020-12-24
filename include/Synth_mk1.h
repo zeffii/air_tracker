@@ -35,6 +35,8 @@ private:
     RT_Parameter gparams[17];
     // std::vector<RT_Parameter> gparams;  <--- why the fuck not?
 
+    // int wavetable_length = 2048;
+
     std::vector<RT_Point> nfsamples;
     std::vector<RT_Slider> sliders;
     SDL_Color syn_text_color = {120, 220, 150, 255};

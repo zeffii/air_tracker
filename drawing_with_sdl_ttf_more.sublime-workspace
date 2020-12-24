@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"num",
+				"numspaces"
+			],
+			[
 				"fo",
 				"for\tFor Loop"
 			],
@@ -74,10 +78,6 @@
 			[
 				"activ",
 				"active_index"
-			],
-			[
-				"num",
-				"num_handles"
 			],
 			[
 				"SDL",
@@ -463,6 +463,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"cout",
 			"nfsamples",
 			"default",
 			"generate_wavetable",
@@ -532,6 +533,18 @@
 				0,
 				2,
 				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
 			]
 		],
 		"cols":
@@ -543,6 +556,7 @@
 		"rows":
 		[
 			0.0,
+			0.5,
 			1.0
 		]
 	},
@@ -595,7 +609,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 307.0,
+	"side_bar_width": 317.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

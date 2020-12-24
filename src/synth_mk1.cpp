@@ -191,7 +191,7 @@ void Synth_mk1::generate_wavetable(){
     // // smoothing
     if (gparams[16].real_val > 0.0){
         // std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;
-        unweighted_sliding_average(nfsamples, 3, gparams[16].real_val);
+        unweighted_sliding_average(nfsamples, 5, gparams[16].real_val);
     }
 
 };
