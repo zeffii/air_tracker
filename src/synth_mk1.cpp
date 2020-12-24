@@ -230,7 +230,7 @@ void Synth_mk1::draw_window_text(){
 
 void Synth_mk1::draw_slider_text(int x, int y, int idx){
     auto p = gparams[idx];
-    SDL_Color slider_text_color = {220, 220, 250, 255};
+    SDL_Color slider_text_color = {200, 200, 200, 255};
   
     auto text_surface = TTF_RenderText_Blended(Window::font, p.shortname.c_str(), slider_text_color);
     if (!text_surface) { cerr << "failed to create text surface \n"; }
@@ -326,7 +326,7 @@ void Synth_mk1::draw_ui(Window &window){
         SDL_SetRenderDrawColor(window.renderer, 50, slider_green, 50, 255);
         SDL_RenderFillRect(window.renderer, &slider);
 
-        draw_slider_text(start_x-2 + slider_bg_width, current_y, p.index);
+        draw_slider_text(start_x-2 + slider_bg_width + 3, current_y, p.index);
 
         current_y += slider_height + 2;
     }
