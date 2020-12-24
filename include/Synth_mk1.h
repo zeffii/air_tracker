@@ -26,6 +26,7 @@ public:
     void change_active_slider(int direction);
     void modify_slider_value(int direction);
     void update_parameter(int idx, int value);
+    void clear_slider_textures();
 
 private:
 
@@ -45,5 +46,8 @@ private:
     mutable SDL_Rect syn_text_rect;
     bool active = false;
 
+    // data for slidres
+    std::vector<SDL_Texture *> slider_text_textures;
+    mutable std::vector<SDL_Rect> slider_text_rects;
 
 };

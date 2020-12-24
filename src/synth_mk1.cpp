@@ -58,8 +58,8 @@ void Synth_mk1::generate_parameters(){
     gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
     gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
     gparams[13] = make_param(13, 0.0,    0.0, 1.0, "Noise Mix",      "NMix");
-    gparams[14] = make_param(14, 1.0,    0.0, 255.0, "Noise Seed",    "S");
-    gparams[15] = make_param(15, 0.0,    0.0, 1.0, "Noise Rot",      "A04");
+    gparams[14] = make_param(14, 1.0,    0.0, 255.0, "Noise Seed",   "Seed");
+    gparams[15] = make_param(15, 0.0,    0.0, 1.0, "Noise Rot",      "Shift");
     gparams[16] = make_param(16, 0.0,    0.0, 1.0, "smoothing",      "Sm");
 };
 
@@ -228,8 +228,24 @@ void Synth_mk1::draw_window_text(){
     SDL_RenderCopy(Window::renderer, syn_text_texture, nullptr, &syn_text_rect);
 };
 
-void draw_slider_text(int x, int y, int idx){
+void Synth_mk1::draw_slider_text(int x, int y, int idx){
+    auto p = gparams[idx];
+    SDL_Color slider_text_color = {220, 220, 250, 255};
+  
+    auto text_surface = TTF_RenderText_Blended(Window::font, p.shortname.c_str(), slider_text_color);
+    if (!text_surface) { cerr << "failed to create text surface \n"; }
+
+    auto text_texture = SDL_CreateTextureFromSurface(Window::renderer, text_surface);
+    if (!text_texture) { cerr << "failed to create text texture \n"; }
+
+    SDL_Rect trect = {x, y, 0, 0};
     
+    SDL_FreeSurface(text_surface);
+    SDL_QueryTexture(text_texture, nullptr, nullptr, &trect.w, &trect.h);
+    SDL_RenderCopy(Window::renderer, text_texture, nullptr, &trect);
+    
+    slider_text_rects.push_back(trect);
+    slider_text_textures.push_back(text_texture);
 };
 
 void Synth_mk1::draw_samples(Window &window){
@@ -258,6 +274,18 @@ void Synth_mk1::draw_samples(Window &window){
     SDL_RenderDrawPoints(window.renderer, parray, pcount);
 };
 
+void Synth_mk1::clear_slider_textures(){
+    // this may not do a SDL_DestroyTexture
+    if (slider_text_textures.empty()){ /* do nothing */ }
+    else {
+        //cout << "re-using _text_textures to populate more!\b";
+        for (auto texture: slider_text_textures){
+            SDL_DestroyTexture(texture);
+        }
+        slider_text_textures.clear();
+    }    
+};
+
 void Synth_mk1::draw_ui(Window &window){
 
     SDL_SetRenderDrawColor(window.renderer, 6, 36, 6, 255);
@@ -279,6 +307,9 @@ void Synth_mk1::draw_ui(Window &window){
 
     int current_y = start_y;
 
+    slider_text_rects.clear();
+    clear_slider_textures();
+
     for (auto p: sliders){
 
         bg_green = (p.active) ? 80 : 50;
@@ -294,6 +325,8 @@ void Synth_mk1::draw_ui(Window &window){
         SDL_Rect slider = {slider_x, current_y, slider_height, slider_height};
         SDL_SetRenderDrawColor(window.renderer, 50, slider_green, 50, 255);
         SDL_RenderFillRect(window.renderer, &slider);
+
+        draw_slider_text(start_x-2 + slider_bg_width, current_y, p.index);
 
         current_y += slider_height + 2;
     }
