@@ -228,6 +228,10 @@ void Synth_mk1::draw_window_text(){
     SDL_RenderCopy(Window::renderer, syn_text_texture, nullptr, &syn_text_rect);
 };
 
+void draw_slider_text(int x, int y, int idx){
+    
+};
+
 void Synth_mk1::draw_samples(Window &window){
 
     /*
