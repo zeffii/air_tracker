@@ -73,6 +73,9 @@ void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_sa
     }
 };
 
+void dynamic_smoothing(std::vector<RT_Point> &nfsamples, std::vector<RT_Point> &smoothed, int width){};
+
+
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
     
     std::vector<RT_Point> smoothed;
@@ -89,31 +92,37 @@ void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, flo
             RT_Point p = {float(i), fy};
             smoothed.push_back(p);
         }
+    } else if (width == 9){
 
-    } else if (width == 5){
-        /*
-        weighted smoothing
-        s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
-        */
+        // this crap should be in a function..
         for (int i = 0; i < numfsamples; i++) {
 
+            int L4 = ((i-4) < 0) ? numfsamples-4 : i-4;
+            int L3 = ((i-3) < 0) ? numfsamples-3 : i-3;
             int L2 = ((i-2) < 0) ? numfsamples-2 : i-2;
             int L1 = ((i-1) < 0) ? numfsamples-1 : i-1;
             int R1 = (i+1) % numfsamples;
             int R2 = (i+2) % numfsamples;
+            int R3 = (i+3) % numfsamples;
+            int R4 = (i+4) % numfsamples;
 
-            float A = nfsamples[L2].y;
-            float B = nfsamples[L1].y * 2.0;
-            float C = nfsamples[i].y  * 3.0;
-            float D = nfsamples[R1].y * 2.0;
-            float E = nfsamples[R2].y;
-            float fy = (A + B + C + D + E) / 9.0;
+            float A = nfsamples[L4].y;
+            float B = nfsamples[L3].y * 2.0;
+            float C = nfsamples[L2].y * 3.0;
+            float D = nfsamples[L1].y * 4.0;
+            float E = nfsamples[i].y  * 5.0;
+            float F = nfsamples[R1].y * 4.0;
+            float G = nfsamples[R2].y * 3.0;
+            float H = nfsamples[R3].y * 2.0;
+            float I = nfsamples[R4].y;
+
+            float fy = (A + B + C + D + E + F + G + H + I) / 25.0;
             RT_Point p = {float(i), fy};
             smoothed.push_back(p);
         }
     }
 
-    if ((width == 3) || (width == 5)){
+    if ((width == 3) || (width == 9)){
         for (int i = 0; i < numfsamples; i++) {
             float mixed = float_lerp(nfsamples[i].y, smoothed[i].y, mix);
             nfsamples[i].y = mixed;

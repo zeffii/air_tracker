@@ -181,7 +181,7 @@ void Synth_mk1::generate_wavetable(){
         int seed = int(gparams[14].real_val);
         float shift = gparams[15].real_val;
         int numspaces = int(map(shift, 0.0, 1.0, float(0), float(numsamples)));
-        // std::cout << "numspaces:" << numspaces << std::endl;
+
         float noise_samples[numsamples];
         generate_noise(noise_samples, numsamples, seed);
         shift_float_array(noise_samples, numsamples, numspaces);
@@ -191,7 +191,7 @@ void Synth_mk1::generate_wavetable(){
     // // smoothing
     if (gparams[16].real_val > 0.0){
         // std::cout << ":: " << gparams[13].real_val << ", " << sliders[13].value << std::endl;
-        unweighted_sliding_average(nfsamples, 5, gparams[16].real_val);
+        unweighted_sliding_average(nfsamples, 9, gparams[16].real_val);
     }
 
 };
@@ -240,10 +240,11 @@ void Synth_mk1::draw_slider_text(int x, int y, int idx){
     auto text_texture = SDL_CreateTextureFromSurface(Window::renderer, text_surface);
     if (!text_texture) { cerr << "failed to create text texture \n"; }
 
-    SDL_Rect trect = {x, y, 0, 0};
+    SDL_Rect trect = {x-3, y, 0, 0};
     
     SDL_FreeSurface(text_surface);
     SDL_QueryTexture(text_texture, nullptr, nullptr, &trect.w, &trect.h);
+    trect.x -= trect.w; // left align text
     SDL_RenderCopy(Window::renderer, text_texture, nullptr, &trect);
     
     slider_text_rects.push_back(trect);
@@ -328,7 +329,18 @@ void Synth_mk1::draw_ui(Window &window){
         SDL_SetRenderDrawColor(window.renderer, 50, slider_green, 50, 255);
         SDL_RenderFillRect(window.renderer, &slider);
 
-        draw_slider_text(start_x-2 + slider_bg_width + 3, current_y, p.index);
+        if (p.active){
+            // draw some shadow beside the slider knob
+            SDL_SetRenderDrawColor(window.renderer, 20, 20, 20, 255);
+            // left
+            SDL_RenderDrawLine(window.renderer, 
+                slider_x-1, current_y, slider_x-1, current_y + slider_height-1);
+            // right
+            SDL_RenderDrawLine(window.renderer, 
+                slider_x + slider_height, current_y, slider_x + slider_height, current_y + slider_height-1);
+        }
+
+        draw_slider_text(start_x + slider_bg_width, current_y, p.index);
 
         current_y += slider_height + 2;
     }
