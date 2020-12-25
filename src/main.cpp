@@ -78,6 +78,14 @@ int main(int argc, char* args[])
             mypat.display_console(Window::renderer);
 
         window.clear();
+        /*
+
+        SDL_GetTicks();  // 1000 ticks per second,
+        SDL_Delay(Uint32 ms);
+        http://www.brandonfoltz.com/downloads/tutorials/The_Game_Loop_and_Frame_Rate_Management.pdf
+
+
+        */
     }
     return 0;
 }
