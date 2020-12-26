@@ -3,11 +3,32 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "Functions.h"
 #include "Pattern.h"
 #include "Augmentations.h"
 
 using namespace std;
+
+float sum_of_floats(float* inarray, int arrsize){
+    float running_sum = 0.0;
+    for (int i = 0; i < arrsize; i++)
+        running_sum += inarray[i];
+    return running_sum;
+};
+
+
+float get_denominator_for_multipliers(int width){
+
+    int upmid = ceil(float(width) / float(2));
+    int sumval = 0;
+    for (int i = 1; i < upmid; ++i)
+        sumval += (2 * i);
+    sumval += upmid;
+    return float(sumval);
+}
+
+
 
 void generate_noise(float *noise_samples, int numsamples, unsigned int seed){
     /*
@@ -73,7 +94,7 @@ void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_sa
     }
 };
 
-void dynamic_smoothing(std::vector<RT_Point> &nfsamples, std::vector<RT_Point> &smoothed, int width){};
+// void dynamic_smoothing(std::vector<RT_Point> &nfsamples, std::vector<RT_Point> &smoothed, int width){};
 
 
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
@@ -95,31 +116,62 @@ void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, flo
     } else if (width == 9){
 
         // this crap should be in a function.. and i wrote it already somewhere.
+        // for (int i = 0; i < numfsamples; i++) {
+
+        //     int L4 = ((i-4) < 0) ? numfsamples-4 : i-4;
+        //     int L3 = ((i-3) < 0) ? numfsamples-3 : i-3;
+        //     int L2 = ((i-2) < 0) ? numfsamples-2 : i-2;
+        //     int L1 = ((i-1) < 0) ? numfsamples-1 : i-1;
+        //     int R1 = (i+1) % numfsamples;
+        //     int R2 = (i+2) % numfsamples;
+        //     int R3 = (i+3) % numfsamples;
+        //     int R4 = (i+4) % numfsamples;
+
+        //     float A = nfsamples[L4].y;
+        //     float B = nfsamples[L3].y * 2.0;
+        //     float C = nfsamples[L2].y * 3.0;
+        //     float D = nfsamples[L1].y * 4.0;
+        //     float E = nfsamples[i].y  * 5.0;
+        //     float F = nfsamples[R1].y * 4.0;
+        //     float G = nfsamples[R2].y * 3.0;
+        //     float H = nfsamples[R3].y * 2.0;
+        //     float I = nfsamples[R4].y;
+
+        //     float fy = (A + B + C + D + E + F + G + H + I) / 25.0;
+        //     RT_Point p = {float(i), fy};
+        //     smoothed.push_back(p);
+        // }
+
+        //int midpoint = ceil(float(width) / float(2));
+        int midpoint = ceil(width / 2) + 1;
+        int lowermid = floor(width/2);
+        float denominator = get_denominator_for_multipliers(width);
+        
         for (int i = 0; i < numfsamples; i++) {
+            
+            float samples[width];
+            for (int j = 0; j < width; j++){
 
-            int L4 = ((i-4) < 0) ? numfsamples-4 : i-4;
-            int L3 = ((i-3) < 0) ? numfsamples-3 : i-3;
-            int L2 = ((i-2) < 0) ? numfsamples-2 : i-2;
-            int L1 = ((i-1) < 0) ? numfsamples-1 : i-1;
-            int R1 = (i+1) % numfsamples;
-            int R2 = (i+2) % numfsamples;
-            int R3 = (i+3) % numfsamples;
-            int R4 = (i+4) % numfsamples;
+                if (j == lowermid){
+                    samples[j] = nfsamples[i].y * float(midpoint);
 
-            float A = nfsamples[L4].y;
-            float B = nfsamples[L3].y * 2.0;
-            float C = nfsamples[L2].y * 3.0;
-            float D = nfsamples[L1].y * 4.0;
-            float E = nfsamples[i].y  * 5.0;
-            float F = nfsamples[R1].y * 4.0;
-            float G = nfsamples[R2].y * 3.0;
-            float H = nfsamples[R3].y * 2.0;
-            float I = nfsamples[R4].y;
+                } else if ( j < lowermid ){
+                    float amp = j + 1;               // 1 2 3 .. midpoint
+                    int offset = lowermid - j;       // midpoint .. 3 2 1
+                    float index = ((i-offset) < 0) ? numfsamples-(offset-i) : i-offset;
+                    samples[j] = nfsamples[index].y * float(amp);
 
-            float fy = (A + B + C + D + E + F + G + H + I) / 25.0;
+                } else if ( j > lowermid ){
+                    float amp = width - j;           // midpoint .. 3 2 1
+                    int offset = j - lowermid;       // 1 2 3 ...midpoint 
+                    float index = (i+offset) % numfsamples;
+                    samples[i] = nfsamples[index].y * float(amp);
+                }
+            }
+            float fy = float(sum_of_floats(samples, width)) / denominator;
             RT_Point p = {float(i), fy};
             smoothed.push_back(p);
-        }
+        }        
     }
 
     if ((width == 3) || (width == 9)){
