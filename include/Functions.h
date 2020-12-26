@@ -6,8 +6,13 @@
 #include "Augmentations.h"
 using namespace std;
 
+// smoothing utils
+float get_denominator_for_multipliers(int width);
+float sum_of_floats(float* inarray, int arrsize);
+
 // signal
 void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_samples, float mix);
+void dynamic_smoothing(std::vector<RT_Point> &nfsamples, std::vector<RT_Point> &smoothed, int width); 
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix);
 void generate_noise(float *noise_samples, int numsamples, unsigned int seed);
 void shift_float_array(float *noise_samples, int numsamples, int numspaces);

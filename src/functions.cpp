@@ -9,12 +9,23 @@
 
 using namespace std;
 
-/*
-weighted smoothing
+float sum_of_floats(float* inarray, int arrsize){
+    float running_sum = 0.0;
+    for (int i = 0; i < arrsize; i++)
+        running_sum += inarray[i];
+    return float(running_sum);
+};
 
-s = (Yj-2 + 2Yj-1 + 3Yj + 2Yj+1 + Yj+2) / 9
 
-*/
+float get_denominator_for_multipliers(int width){
+
+    int upmid = ceil(float(width) / float(2));
+    int sumval = 0;
+    for (int i = 1; i < upmid; i++)
+        sumval += (2 * i);
+    sumval += upmid;
+    return float(sumval);
+}
 
 void generate_noise(float *noise_samples, int numsamples, unsigned int seed){
     /*
@@ -80,11 +91,14 @@ void mix_signal_into_nfsamples(std::vector<RT_Point> &nfsamples, float *noise_sa
     }
 };
 
+void dynamic_smoothing(std::vector<RT_Point> &nfsamples, std::vector<RT_Point> &smoothed, int width){};
+
+
 void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, float mix){
-    // cout << mix << endl;
     
     std::vector<RT_Point> smoothed;
     int numfsamples = nfsamples.size();
+
     if (width == 3){
         for (int i = 0; i < numfsamples; i++) {
 
@@ -93,15 +107,50 @@ void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, flo
             float B = nfsamples[i].y;
             float C = nfsamples[(i+1) % numfsamples].y;
             float fy = (A + B + C) / 3.0;
-
             RT_Point p = {float(i), fy};
             smoothed.push_back(p);
         }
+    } else if (width == 9){
+
+        int midpoint = ceil(float(width) / float(2));
+        int lowermid = floor(width/2);
+        float denominator = get_denominator_for_multipliers(width);
+
+        for (int i = 0; i < numfsamples; i++) {
+
+            float samples[width];
+
+            for (int j = 0; j < width; j++){
+
+                if (j == lowermid){
+                    samples[j] = nfsamples[i].y * float(midpoint);
+
+                } else if ( j < lowermid ){
+                    float amp = j + 1;               // 1 2 3 .. midpoint
+                    int offset = lowermid - j;       // midpoint .. 3 2 1
+                    float index = ((i-offset) < 0) ? numfsamples-(offset-i) : i-offset;
+                    samples[j] = nfsamples[index].y * float(amp);
+
+                } else if ( j > lowermid ){
+                    float amp = width - j;           // midpoint .. 3 2 1
+                    int offset = j - lowermid;       // 1 2 3 ...midpoint 
+                    float index = (i+offset) % numfsamples;
+                    samples[j] = nfsamples[index].y * float(amp);
+                }
+            }
+            float fy = float(sum_of_floats(samples, width)) / denominator;
+            RT_Point p = {float(i), fy};
+            smoothed.push_back(p);
+        }
+    }
+
+    if ((width == 3) || (width == 9)){
         for (int i = 0; i < numfsamples; i++) {
             float mixed = float_lerp(nfsamples[i].y, smoothed[i].y, mix);
             nfsamples[i].y = mixed;
         }
     }
+
 };
 
 

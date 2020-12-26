@@ -43,6 +43,10 @@ void pollModifierKeys(Window &window){
 
 int main(int argc, char* args[])
 {
+    // int framerate = 30;
+    // int frameMs = 1000 / framerate; // length of each frame in ms
+    // int startMs, delayMs, endMs;
+
     int tick_offsetx = 4 * 6;
 
     Window window("Air Tracker", 900, 1000);
@@ -64,6 +68,8 @@ int main(int argc, char* args[])
     
     while (!window.isClosed()){
 
+        // startMs = SDL_GetTicks();  // ticks on frame start
+
         pollModifierKeys(window);
         pollEvents(window, cursor, mypat, selection, env, synth);
 
@@ -77,7 +83,15 @@ int main(int argc, char* args[])
         if (mypat.get_console_listening_state())
             mypat.display_console(Window::renderer);
 
+        /*
+        http://www.brandonfoltz.com/downloads/tutorials/The_Game_Loop_and_Frame_Rate_Management.pdf
+        */
+        // endMs = SDL_GetTicks();   // ticks on frame end
+        // delayMs = frameMs - (endMs - startMs); // how much time to delay
+        // SDL_Delay(delayMs);
+
         window.clear();
+
     }
     return 0;
 }
