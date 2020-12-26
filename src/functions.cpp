@@ -94,7 +94,7 @@ void unweighted_sliding_average(std::vector<RT_Point> &nfsamples, int width, flo
         }
     } else if (width == 9){
 
-        // this crap should be in a function..
+        // this crap should be in a function.. and i wrote it already somewhere.
         for (int i = 0; i < numfsamples; i++) {
 
             int L4 = ((i-4) < 0) ? numfsamples-4 : i-4;
