@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"end",
+				"endMs"
+			],
+			[
+				"de",
+				"delayMs"
+			],
+			[
+				"s",
+				"startMs"
+			],
+			[
+				"SDL",
+				"SDL_GetTicks"
+			],
+			[
 				"slide",
 				"slider_bg_width"
 			],
@@ -82,10 +98,6 @@
 			[
 				"activ",
 				"active_index"
-			],
-			[
-				"SDL",
-				"SDL_RenderDrawRect"
 			],
 			[
 				"is",
@@ -250,10 +262,6 @@
 			[
 				"fin",
 				"find_int_in_array"
-			],
-			[
-				"de",
-				"descriptor"
 			],
 			[
 				"_te",
@@ -516,7 +524,7 @@
 	},
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 24.0
 	},
 	"input":
 	{
@@ -554,20 +562,20 @@
 		"cols":
 		[
 			0.0,
-			0.675296319401,
+			0.559263880225,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.597881540896,
+			0.287583866994,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 168.0
+		"height": 38.0
 	},
 	"output.find_results":
 	{
@@ -576,7 +584,7 @@
 	"pinned_build_system": "Build Debug",
 	"replace":
 	{
-		"height": 42.0
+		"height": 44.0
 	},
 	"save_all_on_build": true,
 	"select_file":
