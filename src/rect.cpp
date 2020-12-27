@@ -54,6 +54,13 @@ void handle_selection(Selector &selection, int column_index, int row_index){
 };
 
 void handle_synth_keymap(SDL_Event &event, Synth_mk1 &synth, Window &window){
+    /*
+    or maybe something like this, that doesn't require pumpevent..
+
+    int shift = SDL_GetModState() & KMOD_LSHIFT || SDL_GetModState() & KMOD_RSHIFT;
+    int ctrl = SDL_GetModState() & KMOD_LCTRL || SDL_GetModState() & KMOD_RCTRL;
+    int alt = SDL_GetModState() & KMOD_LALT || SDL_GetModState() & KMOD_RALT;
+    */
 
     int delta = 1;
     if (window.is_rctrl_pressed() || window.is_lctrl_pressed())

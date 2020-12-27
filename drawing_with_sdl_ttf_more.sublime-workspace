@@ -373,9 +373,13 @@
 	},
 	"console":
 	{
-		"height": 298.0,
+		"height": 114.0,
 		"history":
 		[
+			"100 * 36 / 15526",
+			"100 / 15526 / 36",
+			"1 / 15526 / 36",
+			"15526 / 36",
 			"100/(112807/3150)",
 			"1/(112807/3150)",
 			"1/(67963/1476)",
@@ -562,20 +566,20 @@
 		"cols":
 		[
 			0.0,
-			0.559263880225,
+			0.568609089324,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.287583866994,
+			0.123973147671,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 38.0
+		"height": 145.0
 	},
 	"output.find_results":
 	{
@@ -621,7 +625,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 317.0,
+	"side_bar_width": 232.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
