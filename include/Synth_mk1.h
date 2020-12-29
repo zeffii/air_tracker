@@ -19,6 +19,7 @@ public:
 
     void draw_window_text();
     void draw_slider_text(int x, int y, int idx);
+    void draw_adsr_envelope(int x, int y, int width, int height, std::string env_type);
     void draw_ui(Window &window);
     void insert_values_into_wavetable(std::vector<float> points);
     void draw_samples(Window &window);

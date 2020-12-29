@@ -42,25 +42,25 @@ Synth_mk1::Synth_mk1(std::string name, SDL_Rect &_syn_rect)
 
 
 void Synth_mk1::generate_parameters(){
-    gparams[0] = make_param(0,  0.2,     0.0, 6.0, "Attack",         "A");
-    gparams[1] = make_param(1,  0.6,     0.0, 6.0, "Decay",          "D");
-    gparams[2] = make_param(2,  0.5,     0.0, 1.0, "Sustain",        "S");
-    gparams[3] = make_param(3,  0.2,     0.0, 6.0, "Release",        "R");
+    gparams[0] =  make_param(0,  0.2,     0.0, 6.0,   "Attack",              "A");
+    gparams[1] =  make_param(1,  0.6,     0.0, 6.0,   "Decay",               "D");
+    gparams[2] =  make_param(2,  0.5,     0.0, 1.0,   "Sustain",             "S");
+    gparams[3] =  make_param(3,  0.2,     0.0, 6.0,   "Release",             "R");
 
-    gparams[4] = make_param(4,  0.2,     0.0, 6.0, "Filter Attack",  "FA");
-    gparams[5] = make_param(5,  0.6,     0.0, 6.0, "Filter Decay",   "FD");
-    gparams[6] = make_param(6,  0.5,     0.0, 1.0, "Filter Sustain", "FS");
-    gparams[7] = make_param(7,  0.2,     0.0, 6.0, "Filter Release", "FR");
+    gparams[4] =  make_param(4,  0.2,     0.0, 6.0,   "Filter Attack",      "FA");
+    gparams[5] =  make_param(5,  0.6,     0.0, 6.0,   "Filter Decay",       "FD");
+    gparams[6] =  make_param(6,  0.5,     0.0, 1.0,   "Filter Sustain",     "FS");
+    gparams[7] =  make_param(7,  0.2,     0.0, 6.0,   "Filter Release",     "FR");
 
-    gparams[8] = make_param(8,  1.0,     0.0, 4.0, "Amplifier",      "Amp");
-    gparams[9] = make_param(9,  0.5,     0.0, 4.0, "Osc 1 Amp",      "A01");
-    gparams[10] = make_param(10, 0.25,   0.0, 4.0, "Osc 2 Amp",      "A02");
-    gparams[11] = make_param(11, 0.123,  0.0, 4.0, "Osc 3 Amp",      "A03");
-    gparams[12] = make_param(12, 0.0625, 0.0, 4.0, "Osc 4 Amp",      "A04");
-    gparams[13] = make_param(13, 0.0,    0.0, 1.0, "Noise Mix",      "NMix");
-    gparams[14] = make_param(14, 1.0,    0.0, 255.0, "Noise Seed",   "Seed");
-    gparams[15] = make_param(15, 0.0,    0.0, 1.0, "Noise Rot",      "Shift");
-    gparams[16] = make_param(16, 0.0,    0.0, 1.0, "smoothing",      "Sm");
+    gparams[8] =  make_param(8,  1.0,     0.0, 4.0,   "Amplifier",         "Amp");
+    gparams[9] =  make_param(9,  0.5,     0.0, 4.0,   "Osc 1 Amp",         "A01");
+    gparams[10] = make_param(10, 0.25,    0.0, 4.0,   "Osc 2 Amp",         "A02");
+    gparams[11] = make_param(11, 0.123,   0.0, 4.0,   "Osc 3 Amp",         "A03");
+    gparams[12] = make_param(12, 0.0625,  0.0, 4.0,   "Osc 4 Amp",         "A04");
+    gparams[13] = make_param(13, 0.0,     0.0, 1.0,   "Noise Mix",        "NMix");
+    gparams[14] = make_param(14, 1.0,     0.0, 255.0, "Noise Seed",       "Seed");
+    gparams[15] = make_param(15, 0.0,     0.0, 1.0,   "Noise Rot",       "Shift");
+    gparams[16] = make_param(16, 0.0,     0.0, 1.0,   "smoothing",          "Sm");
 };
 
 
@@ -289,6 +289,28 @@ void Synth_mk1::clear_slider_textures(){
     }    
 };
 
+void Synth_mk1::draw_adsr_envelope(int x, int y, int width, int height, std::string env_type){
+
+    float a = gparams[0].real_val;
+    float d = gparams[1].real_val + 1.0;
+    float s = 1.0 - gparams[2].real_val;
+    float r = gparams[3].real_val;
+    float total_duration = a + d + r;
+    float total_drawable_width = float(width);
+    int width_a = total_drawable_width * a / total_duration;
+    int width_d = total_drawable_width * d / total_duration;
+
+    SDL_Point parray[4];
+    parray[0] = {x, y+height }; // start attack
+    parray[1] = {x + width_a, y }; // top, start decay
+    parray[2] = {x + width_a + width_d, y + int(float(s * height)) }; // end deca, start sustain
+    parray[3] = {x + width, y + height}; 
+
+    SDL_SetRenderDrawColor(Window::renderer, 160, 250, 160, 155);
+    SDL_RenderDrawLines(Window::renderer, parray, 4);
+
+};
+
 void Synth_mk1::draw_ui(Window &window){
 
     SDL_SetRenderDrawColor(window.renderer, 6, 36, 6, 255);
@@ -344,6 +366,9 @@ void Synth_mk1::draw_ui(Window &window){
 
         current_y += slider_height + 2;
     }
+
+    draw_adsr_envelope(start_x, start_y, slider_bg_width - 3, 40 + 6, "AMP ADSR");
+    // draw_adsr_envelope(start_x+, start_y, slider_bg_width - 3, 40 + 6, "FILTER ADSR");
 };
 
 
