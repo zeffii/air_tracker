@@ -5,6 +5,22 @@
 #include "Functions.h"
 #include "Synth_mk1.h"
 #include "Augmentations.h"
+#include "Abstractions.h"
+
+void SDLX_draw_dotted_line(SDL_Renderer *renderer, Line line, SDL_Color color){
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+
+    int numpoints = (line.y2 - line.y1) / 4;
+    SDL_Point pointset[numpoints];
+
+    int j = 0;
+    for (int i = line.y1; i < line.y2; i += 4){
+        pointset[j] = {line.x1, i};
+        j +=1;
+    }
+    SDL_RenderDrawPoints(renderer, pointset, numpoints);
+};
+
 
 RT_Parameter make_param(int idx, float real_val, float min_val, float max_val, std::string name, std::string shortname){
     RT_Parameter p;
@@ -308,6 +324,10 @@ void Synth_mk1::draw_adsr_envelope(int x, int y, int width, int height, std::str
 
     SDL_SetRenderDrawColor(Window::renderer, 160, 250, 160, 155);
     SDL_RenderDrawLines(Window::renderer, parray, 4);
+
+    Line line_sustain = { parray[2].x, y, parray[2].x, y + height + 3 };
+    SDL_Color color_sustain = {160, 250, 160, 155};
+    SDLX_draw_dotted_line(Window::renderer, line_sustain, color_sustain);
 
 };
 
