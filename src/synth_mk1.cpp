@@ -307,10 +307,18 @@ void Synth_mk1::clear_slider_textures(){
 
 void Synth_mk1::draw_adsr_envelope(int x, int y, int width, int height, std::string env_type){
 
-    float a = gparams[0].real_val;
-    float d = gparams[1].real_val + 1.0;
-    float s = 1.0 - gparams[2].real_val;
-    float r = gparams[3].real_val;
+    int idx_a, idx_d, idx_s, idx_r;
+    if (env_type == "AMP ADSR"){
+        idx_a = 0; idx_d = 1; idx_s = 2; idx_r = 3;
+    }
+    else if (env_type == "FILTER ADSR"){
+        idx_a = 4; idx_d = 5; idx_s = 6; idx_r = 7;
+    }
+
+    float a = gparams[idx_a].real_val;
+    float d = gparams[idx_d].real_val + 1.0;
+    float s = 1.0 - gparams[idx_s].real_val;
+    float r = gparams[idx_r].real_val;
     float total_duration = a + d + r;
     float total_drawable_width = float(width);
     int width_a = total_drawable_width * a / total_duration;
@@ -355,6 +363,8 @@ void Synth_mk1::draw_ui(Window &window){
     slider_text_rects.clear();
     clear_slider_textures();
 
+    int filter_y = 0;
+
     for (auto p: sliders){
 
         bg_green = (p.active) ? 80 : 50;
@@ -383,12 +393,14 @@ void Synth_mk1::draw_ui(Window &window){
         }
 
         draw_slider_text(start_x + slider_bg_width, current_y, p.index);
+        
+        if (p.index == 4) { filter_y = current_y;}
 
         current_y += slider_height + 2;
     }
 
     draw_adsr_envelope(start_x, start_y, slider_bg_width - 3, 40 + 6, "AMP ADSR");
-    // draw_adsr_envelope(start_x+, start_y, slider_bg_width - 3, 40 + 6, "FILTER ADSR");
+    draw_adsr_envelope(start_x, filter_y, slider_bg_width - 3, 40 + 6, "FILTER ADSR");
 };
 
 

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"tot",
+				"total_duration"
+			],
+			[
+				"tota",
+				"total_drawable_width"
+			],
+			[
 				"end",
 				"endMs"
 			],
@@ -419,6 +427,9 @@
 	},
 	"file_history":
 	[
+		"/C/2020/newvariantclusteringinhouseholdsadhoc003.xlsx",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SDLX_Functions.h",
+		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/src/sdlx_functions.cpp",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/SynthDefaultParams.h",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/res/pattern_data_1.air",
 		"/C/Users/zeffi/Desktop/GITHUB/air_tracker/include/Envelope.h",
@@ -566,13 +577,13 @@
 		"cols":
 		[
 			0.0,
-			0.441738562323,
+			0.495580688278,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.123973147671,
+			0.331628968438,
 			1.0
 		]
 	},
@@ -625,7 +636,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 232.0,
+	"side_bar_width": 273.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
